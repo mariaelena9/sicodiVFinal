@@ -1,0 +1,32 @@
+/* Estilos para login */
+
+/* Hace referencia a todos los componentes que pueda haber en la pagina (esta) */
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.main{
+    display: flex;
+    height: 80vh;
+}
+
+.leftSide{
+    
+    
+    
+}
+
+.nayaritLogo{
+    width: 70%;
+    /* border: solid orange 1px; */
+}
+
+.rightSide{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    height: 80vh;
+    justify-content: center;
+}
