@@ -16,6 +16,7 @@
 .Tarjeta{
     border: solid #780727 2px;
     border-radius: 2px;
+    min-height: 70px;
     display: flex;
     justify-content: space-evenly;
     padding: 5px;
@@ -44,6 +45,7 @@
 .img-message{
     display: flex;
     align-self: center;
+    align-items: center;
     font-size: 1.3rem;
     width: 8%;
     max-width: 30px;
@@ -52,13 +54,14 @@
     padding: 2px;
     color: #fff;
     border-radius: 100%;
-    
+    cursor:pointer;
 }
 
 
   .directorio{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(30vw, 30vw));
+    justify-content: center;
     gap: 30px;
     margin: 10px;
   }
@@ -69,6 +72,10 @@
     justify-content: left;
     color: #780727;
     font-size: 25px;
+}
+
+.back i{
+    cursor: pointer;
 }
 
 .TitlePage{

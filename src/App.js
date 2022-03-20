@@ -10,6 +10,7 @@ import LoginPage from './pages/Login-Page';
 import Sidebar from './commons/Sidebar/Sidebar';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Directorio from './components/Directory/Directorio';
+import Correspondence from './components/Correspondence/Correspondence';
 import axios from 'axios';
 import './App.css';
 
@@ -24,7 +25,8 @@ function App () {
                 <Loader/>
                 <Sidebar/> */}
                 {/* <Principal/> */}
-                <Directorio/>
+                {/* <Directorio/> */}
+                <Correspondence/>
             </Router>
         )
 }

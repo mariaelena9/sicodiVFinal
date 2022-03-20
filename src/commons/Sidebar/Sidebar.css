@@ -56,11 +56,11 @@ hr{
 .SidebarNav{
     background: #57061d;
     width: 21vw;
-    height: 100vh;
+    height: 91vh;
     overflow: scroll;
     display: flex;
     justify-content: center;
-    position: fixed;
+    position: sticky;
     top: 9vh;
     /* left: ${({sidebar }) => (sidebar ? '0' : '-100%')}; */
     /* transition: 350ms; */
@@ -100,7 +100,7 @@ hr{
 /*==========================SIDEBAR MICHELLE======================================*/
 
 /*==========================SCROLL PERSONALIZADO DEL MENÚ======================================*/
-header nav::-webkit-scrollbar {
+  header nav::-webkit-scrollbar {
     -webkit-appearance:none;
   }
   

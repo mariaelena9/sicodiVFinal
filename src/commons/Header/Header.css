@@ -22,13 +22,14 @@
 
 header {
     display: flex;
+    position: sticky;
     justify-content: space-around;
     width: 100vw; /* Se acopla a la pantalla */
     height: 9vh;
     background-color: #780727;
     align-items: center;
     font-family: GothamRounded;
-
+    z-index: 10;
 }
 
 .content {

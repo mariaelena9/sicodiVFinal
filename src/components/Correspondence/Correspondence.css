@@ -1,0 +1,73 @@
+/*==========================SCROLL PERSONALIZADO DE CORRESPONDENCIA======================================*/
+  .correspondencecontent::-webkit-scrollbar {
+    -webkit-appearance:none;
+  }
+  
+  .correspondencecontent::-webkit-scrollbar:vertical {
+    width:9px;
+  }
+  
+  .correspondencecontent::-webkit-scrollbar-button:increment,.contenedor::-webkit-scrollbar-button {
+    display: none;
+  } 
+  
+  .correspondencecontent::-webkit-scrollbar:horizontal {
+    height: 10px;
+  }
+  
+  .correspondencecontent::-webkit-scrollbar-thumb {
+    background-color: #780727;
+    border-radius: 10px;
+    border: 2px solid #FFF;
+  }
+  
+  .correspondencecontent::-webkit-scrollbar-track {
+    border-radius: 10px;  
+  }
+  
+  /*======================================================================================*/
+
+.middle {
+    display: flex;
+}
+
+.correspondencecontent {
+    display: flex;
+    flex-direction: column;
+    width: 79vw;
+    height: 91vh;
+    padding: 20px;
+    overflow: scroll;
+}
+
+.buttonBack {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.dates {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+.originInfo {
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+    gap:10px;
+}
+
+.originInfo button {
+    width: 100px;
+    align-self: flex-end;
+    background-color: #780727;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
