@@ -13,6 +13,7 @@ import Directorio from './components/Directory/Directorio';
 import Correspondence from './components/Correspondence/Correspondence';
 import axios from 'axios';
 import ReactDOM from 'react-dom';
+import Tracking from './components/Tracking/Tracking'
 
 import './App.css';
 
@@ -21,16 +22,6 @@ function App () {
         const element = <Correspondence/>;
         ReactDOM.render(element, document.getElementById('root'));
         return(
-            //Aquí van a ir todas las exportaciones
-            // <Router>
-            //     {/* <Header/>
-            //     <LoginPage/>
-            //     <Loader/>
-            //     <Sidebar/> */}
-            //     {/* <Principal/> */}
-            //     {/* <Directorio/> */}
-            //     <Correspondence/>
-            // </Router>
             <Router id="root">
             </Router>
         )

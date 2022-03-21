@@ -101,16 +101,15 @@
     justify-content: center;
   }
 
-.back i{
-    cursor: pointer;
+.buttonBack {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
 }
 
-.back{
-    display: flex;
-    align-items: left;
-    justify-content: left;
-    color: #780727;
-    font-size: 25px;
+.buttonBack i {
+  color: #780727;
+  cursor: pointer;
 }
 
 .TitlePage{
