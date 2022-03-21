@@ -4,7 +4,7 @@
 import React, { Component } from "react";
 import { IoChevronBackOutline } from "react-icons/io5";
 import Sidebar from "../../commons/Sidebar/Sidebar";
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import style from './Directorio.css'
 import '../../App.css';
 import { FaUserTie } from "react-icons/fa";
@@ -13,10 +13,26 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { MdEmail } from "react-icons/md";
 import axios from 'axios';
 import Header from "../../commons/Header/Header";
-import  ReactDOM from "react-dom";
-import Login from '../Login/LoginForm'
+import ReactDOM from "react-dom";
+import Login from '../Login/LoginForm';
+import Menu from "../../commons/Menu/Menu";
+import Modal from './Modal.js';
 
 class Directorio extends Component {
+    constructor() {
+        super();
+        this.showModal = this.showModal.bind(this);
+        this.hideModal = this.hideModal.bind(this);
+    }
+
+    showModal = () => {
+        this.setState({ show: true });
+    };
+
+    hideModal = () => {
+        this.setState({ show: false });
+    };
+
     state = {
         data: [],
         form: {
@@ -24,7 +40,8 @@ class Directorio extends Component {
             nombre: '',
             apellido: '',
             correo: '',
-        }
+        },
+        show: false,
     }
 
     componentDidMount() { //Se ejecutará al momento de montar el componente
@@ -41,19 +58,20 @@ class Directorio extends Component {
 
     render() {
         return (
-            <Router className="main">
+            <div className="main">
                 <Header />
                 <div className="middle">
-                    <Sidebar />
-
+                    <Menu />
                     <div className="contentDirectory">
-
+                        <Modal show={this.state.show} handleClose={this.hideModal}>
+                            <p>Modal</p>
+                        </Modal>
                         <div className="direction">
 
                             <div className='directorio'>
 
                                 <div className="back">
-                                    <i><IoChevronBackOutline/></i>
+                                    <i><IoChevronBackOutline /></i>
                                     <p className="TitlePage">Directorio</p>
                                 </div>
 
@@ -70,8 +88,8 @@ class Directorio extends Component {
                                         <option value="">Secretaria de Educación Pública</option>
                                     </select>
                                 </div>
-                                
-                                <br/>
+
+                                <br />
 
                                 {this.state.data.map(user => {
                                     return (
@@ -91,7 +109,7 @@ class Directorio extends Component {
                                                 </div>
                                             </div>
 
-                                            <div className="img-message"> <MdEmail /></div>
+                                            <div className="img-message" onClick={this.showModal}> <MdEmail /></div>
 
                                         </div>
                                     );
@@ -101,7 +119,7 @@ class Directorio extends Component {
                     </div>
                 </div>
 
-            </Router>
+            </div>
         )
     }
 }

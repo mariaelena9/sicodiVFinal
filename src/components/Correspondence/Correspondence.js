@@ -19,6 +19,8 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 
+import Menu from "../../commons/Menu/Menu";
+
 class Correspondence extends Component {
     state = {
         data: [],
@@ -37,15 +39,15 @@ class Correspondence extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-       ReactDOM.render(<Directorio/>, document.getElementById('root'))
+        ReactDOM.render(<Directorio/>, document.getElementById('root'))
     }
 
     render() {
         return(
-            <Router className="body">
+            <div className="body">
                 <Header/>
                 <div className="middle">
-                    <Sidebar/>
+                    <Menu/>
                     <div className="correspondencecontent">
                         <div className="buttonBack">
                             <i onClick={this.handleSubmit}><IoChevronBackOutline/></i>
@@ -125,7 +127,7 @@ class Correspondence extends Component {
                         </form>
                     </div>
                 </div>
-            </Router>
+            </div>
         );
     }
 }

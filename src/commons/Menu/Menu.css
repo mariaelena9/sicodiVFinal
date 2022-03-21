@@ -1,0 +1,93 @@
+* {
+	padding:0;
+	margin:0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.infocuenta {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    align-items: center;
+    color: white;
+    text-align: center;
+  }
+
+/*==========================SCROLL PERSONALIZADO DEL MENÚ======================================*/
+nav::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+nav::-webkit-scrollbar:vertical {
+    width:10px;
+}
+
+nav::-webkit-scrollbar-button:increment,.contenedor::-webkit-scrollbar-button {
+    display: none;
+} 
+
+nav::-webkit-scrollbar:horizontal {
+    height: 10px;
+}
+
+nav::-webkit-scrollbar-thumb {
+    background-color: #ffffff;
+    border-radius: 20px;
+    border: 2px solid #380212;
+}
+
+nav::-webkit-scrollbar-track {
+    border-radius: 10px;  
+}
+
+/*================================================================================================*/
+nav {
+    background:#57061d;
+    z-index:1000;
+    margin:20px auto;
+    width: 21vw;
+    height: 91vh;
+    position: sticky;
+    left: 0;
+    margin: 0;
+    top: 9vh;
+    overflow: scroll;
+}
+
+nav ul {
+    list-style:none;
+}
+
+nav ul li {
+    position: relative;
+    display: block;
+    border-bottom:1px solid rgba(255,255,255,.5);
+    cursor:pointer;
+}
+
+nav ul li:hover {
+    background:#011826;
+}
+
+nav ul li a {
+    color:rgb(255, 255, 255);
+    display:block;
+    text-decoration:none;
+    padding: 20px;
+    font-size: 1rem;
+}
+
+nav ul li a span {
+    margin-right:10px;
+}
+
+.contenido {
+    display: flex;  
+    background-color: aqua;
+}
+
+.izq {
+    width: 21vw;
+}
