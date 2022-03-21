@@ -1,0 +1,27 @@
+.modal {
+    position: fixed;
+    top: 9vh;
+    left: 21vw;
+    width: 79vw;
+    height: 91vh;
+    background: rgba(0, 0, 0, 0.6);
+  }
+  
+  .modal-main {
+    position:fixed;
+    background: white;
+    top: 29vh;
+    left: 30vw;
+    width: 60vw;
+    padding: 15px;
+    margin: auto;
+    height: auto;
+  }
+  
+  .display-block {
+    display: block;
+  }
+  
+  .display-none {
+    display: none;
+  }
