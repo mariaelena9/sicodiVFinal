@@ -21,16 +21,13 @@ import {SidebarData} from './SidebarData';
 import SubMenu from './SubMenu';
 
 const Sidebar = () => {
-    const [sidebar, setSidebar] = useState(false)
-
-    const showSidebar = () => setSidebar(!sidebar)
 
   return (
     <>
     <IconContext.Provider value={{color:'#fff'}}>
         
 
-        <div className='SidebarNav'sidebar={sidebar}>
+        <div className='SidebarNav'>
             
             <div className='SidebarWrap'>
                 <div className='NavIcon'> 
