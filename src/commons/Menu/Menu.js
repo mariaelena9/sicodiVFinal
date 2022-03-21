@@ -8,16 +8,27 @@ import Directorio from "../../components/Directory/Directorio";
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import './Menu.css';
 import Correspondence from "../../components/Correspondence/Correspondence";
+import App from "../../App";
 
 const page = "";
 class Menu extends Component{
 
     handleSubmit(e) {
         e.preventDefault();
-        if(e.target.id=='/directory'){
-            ReactDOM.render(<Directorio/>, document.getElementById('root'))
-        } else if(e.target.id=='/correspondence'){
-            ReactDOM.render(<Correspondence/>, document.getElementById('root'))
+        if(e.target.id == '/home'){
+            ReactDOM.render(<App/>, document.getElementById('root'));
+        } else if(e.target.id == '/directory'){
+            ReactDOM.render(<Directorio/>, document.getElementById('root'));
+        } else if(e.target.id == '/correspondence'){
+            ReactDOM.render(<Correspondence/>, document.getElementById('root'));
+        } else if(e.target.id == '/sent'){
+
+        } else if(e.target.id == '/receipt'){
+
+        } else if(e.target.id == '/history'){
+
+        } else if(e.target.id == '/report'){
+
         }
         
     }
@@ -26,15 +37,15 @@ class Menu extends Component{
         return(
             <Router className="contenido">
                     <nav className="izq">
-                        <div class="infocuenta">
+                        <div className="infocuenta">
                             <ImIcons.ImUser/>
-                            <p class="name">M Michelle Salinas Tirado</p>
-                            <p class="rol">Dirección Gral de Sistemas y Tec. informatica</p>
+                            <p className="name">M Michelle Salinas Tirado</p>
+                            <p className="rol">Dirección Gral de Sistemas y Tec. informatica</p>
                         </div>
                         <hr/>
 
                         <ul>
-                            <li><a onClick={this.handleSubmit}><AiIcons.AiFillHome/> Inicio</a></li>
+                            <li><a id="/home" onClick={this.handleSubmit}><AiIcons.AiFillHome/> Inicio</a></li>
                             <li><a id="/directory" onClick={this.handleSubmit}><MdIcons.MdImportContacts/> Directorio</a></li>
                             <li><a id="/correspondence"  onClick={this.handleSubmit}><ImIcons.ImFileText2/> Nueva Correspondencia</a></li>
                             <li><a onClick={this.handleSubmit}><ImIcons.ImBoxRemove/> Enviados</a></li>
