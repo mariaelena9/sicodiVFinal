@@ -1,13 +1,17 @@
 //Import React library
 import React, { Component } from "react";
+import ReactDOM from 'react-dom';
 
 //Import components
 import Sidebar from "../../commons/Sidebar/Sidebar";
+
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 import { IoChevronBackOutline } from "react-icons/io5";
 
 import axios from 'axios';
 import Header from "../../commons/Header/Header";
+import Directorio from "../Directory/Directorio";
 import "./Correspondence.css"
 
 import TextField from '@mui/material/TextField';
@@ -31,17 +35,23 @@ class Correspondence extends Component {
     }
 
 
+    handleSubmit(e) {
+        e.preventDefault();
+       ReactDOM.render(<Directorio/>, document.getElementById('root'))
+    }
+
     render() {
         return(
-            <div className="body">
+            <Router className="body">
                 <Header/>
                 <div className="middle">
                     <Sidebar/>
                     <div className="correspondencecontent">
                         <div className="buttonBack">
-                            <i><IoChevronBackOutline/></i>
+                            <i onClick={this.handleSubmit}><IoChevronBackOutline/></i>
                             <p className="TitlePage">Nueva Correspondencia</p>
                         </div>
+                        <br/>
                         <h3>Información básica</h3>
                         <form>
                             <div className="dates">
@@ -63,9 +73,10 @@ class Correspondence extends Component {
                                     <MenuItem value={20}>Transito</MenuItem>
                                     <MenuItem value={30}>Educacion</MenuItem>
                                 </Select>
+                                <br/>
                                 <TextField required id="outlined-required" label="Nombre del remitente"></TextField>
                             </div>
-
+                            <br/>
                             <h3>Información de destinatario</h3>
                             <div className="originInfo">
                                 <InputLabel id="demo-simple-select-label">Dependencia de destino</InputLabel>
@@ -79,9 +90,10 @@ class Correspondence extends Component {
                                     <MenuItem value={20}>Transito</MenuItem>
                                     <MenuItem value={30}>Educacion</MenuItem>
                                 </Select>
+                                <br/>
                                 <TextField required id="outlined-required" label="Dirigido a:"></TextField>
                             </div>
-
+                            <br/>
                             <h3>Información de correspondencia</h3>
                             <div className="originInfo">
                                 <InputLabel id="demo-simple-select-label">Tipo de correspondencia</InputLabel>
@@ -90,21 +102,30 @@ class Correspondence extends Component {
                                     id="demo-simple-select"
                                     label="Tipo de correspondencia:"
                                     value="10"
+                                    className="combo"
                                 >
                                     <MenuItem value={10}>Circulares</MenuItem>
                                     <MenuItem value={20}>Paqueteria</MenuItem>
                                     <MenuItem value={30}>Oficios</MenuItem>
                                 </Select>
+                                <br/>
                                 <TextField required id="outlined-required" label="Asunto:"></TextField>
+                                <br/>
                                 <TextField multiline rows={10} required id="outlined-required" label="Descripcion:"></TextField>
+                                <br/>
                                 <TextField multiline rows={5} required id="outlined-required" label="Observaciones:"></TextField>
-                                <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg"></input>
+                                <br/>
+                                <p>
+                                    Seleccionar archivos:
+                                    <input className="fileButton" type="file" accept="image/png, image/jpeg" multiple></input>
+                                </p>
+                                <br/>
                                 <button type="submit">Enviar</button>
                             </div>
                         </form>
                     </div>
                 </div>
-            </div>
+            </Router>
         );
     }
 }

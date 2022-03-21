@@ -26,7 +26,6 @@
   }
   
   /*======================================================================================*/
-
 .middle {
     display: flex;
 }
@@ -46,6 +45,11 @@
     width: 100%;
 }
 
+.buttonBack i {
+  color: #780727;
+  cursor: pointer;
+}
+
 .dates {
     display: flex;
     justify-content: space-between;
@@ -56,11 +60,9 @@
 .originInfo {
     display: flex;
     flex-direction: column;
-    height: 200px;
-    gap:10px;
 }
 
-.originInfo button {
+button {
     width: 100px;
     align-self: flex-end;
     background-color: #780727;
@@ -70,4 +72,14 @@
     font-size: 1rem;
     border-radius: 5px;
     cursor: pointer;
+    transition: background 0.5s;
+}
+
+.fileButton {
+  background-color: #780727;
+  color: white;
+}
+
+button:hover {
+ background-color: #29010d;
 }

@@ -1,24 +1,20 @@
 /* @DIRECTORIO */
 
-//Import React library
+//Imports
 import React, { Component } from "react";
-
-//Import assets
 import { IoChevronBackOutline } from "react-icons/io5";
-
-//Import components
 import Sidebar from "../../commons/Sidebar/Sidebar";
-
-//Import Styles
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import style from './Directorio.css'
 import '../../App.css';
-
 import { FaUserTie } from "react-icons/fa";
+import { AiFillMessage } from "react-icons/ai";
+import { AiOutlineSearch } from "react-icons/ai";
 import { MdEmail } from "react-icons/md";
 import axios from 'axios';
 import Header from "../../commons/Header/Header";
-
-
+import  ReactDOM from "react-dom";
+import Login from '../Login/LoginForm'
 
 class Directorio extends Component {
     state = {
@@ -26,12 +22,12 @@ class Directorio extends Component {
         form: {
             idUsuario: '',
             nombre: '',
-            apellidos: '',
+            apellido: '',
             correo: '',
         }
     }
-    //Se ejecutará al momento de montar el componente
-    componentDidMount() {
+
+    componentDidMount() { //Se ejecutará al momento de montar el componente
         this.getUser();
     }
 
@@ -45,54 +41,70 @@ class Directorio extends Component {
 
     render() {
         return (
-
-            <div className="main">
-
+            <Router className="main">
                 <Header />
-
-                <div className="contentDirectory">
+                <div className="middle">
                     <Sidebar />
 
-                    <div className="direction">
-                        <div className="back">
-                            <i><IoChevronBackOutline/></i>
-                            <p className="TitlePage">Directorio</p>
-                        </div>
+                    <div className="contentDirectory">
 
-                        <div className='directorio'>
-                            {this.state.data.map(user => {
-                                return (
-                                    <div className='Tarjeta'>
-                                        <div className="img-contact">
-                                            <FaUserTie />
-                                        </div>
+                        <div className="direction">
 
-                                        <div className="info-contact">
+                            <div className='directorio'>
 
-                                            <div className="name-contact">
-                                                <p>{user.nombre} {user.apellidos}</p>
+                                <div className="back">
+                                    <i><IoChevronBackOutline/></i>
+                                    <p className="TitlePage">Directorio</p>
+                                </div>
+
+                                <div className="Search">
+                                    <input type='text' placeholder="Busqueda..." name="name" id="name" ></input>
+                                    <div className="icon-search"> <AiOutlineSearch /> </div>
+                                </div>
+
+                                <div className="filter">
+                                    <p className="filter-text">Filtrar por dependencia: </p>
+                                    <select name="pets" id="pet-select">
+                                        <option value="">Selecciona Dependencia</option>
+                                        <option value="">Despacho Ejecutivo</option>
+                                        <option value="">Secretaria de Educación Pública</option>
+                                    </select>
+                                </div>
+                                
+                                <br/>
+
+                                {this.state.data.map(user => {
+                                    return (
+                                        <div className='Tarjeta'>
+
+                                            <div className="img-contact">
+                                                <FaUserTie />
                                             </div>
 
-                                            <div className="id-contact">
-                                                <p><b>{user.correo}</b></p>
+                                            <div className="info-contact">
+                                                <div className="name-contact">
+                                                    <p><b>{user.nombre} {user.apellido}</b></p>
+                                                </div>
+
+                                                <div className="id-contact">
+                                                    <p>{user.correo}</p>
+                                                </div>
                                             </div>
 
-                                        </div>
+                                            <div className="img-message"> <MdEmail /></div>
 
-                                        <div className="img-message">
-                                            <MdEmail />
                                         </div>
-
-                                    </div>
-                                );
-                            })}
+                                    );
+                                })}
+                            </div>
                         </div>
                     </div>
                 </div>
 
-            </div>
+            </Router>
         )
     }
 }
 
 export default Directorio;
+// ReactDOM.render(<Directorio/>);
