@@ -14,6 +14,7 @@ import Correspondence from './components/Correspondence/Correspondence';
 import Menu from './commons/Menu/Menu'
 import axios from 'axios';
 import ReactDOM from 'react-dom';
+import Tracking from './components/Tracking/Tracking'
 
 import './App.css';
 
