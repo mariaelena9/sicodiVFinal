@@ -134,7 +134,7 @@
     width: 30%;
 }
 
-select{
+.filter select{
     border: solid #780727 2px;
     height: 4vh;
     width: 15vw;

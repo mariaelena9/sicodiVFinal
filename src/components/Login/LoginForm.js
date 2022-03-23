@@ -14,10 +14,10 @@ import style from "./LoginForm.css";
 
 function LoginForm({Login, error}){
     const [details, setDetails] = useState({name:"", password:""})
+    const [user, setUser] = useState(null);
 
     const submitHandler = e => {
         e.preventDefault();
-
         Login(details);
     }
 
@@ -27,8 +27,7 @@ function LoginForm({Login, error}){
             
             <div className="Welcome">
                 <h1> BIENVENIDO </h1>
-                <p> Ingresa tu cuenta para continuar </p>
-                
+                <p> Ingresa tu cuenta para continuar </p>      
             </div>
 
             <div className="Login">

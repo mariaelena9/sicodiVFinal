@@ -16,6 +16,7 @@ import axios from 'axios';
 import ReactDOM from 'react-dom';
 
 import './App.css';
+import { AuthProvider } from './context/AuthContext';
 
 function App () {
 

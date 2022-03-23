@@ -9,11 +9,14 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import './Menu.css';
 import Correspondence from "../../components/Correspondence/Correspondence";
 import App from "../../App";
+import AuthContext from "../../context/AuthContext";
 
 const page = "";
+// const [auth, handleAuth] = useContext(AuthContext);
+
 class Menu extends Component{
 
-    handleSubmit(e) {
+    handleMenu(e) {
         e.preventDefault();
         if(e.target.id == '/home'){
             ReactDOM.render(<App/>, document.getElementById('root'));
@@ -45,9 +48,9 @@ class Menu extends Component{
                         <hr/>
 
                         <ul>
-                            <li><a id="/home" onClick={this.handleSubmit}><AiIcons.AiFillHome/> Inicio</a></li>
-                            <li><a id="/directory" onClick={this.handleSubmit}><MdIcons.MdImportContacts/> Directorio</a></li>
-                            <li><a id="/correspondence"  onClick={this.handleSubmit}><ImIcons.ImFileText2/> Nueva Correspondencia</a></li>
+                            <li><a id="/home" onClick={this.handleMenu}><AiIcons.AiFillHome/> Inicio</a></li>
+                            <li><a id="/directory" onClick={this.handleMenu}><MdIcons.MdImportContacts/> Directorio</a></li>
+                            <li><a id="/correspondence"  onClick={this.handleMenu}><ImIcons.ImFileText2/> Nueva Correspondencia</a></li>
                             <li><a onClick={this.handleSubmit}><ImIcons.ImBoxRemove/> Enviados</a></li>
                             <li><a onClick={this.handleSubmit}><ImIcons.ImBoxAdd/> Recibidos</a></li>
                             <li><a onClick={this.handleSubmit}><ImIcons.ImHistory/> Historico</a></li>
