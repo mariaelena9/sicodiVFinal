@@ -88,7 +88,7 @@ class Correspondence extends Component {
         this.state.form.asunto = '';
         this.state.form.descripción = '';
         this.state.form.observaciones = '';
-        // document.getElementById("requisitionnumber").value = "";
+        ReactDOM.render(<Correspondence/>, document.getElementById('root'));
         }).catch(error=>{
             console.log(error.message);
         })
@@ -140,21 +140,21 @@ class Correspondence extends Component {
                         <h3>Información básica</h3>
                         <form>
                             <div className="dates">
-                                <TextField InputLabelProps={{ shrink: true }} name="fechaEmisión" required type="date" id="outlined-required" label="Fecha de emisión" onChange={this.handleChange} value={this.state.form?this.state.form.fechaEmisión: ''}></TextField>
-                                <TextField InputLabelProps={{ shrink: true }} name="fechaRecepción" required type="date" id="outlined-required" label="Fecha de recepción" onChange={this.handleChange} value={this.state.form?this.state.form.fechaRecepción: ''}></TextField>
-                                <TextField InputLabelProps={{ shrink: true }} name="fechaLimite" required type="date" id="outlined-required" label="Fecha limite de respuesta" onChange={this.handleChange} value={this.state.form?this.state.form.fechaLimite: ''}></TextField>
+                                <TextField InputLabelProps={{ shrink: true }} name="fechaEmisión" required type="date" id="fechaEmisión" label="Fecha de emisión" onChange={this.handleChange} value={this.state.form?this.state.form.fechaEmisión: ''}></TextField>
+                                <TextField InputLabelProps={{ shrink: true }} name="fechaRecepción" required type="date" id="fechaRecepción" label="Fecha de recepción" onChange={this.handleChange} value={this.state.form?this.state.form.fechaRecepción: ''}></TextField>
+                                <TextField InputLabelProps={{ shrink: true }} name="fechaLimite" required type="date" id="fechaLimite" label="Fecha limite de respuesta" onChange={this.handleChange} value={this.state.form?this.state.form.fechaLimite: ''}></TextField>
                             </div>
 
                             <h3>Información de origen</h3>
                             <div className="originInfo">
-                                <select className="select" name="fk_DependenciaO" onChange={this.handleChange} value={this.state.form?this.state.form.fk_DependenciaO: ''}>
+                                <select className="select" id="fk_DependenciaO" name="fk_DependenciaO" onChange={this.handleChange} value={this.state.form?this.state.form.fk_DependenciaO: ''}>
                                     <option value="invalido">Elige la dependencia origen</option>
                                     {this.state.dependencias.map( elemento => (
                                         <option key={elemento.id_Dependencia} value={elemento.id_Dependencia}>{elemento.nombreDependencia}</option>
                                     ))}
                                 </select>
                                 <br/>
-                                <select className="select" name="fk_UsuarioO" onChange={this.handleChange} value={this.state.form?this.state.form.fk_UsuarioO: ''}>
+                                <select className="select" id="fechaRecepción" name="fk_UsuarioO" onChange={this.handleChange} value={this.state.form?this.state.form.fk_UsuarioO: ''}>
                                     <option value="invalido">Elige un remitente</option>
                                     {this.state.usuarios.map( elemento => (
                                         <option key={elemento.id_Usuario} value={elemento.id_Usuario}>{elemento.nombre} {elemento.apellidoMaterno} {elemento.apellidoPaterno}</option>
@@ -164,14 +164,14 @@ class Correspondence extends Component {
                             <br/>
                             <h3>Información de destinatario</h3>
                             <div className="originInfo">
-                                <select className="select" name="fk_DependenciaD" onChange={this.handleChange} value={this.state.form?this.state.form.fk_DependenciaD: ''}>
+                                <select className="select" id="fk_DependenciaD" name="fk_DependenciaD" onChange={this.handleChange} value={this.state.form?this.state.form.fk_DependenciaD: ''}>
                                     <option value="invalido">Elige la dependencia destino</option>
                                     {this.state.dependencias.map( elemento => (
                                         <option key={elemento.id_Dependencia} value={elemento.id_Dependencia}>{elemento.nombreDependencia}</option>
                                     ))}
                                 </select>
                                 <br/>
-                                <select className="select" name="fk_UsuarioD" onChange={this.handleChange} value={this.state.form?this.state.form.fk_UsuarioD: ''}>
+                                <select className="select" id="fk_UsuarioD" name="fk_UsuarioD" onChange={this.handleChange} value={this.state.form?this.state.form.fk_UsuarioD: ''}>
                                     <option value="invalido">Elige un destinatario</option>
                                     {this.state.usuarios.map( elemento => (
                                         <option key={elemento.id_Usuario} value={elemento.id_Usuario}>{elemento.nombre} {elemento.apellidoMaterno} {elemento.apellidoPaterno}</option>
@@ -181,18 +181,18 @@ class Correspondence extends Component {
                             <br/>
                             <h3>Información de correspondencia</h3>
                             <div className="originInfo">
-                                <select className="select" name="fk_TipoCo" onChange={this.handleChange} value={this.state.form?this.state.form.fk_TipoCo: ''}>
+                                <select className="select" id="fk_TipoCo" name="fk_TipoCo" onChange={this.handleChange} value={this.state.form?this.state.form.fk_TipoCo: ''}>
                                     <option value="invalido">Elige un tipo de correspondencia</option>
                                     {this.state.tipos.map( elemento => (
                                         <option key={elemento.id_Tipo} value={elemento.id_Tipo}>{elemento.nombre}</option>
                                     ))}
                                 </select>
                                 <br/>
-                                <TextField required name="asunto" id="outlined-required" label="Asunto:" onChange={this.handleChange} value={this.state.form?this.state.form.asunto: ''}></TextField>
+                                <TextField required name="asunto" id="asunto" label="Asunto:" onChange={this.handleChange} value={this.state.form?this.state.form.asunto: ''}></TextField>
                                 <br/>
-                                <TextField multiline name="descripción" rows={10} required id="outlined-required" label="Descripcion:" onChange={this.handleChange} value={this.state.form?this.state.form.descripción: ''}></TextField>
+                                <TextField multiline name="descripción" rows={10} required id="descripción" label="Descripcion:" onChange={this.handleChange} value={this.state.form?this.state.form.descripción: ''}></TextField>
                                 <br/>
-                                <TextField multiline name="observaciones" rows={5} required id="outlined-required" label="Observaciones:" onChange={this.handleChange} value={this.state.form?this.state.form.fechaobservaciones: ''}></TextField>
+                                <TextField multiline name="observaciones" rows={5} required id="observaciones" label="Observaciones:" onChange={this.handleChange} value={this.state.form?this.state.form.fechaobservaciones: ''}></TextField>
                                 <br/>
                                 <p>
                                     Subir archivos: 

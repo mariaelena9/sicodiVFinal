@@ -4,7 +4,6 @@
 import React, {useState} from "react";
 import logged from "./Logged.css";
 import LoginForm from "./LoginForm";
-import axios from 'axios';
 import Loader from "../../commons/Loader/Loader";
 
 function Logged() {
@@ -14,7 +13,7 @@ function Logged() {
   const [error, setError] = useState("");
 
   const Login = details => {
-    console.log("Logged in");
+    console.log(details);
 
     if (details.name == adminUser.user && details.password == adminUser.password) {
       console.log("Logged in");
@@ -27,7 +26,7 @@ function Logged() {
       setError("Details do not match");
     }
   }
-
+  
     return (
       <div className="App">
         {(user.user != "") ? (
@@ -38,7 +37,7 @@ function Logged() {
         </div>
       ) : (
 
-        <LoginForm />
+        <LoginForm Login={Login} error={error} />
 
       )}
 

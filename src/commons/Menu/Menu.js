@@ -43,9 +43,9 @@ class Menu extends Component{
                     <nav className="izq">
                         <div className="infocuenta">
                             <ImIcons.ImUser/>
-                            <p class="name">Manuela Michelle Salinas Tirado</p>
+                            <p className="name">Manuela Michelle Salinas Tirado</p>
                             <br></br>
-                            <p class="rol">Dirección Gral de Sistemas y Tec. informatica</p>
+                            <p className="rol">Dirección Gral de Sistemas y Tec. informatica</p>
                         </div>
                         <hr/>
 
