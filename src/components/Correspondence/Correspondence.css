@@ -84,6 +84,9 @@ button:hover {
  background-color: #29010d;
 }
 
-.TextField{
-  border: solid #29010d 1px;
+.select {
+  height: auto;
+  font-size: 1rem;
+  width: 100%;
+  padding: 10px;
 }

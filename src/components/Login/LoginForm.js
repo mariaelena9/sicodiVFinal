@@ -9,10 +9,10 @@ import style from "./LoginForm.css";
 
 function LoginForm({Login, error}){
     const [details, setDetails] = useState({name:"", password:""})
+    const [user, setUser] = useState(null);
 
     const submitHandler = e => {
         e.preventDefault();
-
         Login(details);
     }
 

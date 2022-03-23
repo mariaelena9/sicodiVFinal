@@ -2,6 +2,7 @@
 
 //Imports
 import React, { Component } from "react";
+import {useState} from "react";
 import { IoChevronBackOutline } from "react-icons/io5";
 import Sidebar from "../../commons/Sidebar/Sidebar";
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
@@ -104,11 +105,11 @@ class Directorio extends Component {
 
                                             <div className="info-contact">
                                                 <div className="name-contact">
-                                                    <p><b>{user.nombre} {user.apellido}</b></p>
+                                                    <p><b>{user.nombre} {user.apellidoMaterno} {user.apellidoPaterno}</b></p>
                                                 </div>
 
                                                 <div className="id-contact">
-                                                    <p>{user.correo}</p>
+                                                    <p>{user.correoElectronico}</p>
                                                 </div>
                                             </div>
 

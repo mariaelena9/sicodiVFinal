@@ -16,6 +16,7 @@ import Tracking from './components/Tracking/Tracking'
 import Login from './components/Login/LoginForm'
 import './App.css';
 import Inicio from './components/Home/Inicio'
+import { AuthProvider } from './context/AuthContext';
 
 function App () {
         return(
