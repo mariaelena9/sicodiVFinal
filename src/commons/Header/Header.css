@@ -1,7 +1,5 @@
 /* Estilos para login */
 
-/* Hace referencia a todos los componentes que pueda haber en la pagina (esta) */
-
 @font-face {
     font-family: GothamRounded;
     src: url(../../assets/GothamRounded/GothamRounded-Bold.otf);
@@ -11,7 +9,6 @@
     font-family: Gotham;
     src: url(../../assets/GothamRounded/GothamRounded-Light.otf);
 }
-
 
 *{
     padding: 0;

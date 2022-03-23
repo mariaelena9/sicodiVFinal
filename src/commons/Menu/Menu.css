@@ -1,3 +1,13 @@
+@font-face {
+    font-family: GothamRounded;
+    src: url(../../assets/GothamRounded/GothamRounded-Bold.otf);
+  }
+  
+  @font-face {
+    font-family: Gotham;
+    src: url(../../assets/GothamRounded/GothamRounded-Light.otf);
+  }
+
 * {
 	padding:0;
 	margin:0;
@@ -13,8 +23,12 @@
     align-items: center;
     color: white;
     text-align: center;
+    font-family: Gotham;
   }
 
+.name{
+    font-family: GothamRounded;
+  }
 /*==========================SCROLL PERSONALIZADO DEL MENÚ======================================*/
 nav::-webkit-scrollbar {
     -webkit-appearance: none;
@@ -54,6 +68,7 @@ nav {
     margin: 0;
     top: 9vh;
     overflow: scroll;
+    font-family: Gotham;
 }
 
 nav ul {
@@ -68,7 +83,7 @@ nav ul li {
 }
 
 nav ul li:hover {
-    background:#011826;
+    background:#380212;
 }
 
 nav ul li a {
@@ -81,6 +96,7 @@ nav ul li a {
 
 nav ul li a span {
     margin-right:10px;
+
 }
 
 .contenido {

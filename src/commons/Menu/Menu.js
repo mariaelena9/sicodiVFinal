@@ -8,6 +8,7 @@ import Directorio from "../../components/Directory/Directorio";
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import './Menu.css';
 import Correspondence from "../../components/Correspondence/Correspondence";
+import Inicio from "../../components/Home/Inicio";
 
 const page = "";
 class Menu extends Component{
@@ -18,6 +19,8 @@ class Menu extends Component{
             ReactDOM.render(<Directorio/>, document.getElementById('root'))
         } else if(e.target.id=='/correspondence'){
             ReactDOM.render(<Correspondence/>, document.getElementById('root'))
+        }else if(e.target.id=='/inicio'){
+            ReactDOM.render(<Inicio/>, document.getElementById('root'))
         }
         
     }
@@ -28,13 +31,14 @@ class Menu extends Component{
                     <nav className="izq">
                         <div class="infocuenta">
                             <ImIcons.ImUser/>
-                            <p class="name">M Michelle Salinas Tirado</p>
+                            <p class="name">Manuela Michelle Salinas Tirado</p>
+                            <br></br>
                             <p class="rol">Dirección Gral de Sistemas y Tec. informatica</p>
                         </div>
                         <hr/>
 
                         <ul>
-                            <li><a onClick={this.handleSubmit}><AiIcons.AiFillHome/> Inicio</a></li>
+                            <li><a id="/inicio" onClick={this.handleSubmit}><AiIcons.AiFillHome/> Inicio</a></li>
                             <li><a id="/directory" onClick={this.handleSubmit}><MdIcons.MdImportContacts/> Directorio</a></li>
                             <li><a id="/correspondence"  onClick={this.handleSubmit}><ImIcons.ImFileText2/> Nueva Correspondencia</a></li>
                             <li><a onClick={this.handleSubmit}><ImIcons.ImBoxRemove/> Enviados</a></li>

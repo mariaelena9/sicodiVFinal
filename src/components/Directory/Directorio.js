@@ -55,6 +55,7 @@ class Directorio extends Component {
             console.log(error.message);
         });
     }
+    
 
     render() {
         return (
@@ -68,10 +69,9 @@ class Directorio extends Component {
                         </Modal>
                         <div className="direction">
 
-                            <div className='directorio'>
-
+                            <div className="headerDirectory">
                                 <div className="buttonBack">
-                                    <i><IoChevronBackOutline/></i>
+                                    <i><IoChevronBackOutline /></i>
                                     <p className="TitlePage">Directorio</p>
                                 </div>
 
@@ -79,9 +79,12 @@ class Directorio extends Component {
                                     <input type='text' placeholder="Busqueda..." name="name" id="name" ></input>
                                     <div className="icon-search"> <AiOutlineSearch /> </div>
                                 </div>
+                            </div>
+
+                            <div className='directorio'>
 
                                 <div className="filter">
-                                    <p className="filter-text">Filtrar por dependencia: </p>
+                                    <p className="filter-text">Dependencia: </p>
                                     <select name="pets" id="pet-select">
                                         <option value="">Selecciona Dependencia</option>
                                         <option value="">Despacho Ejecutivo</option>

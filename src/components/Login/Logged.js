@@ -1,15 +1,10 @@
 /* @LOGGED */
 
-//Import React library
+//Imports
 import React, {useState} from "react";
-
-//Import Styles
 import logged from "./Logged.css";
-
-//Import components
 import LoginForm from "./LoginForm";
 import Loader from "../../commons/Loader/Loader";
-
 
 function Logged() {
     
@@ -32,7 +27,6 @@ function Logged() {
         setError("Details do not match");
       }
     }
-
 
     return (
       <div className="App">

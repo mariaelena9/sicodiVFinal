@@ -11,11 +11,16 @@
     src: url(../../assets/GothamRounded/GothamRounded-Light.otf);
 }
 
-
 *{
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+}
+
+.Content{
+    display: flex;
+    width: 35vw;
+    justify-content: center;
 }
 
 .Content{
@@ -30,6 +35,7 @@
     height: 20vh;
     justify-content: space-between;
     margin: 10px;
+    
 }
 
 .Welcome{
@@ -91,12 +97,16 @@
 }
 
 .btnLog button{
-    background: none;
+    width: 100px;
+    background-color: #780727;
     color: white;
-    font-weight: bold;
-    width: 100%;
+    font-size: .8rem;
+    font-family: GothamRounded;
     border: none;
-    font-family: Gotham;
+    padding: 10px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background 0.5s;
 }
 
 svg {
@@ -109,11 +119,18 @@ svg {
     margin-top: 20px;
     border-radius: 2px;
     padding: 5px;
-    background-color: #780727;
+   
     color: white;
     height: 30px;
 }
 
 .btnLog svg{
     margin-top: -2px;
+}
+
+.log{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

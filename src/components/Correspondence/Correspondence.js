@@ -1,24 +1,17 @@
-//Import React library
+//Imports
 import React, { Component } from "react";
 import ReactDOM from 'react-dom';
-
-//Import components
 import Sidebar from "../../commons/Sidebar/Sidebar";
-
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-
 import { IoChevronBackOutline } from "react-icons/io5";
-
 import axios from 'axios';
 import Header from "../../commons/Header/Header";
 import Directorio from "../Directory/Directorio";
 import "./Correspondence.css"
-
 import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-
 import Menu from "../../commons/Menu/Menu";
 
 class Correspondence extends Component {
@@ -35,7 +28,6 @@ class Correspondence extends Component {
     //Se ejecutará al momento de montar el componente
     componentDidMount() {
     }
-
 
     handleSubmit(e) {
         e.preventDefault();

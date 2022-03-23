@@ -17,6 +17,7 @@ import axios from 'axios';
 import Header from "../../commons/Header/Header";
 import ReactDOM from "react-dom";
 import Login from '../Login/LoginForm'
+import Menu from '../../commons/Menu/Menu'
 
 class Tracking extends Component {
     state = {
@@ -44,12 +45,12 @@ class Tracking extends Component {
 
     render() {
         return (
-            <Router className="main">
+            <div className="main">
                 <Header />
                 <div className="middle">
-                    <Sidebar />
+                    <Menu/>
 
-                    <div className="contentDirectory">
+                    <div className="contentTracking">
 
                         <div className="direction">
 
@@ -124,7 +125,7 @@ class Tracking extends Component {
                         </div>
                     </div>
                 </div>
-            </Router>
+            </div>
         )
     }
 }

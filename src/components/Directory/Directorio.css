@@ -44,12 +44,12 @@
 }
 
 .contentDirectory{
-    width: 80vw;
+    width: 79vw;
     height: 91vh;
     display: flex;
     overflow: scroll;
+    padding: 20px;
 }
-
 
 .Tarjeta{
     border: solid #780727 2px;
@@ -97,7 +97,6 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(30vw, 30vw));
     gap: 30px;
-    margin: 10px;
     justify-content: center;
   }
 
@@ -120,17 +119,17 @@
     font-family: Gotham;
 }
 
+.headerDirectory{
+    display: flex;
+}
+
 .filter{
     display: flex;
     width: 62vw;
 }
 
-.filter p{
-    width: 23%;
-}
-
 .filter select{
-    width: 30%;
+    width: 20.5vw;
 }
 
 select{
@@ -161,7 +160,7 @@ select{
 .Search{
     display: flex;
     /* border:solid #780727 2px; */
-    margin-bottom: 10px;
+    
     border: solid #780727 1px;
     padding: 5px;
 }

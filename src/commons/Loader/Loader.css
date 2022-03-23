@@ -1,11 +1,13 @@
 .load{
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-  height: 80vh;
+  height: 91vh;
+  width: 75vw;
+  background-color: aqua;
+  margin-top: 50px;
 }
 
 .spinner {

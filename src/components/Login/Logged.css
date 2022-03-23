@@ -1,3 +1,13 @@
+@font-face {
+  font-family: GothamRounded;
+  src: url(../../assets/GothamRounded/GothamRounded-Bold.otf);
+}
+
+@font-face {
+  font-family: Gotham;
+  src: url(../../assets/GothamRounded/GothamRounded-Light.otf);
+}
+
 .welcome{
     width: 100%;
     max-width: 480px;
@@ -8,11 +18,11 @@
   .welcome h2{
     color: #888;
     font-size: 28px;
-    font-weight: 500;
+    font-family: Gotham;
     margin-bottom: 30px;
   }
   
   .welcome h2 span{
     color: #780727;
-    font-weight: 700;
+    font-family: GothamRounded;
   }
