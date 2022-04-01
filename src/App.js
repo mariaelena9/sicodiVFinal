@@ -21,14 +21,14 @@ import { AuthProvider } from './context/AuthContext';
 function App () {
         return(
             <div>
-                {/* <LoginPage/> */}
+                <LoginPage/>
                 {/* <Loader/> */}
                 {/* <Loader/> */}
                 {/* <Directorio/> */}
                 {/* <Correspondence/> */}
                 {/* <Menu/> */}
                 {/* <Correspondence/> */}
-                <Inicio/>
+                {/* <Inicio/> */}
             </div>
         );
 }

@@ -16,6 +16,7 @@ function LoginPage(){
 
                     <div className="rightSide">
                         <Logged/>
+                        
                     </div>
                 </div>
             </div>

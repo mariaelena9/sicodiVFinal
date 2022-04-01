@@ -6,11 +6,12 @@ import logged from "./Logged.css";
 import LoginForm from "./LoginForm";
 import Loader from "../../commons/Loader/Loader";
 
+
 function Logged() {
   const adminUser = { user: "Michelle", password: "12345" };
-
   const [user, setUser] = useState({ name: "", user: "" });
   const [error, setError] = useState("");
+
 
   const Login = details => {
     console.log(details);
@@ -29,10 +30,12 @@ function Logged() {
   
     return (
       <div className="App">
+        
         {(user.user != "") ? (
           <div className="welcome">
-          <h2> Bienvenido, <span>{user.name}</span> </h2>
-          {/* <Loader/> */}
+          {/* <h2> Bienvenido, <span>{user.name}</span> </h2> */}
+          <Loader/>
+          
 
         </div>
       ) : (

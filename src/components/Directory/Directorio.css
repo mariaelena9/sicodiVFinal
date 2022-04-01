@@ -135,7 +135,7 @@
 .filter select{
     border: solid #780727 2px;
     height: 4vh;
-    width: 15vw;
+    width: 21.3vw;
     margin-left: 10px;
     font-family: Gotham;
     /* padding-left: 3px; */
@@ -161,8 +161,10 @@
     display: flex;
     /* border:solid #780727 2px; */
     
-    border: solid #780727 1px;
+    border: solid #780727 2px;
     padding: 5px;
+    width: 25vw;
+
 }
 
 .Search input{
