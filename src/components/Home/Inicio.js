@@ -4,6 +4,7 @@
 import React, {Component} from 'react';
 import Header from '../../commons/Header/Header';
 import Menu from '../../commons/Menu/Menu';
+import style from '../Home/Inicio.css'
 
 function Inicio () {
 return (
