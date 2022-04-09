@@ -10,6 +10,7 @@ import './Menu.css';
 import Correspondence from "../../components/Correspondence/Correspondence";
 import Inicio from "../../components/Home/Inicio";
 import App from "../../App";
+import NewLogin from '../../components/Log In/Login'
 import AuthContext from "../../context/AuthContext";
 
 const page = "";
@@ -17,10 +18,11 @@ const page = "";
 
 class Menu extends Component{
 
+    //Función para controlar el funcionamiento del menú
     handleMenu(e) {
         e.preventDefault();
         if(e.target.id == '/home'){
-            ReactDOM.render(<App/>, document.getElementById('root'));
+            ReactDOM.render(<Inicio/>, document.getElementById('root'));
         } else if(e.target.id == '/directory'){
             ReactDOM.render(<Directorio/>, document.getElementById('root'));
         } else if(e.target.id == '/correspondence'){
@@ -33,8 +35,11 @@ class Menu extends Component{
 
         } else if(e.target.id == '/report'){
 
-        }
-        
+        } else if(e.target.id == '/salir'){
+            localStorage.clear();
+            console.log("Sesión cerrada");
+            ReactDOM.render(<App/>, document.getElementById('root'));
+        }    
     }
 
     render(){
@@ -43,21 +48,21 @@ class Menu extends Component{
                     <nav className="izq">
                         <div className="infocuenta">
                             <ImIcons.ImUser/>
-                            <p className="name">Manuela Michelle Salinas Tirado</p>
+                            <p className="name">{localStorage.getItem('userName')}</p>
                             <br></br>
-                            <p className="rol">Dirección Gral de Sistemas y Tec. informatica</p>
+                            <p className="rol">{localStorage.getItem('userCargo')}</p>
                         </div>
                         <hr/>
 
                         <ul>
                             <li><a id="/home" onClick={this.handleMenu}><AiIcons.AiFillHome/> Inicio</a></li>
                             <li><a id="/directory" onClick={this.handleMenu}><MdIcons.MdImportContacts/> Directorio</a></li>
-                            <li><a id="/correspondence"  onClick={this.handleMenu}><ImIcons.ImFileText2/> Nueva Correspondencia</a></li>
+                            <li><a id="/correspondence" onClick={this.handleMenu}><ImIcons.ImFileText2/> Nueva Correspondencia</a></li>
                             <li><a onClick={this.handleSubmit}><ImIcons.ImBoxRemove/> Enviados</a></li>
                             <li><a onClick={this.handleSubmit}><ImIcons.ImBoxAdd/> Recibidos</a></li>
                             <li><a onClick={this.handleSubmit}><ImIcons.ImHistory/> Historico</a></li>
                             <li><a onClick={this.handleSubmit}><ImIcons.ImStatsDots/> Reportes</a></li>
-                            <li><a><ImIcons.ImExit/> Salir</a></li>
+                            <li><a id="/salir" onClick={this.handleMenu}><ImIcons.ImExit/> Salir</a></li>
                         </ul>
                     </nav>
 

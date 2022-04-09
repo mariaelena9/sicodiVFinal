@@ -1,8 +1,7 @@
 import React, {useState} from "react";
 import LogoNay from "../assets/nayaritLogo.png";
-import Logged from "../components/Login/Logged";
+import NewLogin from '../components/Log In/Login'
 import Header from "../commons/Header/Header";
-import style from "../components/Login/LoginPage.css"
 
 function LoginPage(){
     return(
@@ -15,8 +14,7 @@ function LoginPage(){
                     </div>
 
                     <div className="rightSide">
-                        <Logged/>
-                        
+                        <NewLogin/>
                     </div>
                 </div>
             </div>

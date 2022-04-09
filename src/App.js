@@ -2,35 +2,24 @@
 
 //Imports
 import React, {Component} from 'react';
-import Header from './commons/Header/Header';
-import Loader from './commons/Loader/Loader';
-import LoginPage from './pages/Login-Page';
-import Sidebar from './commons/Sidebar/Sidebar';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import Directorio from './components/Directory/Directorio';
-import Correspondence from './components/Correspondence/Correspondence';
-import Menu from './commons/Menu/Menu'
-import axios from 'axios';
-import ReactDOM from 'react-dom';
-import Tracking from './components/Tracking/Tracking'
-import Login from './components/Login/LoginForm'
+import Home from './components/Home/Inicio'
 import './App.css';
-import Inicio from './components/Home/Inicio'
-import { AuthProvider } from './context/AuthContext';
+import LoginPage from './pages/Login-Page';
 
 function App () {
+    if(localStorage.getItem('auth')=="true"){
+        return(
+            <div>
+                <Home/>
+            </div>
+        );
+    } else {
         return(
             <div>
                 <LoginPage/>
-                {/* <Loader/> */}
-                {/* <Loader/> */}
-                {/* <Directorio/> */}
-                {/* <Correspondence/> */}
-                {/* <Menu/> */}
-                {/* <Correspondence/> */}
-                {/* <Inicio/> */}
             </div>
         );
+    }
 }
 
 export default App;

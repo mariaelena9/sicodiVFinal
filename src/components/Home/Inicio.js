@@ -4,7 +4,6 @@
 import React, {Component} from 'react';
 import Header from '../../commons/Header/Header';
 import Menu from '../../commons/Menu/Menu';
-import style from '../Home/Inicio.css'
 
 function Inicio () {
 return (
@@ -14,7 +13,7 @@ return (
         <div className='Container'>
             <Menu/>
                 <div className='Welcome'>
-                    <h2>ERROR 404 <span>Página en desarrollo</span> </h2>
+                    <h2> ERROR 404: <span>Página en desarrollo.</span> </h2>
                 </div>
         </div>
 

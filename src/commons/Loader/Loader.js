@@ -2,29 +2,31 @@
 
 //Imports
 import React, {useState, useEffect} from "react";
-import { AiOutlineLoading3Quarters } from "react-icons/ai"; 
-import style from "./Loader.css";
 import Header from "../Header/Header";
 import Inicio from "../../components/Home/Inicio";
-import { render } from "@testing-library/react";
+import ReactDOM from 'react-dom';
+import LogoNay from "../../assets/nayaritLogo.png";
 
 function Loader(){
-    
     useEffect(() => {
         const timer = setTimeout(() => {
-            console.log("Cargado");
-            render(
-                <div>
-                    <Inicio/>
-                </div>
-            ); 
-        }, 5000);
+            ReactDOM.render(<Inicio/>, document.getElementById('root'));
+        }, 2000);
         return () => clearTimeout(timer);
     }, []);
 
     return(
         <div className="App">
-            <h2> Bienvenido </h2>
+            <Header/>
+                <div className="principal">
+                    <div className="leftSide">
+                        <img className="nayaritLogo" src={LogoNay} alt="LogotipoNayarit"/>
+                    </div>
+
+                    <div className="rightSide">
+                        <h2>Bienvenido <span>{localStorage.getItem('userName')}</span> </h2>
+                    </div>
+                </div>
         </div>
     );
 }
