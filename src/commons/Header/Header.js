@@ -2,6 +2,8 @@
 
 //Imports
 import React from "react";
+
+//Recursos
 import logoSicodi from '../../assets/SICODISinFondo.png'
 import logoGob from '../../assets/logosgg.png';
 

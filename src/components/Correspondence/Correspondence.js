@@ -1,18 +1,17 @@
 //Imports
 import React, { Component } from "react";
-import { useState } from "react";
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { IoChevronBackOutline } from "react-icons/io5";
 import axios from 'axios';
+
+//Iconos
+import { IoChevronBackOutline } from "react-icons/io5";
+
+//Componentes
 import Header from "../../commons/Header/Header";
-import Directorio from "../Directory/Directorio";
-import "./Correspondence.css"
-import TextField from '@mui/material/TextField';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
 import Menu from "../../commons/Menu/Menu";
+
+//Objetos MATD
+import TextField from '@mui/material/TextField';
 
 class Correspondence extends Component {
     state = {
@@ -64,11 +63,11 @@ class Correspondence extends Component {
     //Función para insertar en la BD la correspondencia
     //Consumo del metodo INSERT de la API
     insertCorrespondence = async () => {
-        if (this.state.form.fk_DependenciaO == "invalido" || this.state.form.fk_DependenciaO == ""
-            || this.state.form.fk_UsuarioO == "invalido" || this.state.form.fk_UsuarioO == ""
-            || this.state.form.fk_DependenciaD == "invalido" || this.state.form.fk_DependenciaD == ""
-            || this.state.form.fk_UsuarioD == "invalido" || this.state.form.fk_UsuarioD == ""
-            || this.state.form.fk_TipoCo == "invalido" || this.state.form.fk_TipoCo == "") {
+        if (this.state.form.fk_DependenciaO === "invalido" || this.state.form.fk_DependenciaO === ""
+            || this.state.form.fk_UsuarioO === "invalido" || this.state.form.fk_UsuarioO === ""
+            || this.state.form.fk_DependenciaD === "invalido" || this.state.form.fk_DependenciaD === ""
+            || this.state.form.fk_UsuarioD === "invalido" || this.state.form.fk_UsuarioD === ""
+            || this.state.form.fk_TipoCo === "invalido" || this.state.form.fk_TipoCo === "") {
             alert("Porfavor complete todos los campos correctamente");
             return;
         }
@@ -77,7 +76,6 @@ class Correspondence extends Component {
             this.insertFiles(response);
             this.state.form.fechaEmisión = '';
             this.state.form.fechaRecepción = '';
-            this.state.form.fechaLimite = '';
             this.state.form.fk_DependenciaO = '';
             this.state.form.fk_UsuarioO = '';
             this.state.form.fk_DependenciaD = '';
@@ -138,9 +136,8 @@ class Correspondence extends Component {
                         <h3>Información básica</h3>
                         <form>
                             <div className="dates">
-                                <TextField InputLabelProps={{ shrink: true }} name="fechaEmisión" required type="date" id="fechaEmisión" label="Fecha de emisión" onChange={this.handleChange} value={this.state.form ? this.state.form.fechaEmisión : ''}></TextField>
-                                <TextField InputLabelProps={{ shrink: true }} name="fechaRecepción" required type="date" id="fechaRecepción" label="Fecha de recepción" onChange={this.handleChange} value={this.state.form ? this.state.form.fechaRecepción : ''}></TextField>
-                                <TextField InputLabelProps={{ shrink: true }} name="fechaLimite" required type="date" id="fechaLimite" label="Fecha limite de respuesta" onChange={this.handleChange} value={this.state.form ? this.state.form.fechaLimite : ''}></TextField>
+                                <TextField InputLabelProps={{ shrink: true }} name="fechaEmisión" required key="fechaEmisión" type="date" id="fechaEmisión" label="Fecha de emisión" onChange={this.handleChange} value={this.state.form ? this.state.form.fechaEmisión : ''}></TextField>
+                                <TextField InputLabelProps={{ shrink: true }} name="fechaRecepción" required key="fechaRecepción" type="date" id="fechaRecepción" label="Fecha de recepción" onChange={this.handleChange} value={this.state.form ? this.state.form.fechaRecepción : ''}></TextField>
                             </div>
 
                             <h3>Información de origen</h3>
@@ -186,11 +183,11 @@ class Correspondence extends Component {
                                     ))}
                                 </select>
                                 <br />
-                                <TextField required name="asunto" id="asunto" label="Asunto:" onChange={this.handleChange} value={this.state.form ? this.state.form.asunto : ''}></TextField>
+                                <TextField required name="asunto" key="asunto" id="asunto" label="Asunto:" onChange={this.handleChange} value={this.state.form ? this.state.form.asunto : ''}></TextField>
                                 <br />
-                                <TextField multiline name="descripción" rows={10} required id="descripción" label="Descripcion:" onChange={this.handleChange} value={this.state.form ? this.state.form.descripción : ''}></TextField>
+                                <TextField multiline name="descripción" key="descripción" rows={10} required id="descripción" label="Descripcion:" onChange={this.handleChange} value={this.state.form ? this.state.form.descripción : ''}></TextField>
                                 <br />
-                                <TextField multiline name="observaciones" rows={5} required id="observaciones" label="Observaciones:" onChange={this.handleChange} value={this.state.form ? this.state.form.fechaobservaciones : ''}></TextField>
+                                <TextField multiline name="observaciones" key="observaciones" rows={5} required id="observaciones" label="Observaciones:" onChange={this.handleChange} value={this.state.form ? this.state.form.fechaobservaciones : ''}></TextField>
                                 <br />
                                 <p>
                                     Subir archivos:

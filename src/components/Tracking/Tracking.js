@@ -2,21 +2,15 @@
 
 //Imports
 import React, { Component } from "react";
+import axios from 'axios';
+
+//Iconos
 import { IoChevronBackOutline } from "react-icons/io5";
-import Sidebar from "../../commons/Sidebar/Sidebar";
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import style from './Tracking.css'
-import '../../App.css';
-import { FaUserTie } from "react-icons/fa";
-import { AiFillMessage } from "react-icons/ai";
-import { AiOutlineSearch } from "react-icons/ai";
 import { AiOutlineMore } from "react-icons/ai";
 import { BsCheckSquareFill } from "react-icons/bs";
-import { MdEmail } from "react-icons/md";
-import axios from 'axios';
+
+//Componentes
 import Header from "../../commons/Header/Header";
-import ReactDOM from "react-dom";
-import Login from '../Login/LoginForm'
 import Menu from '../../commons/Menu/Menu'
 
 class Tracking extends Component {
@@ -131,4 +125,3 @@ class Tracking extends Component {
 }
 
 export default Tracking;
-// ReactDOM.render(<Directorio/>);

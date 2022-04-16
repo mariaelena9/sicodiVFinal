@@ -2,26 +2,23 @@
 
 //Imports
 import React, { Component } from "react";
-import { useState } from "react";
+import ReactDOM from "react-dom";
+import axios from 'axios';
+
+//Iconos
 import { IoChevronBackOutline } from "react-icons/io5";
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import style from './Directorio.css'
-import '../../App.css';
 import { FaUserTie } from "react-icons/fa";
-import { AiFillMessage } from "react-icons/ai";
 import { AiOutlineSearch } from "react-icons/ai";
 import { MdEmail } from "react-icons/md";
-import axios from 'axios';
-import Header from "../../commons/Header/Header";
-import ReactDOM from "react-dom";
-import Menu from "../../commons/Menu/Menu";
-import Modal from './Modal.js';
-import '../../App.css';
 import { AiFillPhone } from "react-icons/ai";
 import { BsFillPersonFill } from "react-icons/bs";
 import { BsEnvelopeFill } from "react-icons/bs";
 import { MdWork } from "react-icons/md";
-import './Modal.css';
+
+//Componentes
+import Header from "../../commons/Header/Header";
+import Menu from "../../commons/Menu/Menu";
+import Modal from './Modal.js';
 
 class Directorio extends Component {
     //CONSTRUCTOR DEL COMPONENTE
@@ -103,7 +100,7 @@ class Directorio extends Component {
     change = (event) => { //Al cambiar el combobox consulta los usuarios filtrados por dependencia
         document.getElementById("keyword").value = "";
         axios.get(`http://localhost:3000/api/user/getUserByDep/${event.target.value}`).then(res => {
-            if (res.data == 'Sin resultados') {
+            if (res.data === 'Sin resultados') {
                 alert("No hay usuarios registrados pertenecientes a esta dependencia");
                 this.setState({ data: [] });
                 this.setState({ data2: [] });

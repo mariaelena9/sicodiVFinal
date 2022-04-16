@@ -1,6 +1,11 @@
-import React, {useState} from "react";
+//Imports
+import React from "react";
+
+//Recursos
 import LogoNay from "../assets/nayaritLogo.png";
-import NewLogin from '../components/Log In/Login'
+import NewLogin from '../components/Log In/Login';
+
+//Componentes
 import Header from "../commons/Header/Header";
 
 function LoginPage(){
