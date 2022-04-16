@@ -1,16 +1,25 @@
 /* @LOADER */
 
 //Imports
-import React, {useState, useEffect} from "react";
+import React, {useEffect} from "react";
+import ReactDOM from 'react-dom';
+
+//Componentes
 import Header from "../Header/Header";
 import Inicio from "../../components/Home/Inicio";
-import ReactDOM from 'react-dom';
+import LoginPage from "../../pages/Login-Page";
+
+//RECURSOS
 import LogoNay from "../../assets/nayaritLogo.png";
 
-function Loader(){
+function Loader(props){
     useEffect(() => {
         const timer = setTimeout(() => {
-            ReactDOM.render(<Inicio/>, document.getElementById('root'));
+            if(props.type == "login"){
+                ReactDOM.render(<Inicio/>, document.getElementById('root'));
+            } else if(props.type == "logout"){
+                ReactDOM.render(<LoginPage/>, document.getElementById('root'));
+            }
         }, 2000);
         return () => clearTimeout(timer);
     }, []);
@@ -24,7 +33,7 @@ function Loader(){
                     </div>
 
                     <div className="rightSide">
-                        <h2>Bienvenido <span>{localStorage.getItem('userName')}</span> </h2>
+                        <h2>{props.texto1} <span>{props.texto2}</span></h2>
                     </div>
                 </div>
         </div>

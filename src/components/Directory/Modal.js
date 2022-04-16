@@ -6,10 +6,18 @@ const Modal = ({ handleClose, show, children }) => {
   return (
     <div className={showHideClassName}>
       <section className="modal-main">
-        {children}
-        <button type="button" onClick={handleClose}>
-          Close
+        <button type="button" onClick={handleClose}
+          style={{
+            display: "flex", justifyContent: "center", alignItems: "center", width: "30px", height: "30px"
+          }}>
+          X
         </button>
+        {children}
+        <div className='modalButton'>
+          <button type="button">
+            Escribir
+          </button>
+        </div>
       </section>
     </div>
   );

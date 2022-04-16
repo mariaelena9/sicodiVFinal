@@ -9,12 +9,7 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import './Menu.css';
 import Correspondence from "../../components/Correspondence/Correspondence";
 import Inicio from "../../components/Home/Inicio";
-import App from "../../App";
-import NewLogin from '../../components/Log In/Login'
-import AuthContext from "../../context/AuthContext";
-
-const page = "";
-// const [auth, handleAuth] = useContext(AuthContext);
+import Loader from "../Loader/Loader";
 
 class Menu extends Component{
 
@@ -38,7 +33,7 @@ class Menu extends Component{
         } else if(e.target.id == '/salir'){
             localStorage.clear();
             console.log("Sesión cerrada");
-            ReactDOM.render(<App/>, document.getElementById('root'));
+            ReactDOM.render(<Loader texto1="Cerrando sesión" type="logout" />, document.getElementById('root'));
         }    
     }
 

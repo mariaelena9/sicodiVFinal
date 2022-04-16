@@ -1,27 +1,63 @@
 .modal {
-    position: fixed;
-    top: 9vh;
-    left: 21vw;
-    width: 79vw;
-    height: 91vh;
-    background: rgba(0, 0, 0, 0.6);
-  }
-  
-  .modal-main {
-    position:fixed;
-    background: white;
-    top: 29vh;
-    left: 30vw;
-    width: 60vw;
-    padding: 15px;
-    margin: auto;
-    height: auto;
-  }
-  
-  .display-block {
-    display: block;
-  }
-  
-  .display-none {
-    display: none;
-  }
+  position: fixed;
+  top: 9vh;
+  left: 21vw;
+  width: 79vw;
+  height: 91vh;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.modal-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  background: #E7E7E7;
+  top: 20vh;
+  left: 30vw;
+  width: 60vw;
+  padding: 15px;
+  margin: auto;
+  border-radius: 5px;
+  height: auto;
+}
+
+.modalButton {
+  width: 100%;
+  text-align: center;
+}
+
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.modalName {
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  width: 40%;
+  text-align: center;
+  flex-direction: column;
+}
+
+.modalEmail,
+.modalPos,
+.modalPhone {
+  display: flex;
+  margin: 10px;
+  width: 50%;
+  gap: 10px;
+  font-size: 1.2rem;
+}
+
+.display-block {
+  display: block;
+}
+
+.display-none {
+  display: none;
+}

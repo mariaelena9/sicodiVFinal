@@ -2,9 +2,8 @@
 
 //Imports
 import React, { Component } from "react";
-import {useState} from "react";
+import { useState } from "react";
 import { IoChevronBackOutline } from "react-icons/io5";
-import Sidebar from "../../commons/Sidebar/Sidebar";
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import style from './Directorio.css'
 import '../../App.css';
@@ -15,50 +14,109 @@ import { MdEmail } from "react-icons/md";
 import axios from 'axios';
 import Header from "../../commons/Header/Header";
 import ReactDOM from "react-dom";
-import Login from '../Login/LoginForm';
 import Menu from "../../commons/Menu/Menu";
 import Modal from './Modal.js';
+import '../../App.css';
+import { AiFillPhone } from "react-icons/ai";
+import { BsFillPersonFill } from "react-icons/bs";
+import { BsEnvelopeFill } from "react-icons/bs";
+import { MdWork } from "react-icons/md";
+import './Modal.css';
 
 class Directorio extends Component {
+    //CONSTRUCTOR DEL COMPONENTE
     constructor() {
         super();
         this.showModal = this.showModal.bind(this);
         this.hideModal = this.hideModal.bind(this);
     }
 
-    showModal = () => {
+    //FUNCIONES PARA EL CONTROL DE VENTANA MODAL
+    showModal = (dato) => {
         this.setState({ show: true });
+        axios.get(`http://localhost:3000/api/user/getuser/${dato}`).then(res => {
+            this.setState({
+                name: res.data.nombre,
+                lastNameP: res.data.apPaterno,
+                lastNameM: res.data.apMaterno,
+                email: res.data.email,
+                depa: res.data.cargo,
+                phone: res.data.telefono
+            });
+        }).catch(error => {
+            console.log(error.message);
+        });
     };
 
     hideModal = () => {
         this.setState({ show: false });
     };
+    //=============================================================
 
+    //ARREGLO DE ESTADO, CONTIENE LAS VARIABLES Y ARREGLOS UTILIZADOS EN EL COMPONENTE
     state = {
         data: [],
+        data2: [],
+        dependencias: [],
+        keyword: '',
         form: {
             idUsuario: '',
-            nombre: '',
-            apellido: '',
-            correo: '',
+            name: '',
+            lastNameP: '',
+            lastNameM: '',
+            email: '',
+            depa: '',
+            phone: '',
         },
         show: false,
     }
 
     componentDidMount() { //Se ejecutará al momento de montar el componente
         this.getUser();
+        this.getDependencies();
     }
 
-    getUser = () => {
-        axios.get("http://localhost:3000/api/user/getuser").then(Response => {
-            this.setState({ data: Response.data });
+    //Función base para manipular un objeto formulario, ayuda a controlar las modificaciones
+    handleChange = async (event) => {
+        await this.setState({ keyword: event.target.value });
+        this.state.data = this.state.data2.filter(user => user.nombre.toLowerCase().includes(this.state.keyword.toLowerCase()));
+        this.getDependencies();
+    }
+
+    getUser = () => { //Consulta todos los usuarios de la BD
+        axios.get("http://localhost:3000/api/user/getuser").then(res => {
+            this.setState({ data: res.data });
+            this.setState({ data2: res.data });
         }).catch(error => {
             console.log(error.message);
         });
     }
-    
 
-    render() {
+    getDependencies = () => { //Consulta todas las dependencias de la BD
+        axios.get("http://localhost:3000/api/dependence/getdependence").then(res => {
+            this.setState({ dependencias: res.data });
+        }).catch(error => {
+            console.log(error.message);
+        });
+    }
+
+    change = (event) => { //Al cambiar el combobox consulta los usuarios filtrados por dependencia
+        document.getElementById("keyword").value = "";
+        axios.get(`http://localhost:3000/api/user/getUserByDep/${event.target.value}`).then(res => {
+            if (res.data == 'Sin resultados') {
+                alert("No hay usuarios registrados pertenecientes a esta dependencia");
+                this.setState({ data: [] });
+                this.setState({ data2: [] });
+            } else {
+                this.setState({ data: res.data });
+                this.setState({ data2: res.data });
+            }
+        }).catch(error => {
+            console.log(error.message);
+        });
+    }
+
+    render() { //Renderiza los elementos gráficos del componente
         return (
             <div className="main">
                 <Header />
@@ -66,8 +124,26 @@ class Directorio extends Component {
                     <Menu />
                     <div className="contentDirectory">
                         <Modal show={this.state.show} handleClose={this.hideModal}>
-                            <p>Modal</p>
+                            <div className="modalContent">
+                                <div className="modalName">
+                                    <p>{this.state.name} {this.state.lastNameP} {this.state.lastNameM}</p>
+                                    <BsFillPersonFill />
+                                </div>
+                                <div className="modalEmail">
+                                    <BsEnvelopeFill />
+                                    <p>{this.state.email}</p>
+                                </div>
+                                <div className="modalPos">
+                                    <MdWork />
+                                    <p>{this.state.depa}</p>
+                                </div>
+                                <div className="modalPhone">
+                                    <AiFillPhone />
+                                    <p>{this.state.phone}</p>
+                                </div>
+                            </div>
                         </Modal>
+
                         <div className="direction">
 
                             <div className="headerDirectory">
@@ -77,7 +153,7 @@ class Directorio extends Component {
                                 </div>
 
                                 <div className="Search">
-                                    <input type='text' placeholder="Busqueda..." name="name" id="name" ></input>
+                                    <input type='text' placeholder="Busqueda..." name="keyword" id="keyword" onChange={this.handleChange}></input>
                                     <div className="icon-search"> <AiOutlineSearch /> </div>
                                 </div>
                             </div>
@@ -86,10 +162,11 @@ class Directorio extends Component {
 
                                 <div className="filter">
                                     <p className="filter-text">Dependencia: </p>
-                                    <select name="pets" id="pet-select">
-                                        <option value="">Selecciona Dependencia</option>
-                                        <option value="">Despacho Ejecutivo</option>
-                                        <option value="">Secretaria de Educación Pública</option>
+                                    <select name="deps" id="depselect" valueChange onChange={this.change}>
+                                        <option value="iddpto">Selecciona Dependencia</option>
+                                        {this.state.dependencias.map(elemento => (
+                                            <option onChange={this.change} key={elemento.iddependencia} value={elemento.iddependencia}>{elemento.nombre}</option>
+                                        ))}
                                     </select>
                                 </div>
 
@@ -105,15 +182,15 @@ class Directorio extends Component {
 
                                             <div className="info-contact">
                                                 <div className="name-contact">
-                                                    <p><b>{user.nombre} {user.apellidoMaterno} {user.apellidoPaterno}</b></p>
+                                                    <p><b>{user.nombre} {user.apMaterno} {user.apPaterno}</b></p>
                                                 </div>
 
                                                 <div className="id-contact">
-                                                    <p>{user.correoElectronico}</p>
+                                                    <p>{user.email}</p>
                                                 </div>
                                             </div>
 
-                                            <div className="img-message" onClick={this.showModal}> <MdEmail /></div>
+                                            <div className="img-message" onClick={() => this.showModal(user.idusuario)}> <MdEmail /></div>
 
                                         </div>
                                     );
@@ -129,4 +206,3 @@ class Directorio extends Component {
 }
 
 export default Directorio;
-// ReactDOM.render(<Directorio/>);

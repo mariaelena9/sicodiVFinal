@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import LogoNay from "../assets/nayaritLogo.png";
 import NewLogin from '../components/Log In/Login'
 import Header from "../commons/Header/Header";
-import style from "../components/Login/LoginPage.css"
 
 function LoginPage(){
     return(

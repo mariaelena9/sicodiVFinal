@@ -22,17 +22,17 @@ class Login extends Component {
         e.preventDefault();
         axios.get(`http://localhost:3000/api/login/getcredentials/${this.state.form.email}/${this.state.form.password}`).then(Response => {
             
-            if(Response.data.id_Usuario==null){
+            if(Response.data.idusuario==null){
                 alert("Usuario o contraseña incorrectos");
                 return;
             }
 
             localStorage.setItem('auth', 'true');
-            localStorage.setItem('userName', Response.data.nombre+' '+Response.data.apellidoMaterno+' '+Response.data.apellidoPaterno);
+            localStorage.setItem('userName', Response.data.nombre+' '+Response.data.apPaterno+' '+Response.data.apMaterno);
             localStorage.setItem('userEmail', Response.data.correoElectronico);
             localStorage.setItem('userCargo', Response.data.cargo);
             localStorage.setItem('userRol', Response.data.fk_Rol);
-            ReactDOM.render(<Loader/>, document.getElementById('root'));
+            ReactDOM.render(<Loader texto1="Bienvenido" texto2={localStorage.getItem('userName')} type="login" />, document.getElementById('root'));
         }).catch(error => {
             console.log(error.message);
         });

@@ -1,10 +1,9 @@
 /* @HEADER */
 
 //Imports
-import React, {useState} from "react";
+import React from "react";
 import logoSicodi from '../../assets/SICODISinFondo.png'
 import logoGob from '../../assets/logosgg.png';
-import header from './Header.css';
 
 function Header(){
     return(
