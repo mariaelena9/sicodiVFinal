@@ -1,48 +1,67 @@
 /*==========================SCROLL PERSONALIZADO DE CORRESPONDENCIA======================================*/
-  .correspondencecontent::-webkit-scrollbar {
-    -webkit-appearance:none;
-  }
-  
-  .correspondencecontent::-webkit-scrollbar:vertical {
-    width:9px;
-  }
-  
-  .correspondencecontent::-webkit-scrollbar-button:increment,.contenedor::-webkit-scrollbar-button {
-    display: none;
-  } 
-  
-  .correspondencecontent::-webkit-scrollbar:horizontal {
-    height: 10px;
-  }
-  
-  .correspondencecontent::-webkit-scrollbar-thumb {
-    background-color: #780727;
-    border-radius: 10px;
-    border: 2px solid #FFF;
-  }
-  
-  .correspondencecontent::-webkit-scrollbar-track {
-    border-radius: 10px;  
-  }
-  
-  /*======================================================================================*/
+.correspondencecontent::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+
+.correspondencecontent::-webkit-scrollbar:vertical {
+  width: 9px;
+}
+
+.correspondencecontent::-webkit-scrollbar-button:increment,
+.contenedor::-webkit-scrollbar-button {
+  display: none;
+}
+
+.correspondencecontent::-webkit-scrollbar:horizontal {
+  height: 10px;
+}
+
+.correspondencecontent::-webkit-scrollbar-thumb {
+  background-color: #780727;
+  border-radius: 10px;
+  border: 2px solid #FFF;
+}
+
+.correspondencecontent::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+/*======================================================================================*/
 .middle {
-    display: flex;
+  display: flex;
+}
+
+.formatodiv {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 30px;
 }
 
 .correspondencecontent {
-    display: flex;
-    flex-direction: column;
-    width: 79vw;
-    height: 91vh;
-    padding: 20px;
-    overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  width: 79vw;
+  height: 91vh;
+  padding: 20px;
+  overflow: scroll;
+  animation-duration: 1s;
+  animation-name: popup;
+}
+
+@keyframes popup {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 .buttonBack {
-    display: flex;
-    justify-content: flex-start;
-    width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
 }
 
 .buttonBack i {
@@ -51,28 +70,28 @@
 }
 
 .dates {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-    margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  margin-bottom: 15px;
 }
 
 .originInfo {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 button {
-    width: 100px;
-    align-self: flex-end;
-    background-color: #780727;
-    color: white;
-    border: none;
-    padding: 10px;
-    font-size: 1rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.5s;
+  width: 100px;
+  align-self: flex-end;
+  background-color: #780727;
+  color: white;
+  border: none;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.5s;
 }
 
 .fileButton {
@@ -81,7 +100,7 @@ button {
 }
 
 button:hover {
- background-color: #29010d;
+  background-color: #29010d;
 }
 
 .select {

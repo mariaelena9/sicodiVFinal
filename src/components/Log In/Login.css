@@ -1,18 +1,15 @@
 .Content{
     display: flex;
-    width: 35vw;
-    justify-content: center;
-}
-
-.Content{
-    display: flex;
     flex-direction: column;
     align-items: center;
+    width: 35vw;
+    justify-content: center;
 }
 
 .Login form{
     display: flex;
     flex-direction: column;
+    align-items: center;
     height: 20vh;
     justify-content: space-between;
     margin: 10px;
@@ -21,7 +18,6 @@
 
 .Welcome{
     text-align: center;
-    
 
 }
 
@@ -49,11 +45,19 @@
 .User input{
     width:100%;
     font-family: Gotham;
+    border: none;
+    outline: none;
+    padding: 5px;
+    font-size: 1rem;
 }
 
 .Pass input{
     width: 100%;
     font-family: Gotham;
+    border: none;
+    outline: none;
+    padding: 5px;
+    font-size: 1rem;
 }
 
 .icon-user{
@@ -78,35 +82,30 @@
 }
 
 .btnLog button{
-    width: 100px;
-    background-color: #780727;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    gap: 5px;
+    margin-top: 10px;
+    border-radius: 5px;
+    padding: 10px;
     color: white;
+    background-color: #780727;
     font-size: .8rem;
     font-family: GothamRounded;
     border: none;
-    padding: 10px;
-    border-radius: 2px;
     cursor: pointer;
     transition: background 0.5s;
+}
+
+.btnLog button:hover{
+    background-color: #3e3e3e;
 }
 
 svg {
     width: 1.5em;
     height: 1.5em;
-}
-
-.btnLog{
-    display: flex;
-    margin-top: 20px;
-    border-radius: 2px;
-    padding: 5px;
-   
-    color: white;
-    height: 30px;
-}
-
-.btnLog svg{
-    margin-top: -2px;
 }
 
 .log{

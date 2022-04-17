@@ -6,7 +6,7 @@ const Modal = ({ handleClose, show, children }) => {
       <section className="modal-main">
         <button type="button" onClick={handleClose}
           style={{
-            display: "flex", justifyContent: "center", alignItems: "center", width: "30px", height: "30px"
+            display: "flex", justifyContent: "center", alignItems: "center", width: "25px", height: "25px", borderRadius: "100%"
           }}>
           X
         </button>

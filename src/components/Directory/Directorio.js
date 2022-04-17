@@ -4,6 +4,7 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 //Iconos
 import { IoChevronBackOutline } from "react-icons/io5";
@@ -101,7 +102,12 @@ class Directorio extends Component {
         document.getElementById("keyword").value = "";
         axios.get(`http://localhost:3000/api/user/getUserByDep/${event.target.value}`).then(res => {
             if (res.data === 'Sin resultados') {
-                alert("No hay usuarios registrados pertenecientes a esta dependencia");
+                Swal.fire({
+                    title: 'Ups!',
+                    text: 'No hay usuarios registrados en esta dependencia',
+                    icon: 'warning',
+                    showConfirmButton: true
+                  })
                 this.setState({ data: [] });
                 this.setState({ data2: [] });
             } else {
@@ -142,7 +148,6 @@ class Directorio extends Component {
                         </Modal>
 
                         <div className="direction">
-
                             <div className="headerDirectory">
                                 <div className="buttonBack">
                                     <i><IoChevronBackOutline /></i>
@@ -182,7 +187,7 @@ class Directorio extends Component {
                                                     <p><b>{user.nombre} {user.apMaterno} {user.apPaterno}</b></p>
                                                 </div>
 
-                                                <div className="id-contact">
+                                                <div className="email-contact">
                                                     <p>{user.email}</p>
                                                 </div>
                                             </div>

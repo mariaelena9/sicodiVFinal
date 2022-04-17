@@ -16,7 +16,7 @@ function Loader(props){
     useEffect(() => {
         const timer = setTimeout(() => {
             if(props.type == "login"){
-                ReactDOM.render(<Inicio/>, document.getElementById('root'));
+                ReactDOM.render(<Inicio page="Inicio"/>, document.getElementById('root'));
             } else if(props.type == "logout"){
                 ReactDOM.render(<LoginPage/>, document.getElementById('root'));
             }
@@ -33,7 +33,7 @@ function Loader(props){
                     </div>
 
                     <div className="rightSide">
-                        <h2>{props.texto1} <span>{props.texto2}</span></h2>
+                        <h2 className="firstText">{props.texto1} <span>{props.texto2}</span></h2>
                     </div>
                 </div>
         </div>

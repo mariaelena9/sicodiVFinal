@@ -2,6 +2,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import ReactDOM from 'react-dom';
+import Swal from 'sweetalert2';
 
 //Iconos
 import { AiOutlineUser } from "react-icons/ai";
@@ -25,15 +26,23 @@ class Login extends Component {
         axios.get(`http://localhost:3000/api/login/getcredentials/${this.state.form.email}/${this.state.form.password}`).then(Response => {
             
             if(Response.data.idusuario==null){
-                alert("Usuario o contraseña incorrectos");
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Usuario o contraseña incorrectos',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
                 return;
             }
 
             localStorage.setItem('auth', 'true');
+            localStorage.setItem('idusuario', Response.data.idusuario);
+            localStorage.setItem('iddependencia', Response.data.fkdependencia);
             localStorage.setItem('userName', Response.data.nombre+' '+Response.data.apPaterno+' '+Response.data.apMaterno);
-            localStorage.setItem('userEmail', Response.data.correoElectronico);
+            localStorage.setItem('userEmail', Response.data.email);
             localStorage.setItem('userCargo', Response.data.cargo);
-            localStorage.setItem('userRol', Response.data.fk_Rol);
+            localStorage.setItem('userRol', Response.data.fkrol);
             ReactDOM.render(<Loader texto1="Bienvenido" texto2={localStorage.getItem('userName')} type="login" />, document.getElementById('root'));
         }).catch(error => {
             console.log(error.message);
@@ -53,7 +62,7 @@ class Login extends Component {
 
     render() {
         return (
-            <div>
+            <div className="Content">
                 <div className="Welcome">
                     <h1> BIENVENIDO </h1>
                     <p> Ingresa tu cuenta para continuar </p>
@@ -74,8 +83,7 @@ class Login extends Component {
                             </div>
 
                             <div className="btnLog">
-                                <button type="submit" onClick={this.handleSubmit}>INGRESAR</button>
-                                <MdLogin></MdLogin>
+                                <button type="submit" onClick={this.handleSubmit}>INGRESAR <MdLogin/></button>
                             </div>
                         </form>
                     </div>

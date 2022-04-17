@@ -13,17 +13,20 @@
   align-items: center;
   position: fixed;
   background: #E7E7E7;
-  top: 20vh;
+  top: 17vh;
   left: 30vw;
   width: 60vw;
   padding: 15px;
   margin: auto;
   border-radius: 5px;
   height: auto;
+  animation-duration: 0.7s;
+  animation-name: slidein;
 }
 
 .modalButton {
   width: 100%;
+  margin-top: 20px;
   text-align: center;
 }
 
@@ -60,4 +63,15 @@
 
 .display-none {
   display: none;
+  opacity: 0;
+}
+
+@keyframes slidein {
+  from {
+    left: 100vw;
+  }
+
+  to {
+    left: 30vw;
+  }
 }

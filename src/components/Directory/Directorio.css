@@ -10,16 +10,17 @@
 
 /*==========================SCROLL PERSONALIZADO DEL DIRECTORIO======================================*/
 .contentDirectory::-webkit-scrollbar {
-    -webkit-appearance:none;
+    -webkit-appearance: none;
 }
 
 .contentDirectory::-webkit-scrollbar:vertical {
-    width:9px;
+    width: 9px;
 }
 
-.contentDirectory::-webkit-scrollbar-button:increment,.contenedor::-webkit-scrollbar-button {
+.contentDirectory::-webkit-scrollbar-button:increment,
+.contenedor::-webkit-scrollbar-button {
     display: none;
-} 
+}
 
 .contentDirectory::-webkit-scrollbar:horizontal {
     height: 10px;
@@ -32,18 +33,15 @@
 }
 
 .contentDirectory::-webkit-scrollbar-track {
-    border-radius: 10px;  
+    border-radius: 10px;
 }
 
 /*======================================================================================*/
-
-
-
 .middle {
     display: flex;
 }
 
-.contentDirectory{
+.contentDirectory {
     width: 79vw;
     height: 91vh;
     display: flex;
@@ -51,54 +49,79 @@
     padding: 20px;
 }
 
-.Tarjeta{
-    border: solid #780727 2px;
-    border-radius: 2px;
+.Tarjeta {
     display: flex;
     justify-content: space-evenly;
-    padding: 5px;
+    align-items: center;
+    border: solid #780727 2px;
+    border-radius: 5px;
+    padding: 8px;
+    animation-duration: 1s;
+    animation-name: popup;
 }
 
-.img-contact{
-    font-size: 1.3rem;
+@keyframes popup {
+    from {
+        opacity: 0
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.img-contact {
     display: flex;
     justify-content: center;
-    width: 8%;
     align-items: center;
+    height: 100%;
+    width: 8%;
+    font-size: 1.3rem;
 }
 
-.info-contact{
+.info-contact {
     display: flex;
     flex-direction: column;
     width: 73%;
+    height: 100%;
     font-family: Gotham;
-    
 }
 
-.name-contact{
+.name-contact {
     font-family: GothamRounded;
+    height: 60%;
 }
 
-.img-message{
+.email-contact {
+    height: 40%;
+}
+
+.img-message {
     display: flex;
-    align-self: center;
-    font-size: 1.3rem;
-    width: 8%;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
     max-width: 30px;
-    /* max-height: 30px; */
+    max-height: 30px;
     background-color: #780727;
-    padding: 2px;
+    padding: 5px;
     color: #fff;
     border-radius: 100%;
     cursor: pointer;
+    transition: background 0.5s;
 }
 
-  .directorio{
+.img-message:hover {
+    background-color: rgb(174, 173, 173);
+    color: rgb(51, 51, 51);
+}
+
+.directorio {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(30vw, 30vw));
+    grid-template-columns: repeat(auto-fit, minmax(35vw, 35vw));
     gap: 30px;
     justify-content: center;
-  }
+}
 
 .buttonBack {
     display: flex;
@@ -106,75 +129,77 @@
     width: 100%;
 }
 
-.buttonBack i {
-  color: #780727;
-  cursor: pointer;
+.buttonBack p {
+    margin-top: -7px;
+    font-size: 1.2rem;
 }
 
-.TitlePage{
+.buttonBack i {
+    color: #780727;
+    cursor: pointer;
+}
+
+.TitlePage {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    color:black;
+    color: black;
     font-family: Gotham;
 }
 
-.headerDirectory{
+.headerDirectory {
     display: flex;
 }
 
-.filter{
+.filter {
     display: flex;
     width: 62vw;
 }
 
-.filter select{
+.filter select {
     width: 20.5vw;
-}
-
-.filter select{
+    border-radius: 5px;
     border: solid #780727 2px;
-    height: 4vh;
     width: 21.3vw;
+    padding: 2px;
     margin-left: 10px;
+    font-size: 1rem;
     font-family: Gotham;
-    /* padding-left: 3px; */
-    
 }
 
-.filter-text{
+.filter-text {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    color:black;
+    color: black;
     font-family: Gotham;
 }
 
-.direction{
+.direction {
     display: flex;
     flex-direction: column;
     width: 79vw;
     height: 91vh;
 }
 
-.Search{
+.Search {
     display: flex;
-    /* border:solid #780727 2px; */
-    
     border: solid #780727 2px;
+    border-radius: 5px;
     padding: 5px;
-    width: 25vw;
-
+    width: 30vw;
 }
 
-.Search input{
-    width:100%;
+.Search input {
+    width: 100%;
     font-family: Gotham;
+    font-size: 1rem;
     border: none;
     outline: none;
 }
 
-.icon-search{
+.icon-search {
     border: none;
+    margin-top: 5px;
     color: rgb(61, 61, 61);
 }
