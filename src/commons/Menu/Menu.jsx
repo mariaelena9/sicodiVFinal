@@ -14,6 +14,7 @@ import Correspondence from "../../components/Correspondence/Correspondence";
 import Inicio from "../../components/Home/Inicio";
 import Loader from "../Loader/Loader";
 import Sent from "../../components/Sent/Sent";
+import Received from "../../components/Received/Received";
 
 class Menu extends Component{
 
@@ -27,15 +28,16 @@ class Menu extends Component{
         } else if(e.target.id === '/correspondence'){
             ReactDOM.render(<Correspondence/>, document.getElementById('root'));
         } else if(e.target.id === '/sent'){
-            ReactDOM.render(<Sent />, document.getElementById('root'));
+            ReactDOM.render(<Sent/>, document.getElementById('root'));
         } else if(e.target.id === '/receipt'){
-            ReactDOM.render(<Inicio page="Recibidos"/>, document.getElementById('root'));
+            ReactDOM.render(<Received/>, document.getElementById('root'));
         } else if(e.target.id === '/history'){
             ReactDOM.render(<Inicio page="Historico"/>, document.getElementById('root'));
         } else if(e.target.id === '/report'){
             ReactDOM.render(<Inicio page="Reportes"/>, document.getElementById('root'));
         } else if(e.target.id === '/salir'){
             localStorage.clear();
+            ReactDOM.render("", document.getElementById('menu'));
             ReactDOM.render(<Loader texto1="Cerrando sesión" type="logout" />, document.getElementById('root'));
         }    
     }
@@ -63,8 +65,6 @@ class Menu extends Component{
                             <li key="exit"><a id="/salir" onClick={this.handleMenu}><ImIcons.ImExit/> Salir</a></li>
                         </ul>
                     </nav>
-
-                    <div id="root"></div>
             </Router>
         );
     }

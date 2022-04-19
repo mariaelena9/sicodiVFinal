@@ -1,34 +1,38 @@
+//Imports
 import { Component } from "react";
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
+//Componentes
 import Correspondence from '../Correspondence'
+
+//Archivo de configuracion
+import { environment } from '../../../config/settings';
 
 //Objetos MATD
 import TextField from '@mui/material/TextField';
 
-class Digital extends Component {
+class Fisica extends Component {
     state = {
-        showDigital: false,
-        showFisica: false,
         data: [],
         dependencias: [],
-        usuarios: [],
+        usuariosD: [],
+        usuariosO: [],
         tipos: [],
         form: {
             id_Correspondencia: '',
             fechaEmisión: '',
             fechaRecepción: '',
-            fk_DependenciaO: localStorage.getItem("iddependencia"),
-            fk_UsuarioO: localStorage.getItem("idusuario"),
+            fk_DependenciaO: '',
+            fk_UsuarioO: '',
             fk_DependenciaD: '',
             fk_UsuarioD: '',
             fk_TipoCo: '',
             asunto: '',
             descripción: '',
             observaciones: '',
-            formato: 'Digital',
+            formato: 'Fisica',
         }
     }
 
@@ -36,7 +40,6 @@ class Digital extends Component {
     componentDidMount() {
         this.getDependences();
         this.getTipoCo();
-        console.log(this.state.form);
     }
 
     //Función para registrar la correspondencia en la BD
@@ -49,7 +52,10 @@ class Digital extends Component {
     handleChange = async e => {
         e.persist();
         if (e.target.name === "fk_DependenciaD") {
-            this.getUsers(e.target.value);
+            this.getUsersD(e.target.value);
+        }
+        if (e.target.name === "fk_DependenciaO") {
+            this.getUsersO(e.target.value);
         }
         await this.setState({
             form: {
@@ -57,7 +63,6 @@ class Digital extends Component {
                 [e.target.name]: e.target.value
             }
         });
-        console.log(this.state.form)
     }
 
     //Función para insertar en la BD la correspondencia
@@ -67,7 +72,8 @@ class Digital extends Component {
             || this.state.form.fk_UsuarioO === "invalido" || this.state.form.fk_UsuarioO === ""
             || this.state.form.fk_DependenciaD === "invalido" || this.state.form.fk_DependenciaD === ""
             || this.state.form.fk_UsuarioD === "invalido" || this.state.form.fk_UsuarioD === ""
-            || this.state.form.fk_TipoCo === "invalido" || this.state.form.fk_TipoCo === "") {
+            || this.state.form.fk_TipoCo === "invalido" || this.state.form.fk_TipoCo === ""
+            || this.state.form.fechaEmisión === '' || this.state.form.fechaRecepción === "") {
             Swal.fire({
                 title: 'No se puede registrar',
                 text: 'Porfavor complete todos los campos de forma correcta.',
@@ -78,10 +84,12 @@ class Digital extends Component {
             return;
         }
         delete this.state.form.id_Correspondencia;
-        await axios.post("http://localhost:3000/api/correspondence/insert", this.state.form).then(response => {
+        await axios.post(`${environment.urlServer}/correspondence/insert`, this.state.form).then(response => {
             this.insertFiles(response);
             this.state.form.fechaEmisión = '';
             this.state.form.fechaRecepción = '';
+            this.state.form.fk_DependenciaO = '';
+            this.state.form.fk_UsuarioO = '';
             this.state.form.fk_DependenciaD = '';
             this.state.form.fk_UsuarioD = '';
             this.state.form.fk_TipoCo = '';
@@ -93,7 +101,7 @@ class Digital extends Component {
                 text: 'Correspondencia registrada exitosamente.',
                 icon: 'success',
                 showConfirmButton: false,
-                timer: 1500
+                timer: 2000
             })
             ReactDOM.render(<Correspondence />, document.getElementById('root'));
         }).catch(error => {
@@ -107,7 +115,7 @@ class Digital extends Component {
 
     //Consultar las dependencias de la BD
     getDependences() {
-        axios.get("http://localhost:3000/api/dependence/getdependence").then(Response => {
+        axios.get(`${environment.urlServer}/dependence/getdependence`).then(Response => {
             this.setState({ dependencias: Response.data });
         }).catch(error => {
             console.log(error.message);
@@ -115,13 +123,26 @@ class Digital extends Component {
     }
 
     //Consultar los usuarios de la BD
-    getUsers(id) {
-        axios.get(`http://localhost:3000/api/user/getUserByDep/${id}`).then(Response => {
+    getUsersD(id) {
+        axios.get(`${environment.urlServer}/user/getUserByDep/${id}`).then(Response => {
             if (Response.data === 'Sin resultados') {
-                this.setState({ usuarios: [] });
+                this.setState({ usuariosD: [] });
                 return;
             }
-            this.setState({ usuarios: Response.data });
+            this.setState({ usuariosD: Response.data });
+        }).catch(error => {
+            console.log(error.message);
+        });
+    }
+
+    //Consultar los usuarios de la BD
+    getUsersO(id) {
+        axios.get(`${environment.urlServer}/user/getUserByDep/${id}`).then(Response => {
+            if (Response.data === 'Sin resultados') {
+                this.setState({ usuariosO: [] });
+                return;
+            }
+            this.setState({ usuariosO: Response.data });
         }).catch(error => {
             console.log(error.message);
         });
@@ -129,7 +150,7 @@ class Digital extends Component {
 
     //Consultar los tipos de correspondencia de la BD
     getTipoCo() {
-        axios.get("http://localhost:3000/api/typesco/gettypes").then(Response => {
+        axios.get(`${environment.urlServer}/typesco/gettypes`).then(Response => {
             this.setState({ tipos: Response.data });
         }).catch(error => {
             console.log(error.message);
@@ -145,6 +166,22 @@ class Digital extends Component {
                         <TextField InputLabelProps={{ shrink: true }} name="fechaEmisión" required key="fechaEmisión" type="date" id="fechaEmisión" label="Fecha de emisión" onChange={this.handleChange} value={this.state.form ? this.state.form.fechaEmisión : ''}></TextField>
                         <TextField InputLabelProps={{ shrink: true }} name="fechaRecepción" required key="fechaRecepción" type="date" id="fechaRecepción" label="Fecha de recepción" onChange={this.handleChange} value={this.state.form ? this.state.form.fechaRecepción : ''}></TextField>
                     </div>
+                    <h3>Información de remitente</h3>
+                    <div className="originInfo">
+                        <select className="select" id="fk_DependenciaO" name="fk_DependenciaO" onChange={this.handleChange} value={this.state.form ? this.state.form.fk_DependenciaO : ''}>
+                            <option value="invalido">Elige la dependencia origen</option>
+                            {this.state.dependencias.map(elemento => (
+                                <option key={elemento.iddependencia} value={elemento.iddependencia}>{elemento.nombre}</option>
+                            ))}
+                        </select>
+                        <br />
+                        <select className="select" id="fk_UsuarioO" name="fk_UsuarioO" onChange={this.handleChange} value={this.state.form ? this.state.form.fk_UsuarioO : ''}>
+                            <option value="invalido">Elige un remitente</option>
+                            {this.state.usuariosO.map(elemento => (
+                                <option key={elemento.idusuario} value={elemento.idusuario}>{elemento.nombre} {elemento.apPaterno} {elemento.apMaterno}</option>
+                            ))}
+                        </select>
+                    </div>
                     <br />
                     <h3>Información de destinatario</h3>
                     <div className="originInfo">
@@ -157,7 +194,7 @@ class Digital extends Component {
                         <br />
                         <select className="select" id="fk_UsuarioD" name="fk_UsuarioD" onChange={this.handleChange} value={this.state.form ? this.state.form.fk_UsuarioD : ''}>
                             <option value="invalido">Elige un destinatario</option>
-                            {this.state.usuarios.map(elemento => (
+                            {this.state.usuariosD.map(elemento => (
                                 <option key={elemento.idusuario} value={elemento.idusuario}>{elemento.nombre} {elemento.apPaterno} {elemento.apMaterno}</option>
                             ))}
                         </select>
@@ -192,4 +229,4 @@ class Digital extends Component {
     }
 }
 
-export default Digital;
+export default Fisica;

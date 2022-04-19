@@ -3,16 +3,14 @@ import React from "react";
 
 //Recursos
 import LogoNay from "../assets/nayaritLogo.png";
-import NewLogin from '../components/Log In/Login';
 
 //Componentes
-import Header from "../commons/Header/Header";
+import NewLogin from '../components/Log In/Login';
 
 function LoginPage(){
     return(
         <div className="main">
             <div className="container">
-            <Header/>
                 <div className="principal">
                     <div className="leftSide">
                         <img className="nayaritLogo" src={LogoNay} alt="LogotipoNayarit"/>

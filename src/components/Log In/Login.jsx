@@ -4,6 +4,9 @@ import axios from 'axios';
 import ReactDOM from 'react-dom';
 import Swal from 'sweetalert2';
 
+//Archivo de configuracion
+import { environment } from '../../config/settings';
+
 //Iconos
 import { AiOutlineUser } from "react-icons/ai";
 import { RiLockPasswordLine } from "react-icons/ri";
@@ -23,7 +26,7 @@ class Login extends Component {
     //Función para validar las credenciales de inicio en la BD
     handleSubmit = (e) => {
         e.preventDefault();
-        axios.get(`http://localhost:3000/api/login/getcredentials/${this.state.form.email}/${this.state.form.password}`).then(Response => {
+        axios.get(`${environment.urlServer}/login/getcredentials/${this.state.form.email}/${this.state.form.password}`).then(Response => {
             
             if(Response.data.idusuario==null){
                 Swal.fire({
@@ -43,6 +46,7 @@ class Login extends Component {
             localStorage.setItem('userEmail', Response.data.email);
             localStorage.setItem('userCargo', Response.data.cargo);
             localStorage.setItem('userRol', Response.data.fkrol);
+            ReactDOM.render("", document.getElementById('menu'));
             ReactDOM.render(<Loader texto1="Bienvenido" texto2={localStorage.getItem('userName')} type="login" />, document.getElementById('root'));
         }).catch(error => {
             console.log(error.message);

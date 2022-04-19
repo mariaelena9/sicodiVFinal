@@ -5,7 +5,7 @@ import React, {useEffect} from "react";
 import ReactDOM from 'react-dom';
 
 //Componentes
-import Header from "../Header/Header";
+import Menu from "../Menu/Menu";
 import Inicio from "../../components/Home/Inicio";
 import LoginPage from "../../pages/Login-Page";
 
@@ -16,8 +16,11 @@ function Loader(props){
     useEffect(() => {
         const timer = setTimeout(() => {
             if(props.type == "login"){
+                <Menu/>
+                ReactDOM.render(<Menu/>, document.getElementById('menu'));
                 ReactDOM.render(<Inicio page="Inicio"/>, document.getElementById('root'));
             } else if(props.type == "logout"){
+                ReactDOM.render("", document.getElementById('menu'));
                 ReactDOM.render(<LoginPage/>, document.getElementById('root'));
             }
         }, 2000);
@@ -26,7 +29,6 @@ function Loader(props){
 
     return(
         <div className="App">
-            <Header/>
                 <div className="principal">
                     <div className="leftSide">
                         <img className="nayaritLogo" src={LogoNay} alt="LogotipoNayarit"/>
