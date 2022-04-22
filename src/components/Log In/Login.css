@@ -1,4 +1,11 @@
-.Content{
+:root {
+    --primario: #780727;
+    --primarioOscuro: #380212;
+    --blanco: #fff;
+    --negro: #000;
+}
+
+.login__content {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -6,43 +13,53 @@
     justify-content: center;
 }
 
-.Login form{
+.welcome {
+    text-align: center;
+}
+
+.welcome__bienvenido {
+    color: var(--negro);
+    font-weight: bold;
+    font-family: GothamRounded;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.welcome__parrafo {
+    font-size: 1rem;
+    font-family: Gotham;
+    margin-bottom: 5px;
+}
+
+.login form{
     display: flex;
     flex-direction: column;
     align-items: center;
     height: 20vh;
     justify-content: space-between;
     margin: 10px;
-    
 }
 
-.Welcome{
-    text-align: center;
-
-}
-
-.Welcome h1{
-    color: black;
-    font-weight: bold;
-    font-family: GothamRounded;
-    margin-bottom: 5px;
-    
-}
-
-.Welcome p{
-    font-size: 1rem;
-    font-family: Gotham;
-    margin-bottom: 5px;
-    
-}
-
-.User{
+.login__content {
     display: flex;
-    border:solid #780727 2px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login__content--user {
+    display: flex;
+    border:solid var(--primario) 2px;
     margin-bottom: 10px;
 }
 
-.User input{
+.icon-user {
+    background-color: var(--primario);
+    color: var(--blanco);
+    padding: 5px;
+}
+
+.login__content--user input {
     width:100%;
     font-family: Gotham;
     border: none;
@@ -51,7 +68,18 @@
     font-size: 1rem;
 }
 
-.Pass input{
+.login__content--pass {
+    display: flex;
+    border: solid var(--primario) 2px;
+}
+
+.icon-pass {
+    background-color: var(--primario);
+    color: var(--blanco);
+    padding: 5px;
+}
+
+.login__content--pass input {
     width: 100%;
     font-family: Gotham;
     border: none;
@@ -60,28 +88,7 @@
     font-size: 1rem;
 }
 
-.icon-user{
-    background-color: #780727;
-    color: white;
-    padding: 5px;
-}
-
-.icon-pass{
-    background-color: #780727;
-    color: white;
-    padding: 5px;
-}
-
-.Pass{
-    display: flex;
-    border: solid #780727 2px;
-}
-
-.Pass input{
-    width: 100%;
-}
-
-.btnLog button{
+.btn__login {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -90,8 +97,8 @@
     margin-top: 10px;
     border-radius: 5px;
     padding: 10px;
-    color: white;
-    background-color: #780727;
+    color: var(--blanco);
+    background-color: var(--primario);
     font-size: .8rem;
     font-family: GothamRounded;
     border: none;
@@ -99,8 +106,8 @@
     transition: background 0.5s;
 }
 
-.btnLog button:hover{
-    background-color: #3e3e3e;
+.btn__login:hover {
+    background-color: var(--primarioOscuro);
 }
 
 svg {
@@ -108,9 +115,3 @@ svg {
     height: 1.5em;
 }
 
-.log{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}

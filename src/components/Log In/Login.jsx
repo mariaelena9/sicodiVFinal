@@ -66,28 +66,29 @@ class Login extends Component {
 
     render() {
         return (
-            <div className="Content">
-                <div className="Welcome">
-                    <h1> BIENVENIDO </h1>
-                    <p> Ingresa tu cuenta para continuar </p>
+            <div className="login__content">
+
+                <div className="welcome">
+                    <h1 className="welcome__bienvenido">Bienvenido</h1>
+                    <p className="welcome__parrafo">Ingresa tu cuenta para continuar</p>
                 </div>
 
-                <div className="Login">
-                    <div className="log">
-                        <form>
+                <div className="login">
 
-                            <div className="User">
+                    <div className="login__content">
+                        <form>
+                            <div className="login__content--user">
                                 <div className="icon-user"> <AiOutlineUser /> </div>
                                 <input type='text' placeholder="Usuario" name="email" id="email" onChange={this.handleChange} required></input>
                             </div>
 
-                            <div className="Pass">
+                            <div className="login__content--pass">
                                 <div className="icon-pass"> <RiLockPasswordLine /> </div>
                                 <input type='password' placeholder="Contraseña" name="password" id="password" onChange={this.handleChange} required></input>
                             </div>
 
-                            <div className="btnLog">
-                                <button type="submit" onClick={this.handleSubmit}>INGRESAR <MdLogin/></button>
+                            <div className="login__content--btn">
+                                <button className="btn__login" type="submit" onClick={this.handleSubmit}>INGRESAR <MdLogin/></button>
                             </div>
                         </form>
                     </div>

@@ -9,21 +9,21 @@ import logoGob from '../../assets/logosgg.png';
 
 function Header(){
     return(
-        <header>
-            <div className="content">
+        <header className="header">
+            <div className="header__content">
 
-                <div className="logoIzq">
-                    <img src={logoSicodi} alt="SICODI"/>
+                <div className="header__content--logoIzq">
+                    <img src={logoSicodi} alt="logo-sicodi"/>
                 </div>
 
-                <div className="leyendas">
-                    <p> GOBIERNO DEL ESTADO DE NAYARIT  </p>
-                    <p> SECRETARIA DE ADMINISITRACÓN Y FINANZAS </p>
-                    <p> SISTEMA DE CORRESPONDENCIA DIGITAL </p>
+                <div className="header__content--leyendas">
+                    <p>Gobierno del estado de Nayarit  </p>
+                    <p>Secretaría de Administración y Finanzas </p>
+                    <p>Sistema de Correspondencia Digital</p>
                 </div>
 
-                <div className="logoDer">
-                    <img src={logoGob} alt ='GOB'/>
+                <div className="header__content--logoDer">
+                    <img src={logoGob} alt ='logo-gobierno'/>
                 </div>
 
             </div>

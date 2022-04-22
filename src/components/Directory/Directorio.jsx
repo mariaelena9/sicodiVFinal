@@ -148,7 +148,6 @@ class Directorio extends Component {
                     <div className="direction">
                         <div className="headerDirectory">
                             <div className="buttonBack">
-                                <i><IoChevronBackOutline /></i>
                                 <p className="TitlePage">Directorio</p>
                             </div>
 

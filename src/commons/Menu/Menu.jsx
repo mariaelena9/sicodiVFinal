@@ -45,26 +45,81 @@ class Menu extends Component{
     render(){
         return(
             <Router className="contenido">
-                    <nav className="izq">
-                        <div className="infocuenta">
-                            <ImIcons.ImUser/>
-                            <p className="name">{localStorage.getItem('userName')}</p>
-                            <br></br>
-                            <p className="rol">{localStorage.getItem('userCargo')}</p>
-                        </div>
-                        <hr/>
 
-                        <ul>
-                            <li key="home"><a id="/home" onClick={this.handleMenu}><AiIcons.AiFillHome/> Inicio</a></li>
-                            <li key="directory"><a id="/directory" onClick={this.handleMenu}><MdIcons.MdImportContacts/> Directorio</a></li>
-                            <li key="correspondence"><a id="/correspondence" onClick={this.handleMenu}><ImIcons.ImFileText2/> Nueva Correspondencia</a></li>
-                            <li key="sent"><a id="/sent" onClick={this.handleMenu}><ImIcons.ImBoxRemove/> Enviados</a></li>
-                            <li key="receipt"><a id="/receipt" onClick={this.handleMenu}><ImIcons.ImBoxAdd/> Recibidos</a></li>
-                            <li key="history"><a id="/history" onClick={this.handleMenu}><ImIcons.ImHistory/> Historico</a></li>
-                            <li key="report"><a id="/report" onClick={this.handleMenu}><ImIcons.ImStatsDots/> Reportes</a></li>
-                            <li key="exit"><a id="/salir" onClick={this.handleMenu}><ImIcons.ImExit/> Salir</a></li>
+                    <div className="principal">
+                    
+                        {/* <div className="infocuenta__contenedor">
+                            <div className="infocuenta">
+                                <ImIcons.ImUser/>
+                                <p className="name">{localStorage.getItem('userName')}</p>
+                                <br></br>
+                                <p className="rol">{localStorage.getItem('userCargo')}</p>
+                            </div>
+                            <hr/>
+                        </div> */}
+
+                    <div className="navegacion">
+                        <nav className="nav__bar">
+                        <ul className="menuss">
+                            <li key="home">
+                                <a id="/home" onClick={this.handleMenu}>
+                                    <span><AiIcons.AiFillHome/></span> 
+                                    <span>Inicio</span>
+                                </a>
+                            </li>
+
+                            <li key="directory">
+                                <a id="/directory" onClick={this.handleMenu}>
+                                    <span><MdIcons.MdImportContacts/></span>
+                                    <span>Directorio</span>
+                                </a>
+                            </li>
+                            
+                            <li key="correspondence">
+                                <a id="/correspondence" onClick={this.handleMenu}>
+                                    <span><ImIcons.ImFileText2/></span>
+                                    <span>Nueva Correspondencia</span>
+                                </a>
+                            </li>
+
+                            <li key="sent">
+                                <a id="/sent" onClick={this.handleMenu}>
+                                    <span><ImIcons.ImBoxRemove/></span>
+                                    <span>Enviados</span>
+                                </a>
+                            </li>
+                            
+                            <li key="receipt">
+                                <a id="/receipt" onClick={this.handleMenu}>
+                                    <span><ImIcons.ImBoxAdd/></span>
+                                    <span>Recibidos</span>
+                                </a>
+                            </li>
+
+                            <li key="history">
+                                <a id="/history" onClick={this.handleMenu}>
+                                    <span><ImIcons.ImHistory/></span>
+                                    <span>Historico</span>
+                                </a>
+                            </li>
+
+                            {/* <li key="report">
+                                <a id="/report" onClick={this.handleMenu}>
+                                    <span><ImIcons.ImStatsDots/></span>
+                                    <span>Reportes</span>
+                                </a>
+                            </li> */}
+
+                            <li key="exit">
+                                <a id="/salir" onClick={this.handleMenu}>
+                                    <span><ImIcons.ImExit/></span>
+                                    <span>Salir</span>
+                                </a>
+                            </li>
                         </ul>
-                    </nav>
+                        </nav>
+                    </div>
+                    </div>
             </Router>
         );
     }

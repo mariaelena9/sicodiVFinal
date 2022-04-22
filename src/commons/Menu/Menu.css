@@ -1,3 +1,9 @@
+:root {
+    --primario: #780727;
+    --primarioOscuro: #380212;
+    --blanco: #fff;
+}
+
 @font-face {
     font-family: GothamRounded;
     src: url(../../assets/GothamRounded/GothamRounded-Bold.otf);
@@ -9,65 +15,57 @@
   }
 
 * {
-	padding:0;
-	margin:0;
+	padding: 0;
+	margin: 0;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 }
 
+.principal {
+  display: flex;
+  flex-direction: column;
+}
+
+.infocuenta__contenedor {
+  background-color: var(--primario);
+  width: 18vw;
+  height:15.2vh;
+  position: sticky;
+  left: 0;
+  margin: 0;
+  font-family: Gotham;
+}
+
+
 .infocuenta {
     display: flex;
     flex-direction: column;
-    margin: 20px;
+    margin: 0;
+    padding: .5rem;
+    width: 100%;
     align-items: center;
-    color: white;
+    color: var(--blanco);
     text-align: center;
     font-family: Gotham;
   }
 
-.name{
+.name {
     font-family: GothamRounded;
   }
-/*==========================SCROLL PERSONALIZADO DEL MENÚ======================================*/
-nav::-webkit-scrollbar {
-    -webkit-appearance: none;
-}
+  
 
-nav::-webkit-scrollbar:vertical {
-    width:10px;
-}
-
-nav::-webkit-scrollbar-button:increment,.contenedor::-webkit-scrollbar-button {
-    display: none;
-} 
-
-nav::-webkit-scrollbar:horizontal {
-    height: 10px;
-}
-
-nav::-webkit-scrollbar-thumb {
-    background-color: #ffffff;
-    border-radius: 20px;
-    border: 2px solid #380212;
-}
-
-nav::-webkit-scrollbar-track {
-    border-radius: 10px;  
-}
 
 /*================================================================================================*/
+
 nav {
-    background:#57061d;
-    z-index:1000;
-    margin:20px auto;
-    width: 21vw;
-    height: 91vh;
+    background:var(--primario);
+    width: 10vw;
+    height: 64vh;
     position: sticky;
     left: 0;
     margin: 0;
-    top: 9vh;
-    overflow: scroll;
+    
     font-family: Gotham;
 }
 
@@ -78,33 +76,77 @@ nav ul {
 nav ul li {
     position: relative;
     display: block;
-    border-bottom:1px solid rgba(255,255,255,.5);
-    cursor:pointer;
+    border-bottom: 1px solid rgba(255,255,255,.5);
+    cursor: pointer;
     transition: background 0.5s;
 }
 
 nav ul li:hover {
-    background:#380212;
+    background: var(--primarioOscuro);
 }
 
 nav ul li a {
-    color:rgb(255, 255, 255);
-    display:block;
-    text-decoration:none;
-    padding: 20px;
+    color: var(--blanco);
+    display: block;
+    text-decoration: none;
+    padding: 10px;
     font-size: 1rem;
 }
 
 nav ul li a span {
-    margin-right:10px;
+    margin-right: 10px;
 
 }
 
-.contenido {
-    display: flex;  
-    background-color: aqua;
+.nav__bar {
+    width: 5vw;
 }
 
-.izq {
-    width: 21vw;
+.navegacion {
+    background: black;
+    height: 100%
 }
+
+/* MENUUUUU */
+
+.menuss {
+    display: flex;
+    flex-direction: column;
+    width: 15.4rem;
+}
+
+.menuss a span:first-child {
+    display: inline-block;
+    padding: 6px;
+  }
+
+  .menuss a {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+   
+  .menuss a span:last-child {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+  }
+
+  .menuss a span {
+    transition: transform 0.2s ease-in;
+  }
+   
+  .menuss a:hover span:first-child {
+    transform: translateY(100%);
+  }
+   
+  .menuss a:hover span:last-child {
+    transform: none;
+  }

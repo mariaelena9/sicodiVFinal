@@ -34,7 +34,7 @@ function Loader(props){
                         <img className="nayaritLogo" src={LogoNay} alt="LogotipoNayarit"/>
                     </div>
 
-                    <div className="rightSide">
+                    <div className="loader_rightSide">
                         <h2 className="firstText">{props.texto1} <span>{props.texto2}</span></h2>
                     </div>
                 </div>

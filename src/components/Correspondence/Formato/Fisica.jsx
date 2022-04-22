@@ -3,7 +3,7 @@ import { Component } from "react";
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-
+import { IoChevronBackOutline } from "react-icons/io5";
 //Componentes
 import Correspondence from '../Correspondence'
 
@@ -160,7 +160,11 @@ class Fisica extends Component {
     render() {
         return (
             <div>
-                <h3>Información básica</h3>
+                <div className="buttonBack">
+                    <IoChevronBackOutline/>
+                    <h3>Información básica</h3>
+                </div>
+                
                 <form>
                     <div className="dates">
                         <TextField InputLabelProps={{ shrink: true }} name="fechaEmisión" required key="fechaEmisión" type="date" id="fechaEmisión" label="Fecha de emisión" onChange={this.handleChange} value={this.state.form ? this.state.form.fechaEmisión : ''}></TextField>

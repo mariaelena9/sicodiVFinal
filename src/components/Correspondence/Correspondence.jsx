@@ -3,6 +3,8 @@ import React, { Component } from "react";
 
 //Iconos
 import { IoChevronBackOutline } from "react-icons/io5";
+import { ImPencil2 } from "react-icons/im";
+import { ImDisplay } from "react-icons/im";
 
 //Componentes
 import Digital from "./Formato/Digital";
@@ -39,22 +41,27 @@ class Correspondence extends Component {
             <div className="body">
                 <div className="correspondencecontent">
                     <div className="buttonBack">
-                        <i><IoChevronBackOutline /></i>
+                        {/* <i><IoChevronBackOutline /></i> */}
                         <p className="TitlePage">Nueva Correspondencia</p>
                     </div>
                     <br />
 
                     <div className="formatodiv">
-                        <button onClick={() => this.hideComponent("showDigital")}>
+
+                        <button className="btnFisica" onClick={() => this.hideComponent("showFisica")}>
+                            <ImPencil2/>
+                            Física
+                        </button>
+
+                        <button className="btnDigital" onClick={() => this.hideComponent("showDigital")}>
+                            <ImDisplay/>
                             Digital
                         </button>
-                        <button onClick={() => this.hideComponent("showFisica")}>
-                            Fisica
-                        </button>
+                        
                     </div>
 
                     {this.state.show1 && <Digital />}
-                    <hr />
+                    {/* <hr /> */}
                     {this.state.show2 && <Fisica />}
 
                 </div>
