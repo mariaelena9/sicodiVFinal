@@ -21,6 +21,7 @@ class Menu extends Component{
     //Función para controlar el funcionamiento del menú
     handleMenu(e) {
         e.preventDefault();
+        console.log(e.target.id);
         if(e.target.id === '/home'){
             ReactDOM.render(<Inicio page="Inicio"/>, document.getElementById('root'));
         } else if(e.target.id === '/directory'){
@@ -61,59 +62,59 @@ class Menu extends Component{
                     <div className="navegacion">
                         <nav className="nav__bar">
                         <ul className="menuss">
-                            <li key="home">
-                                <a id="/home" onClick={this.handleMenu}>
+                            <li id="/home" onClick={this.handleMenu}>
+                                <a>
                                     <span><AiIcons.AiFillHome/></span> 
-                                    <span>Inicio</span>
+                                    <span id="/home">Inicio</span>
                                 </a>
                             </li>
 
-                            <li key="directory">
-                                <a id="/directory" onClick={this.handleMenu}>
+                            <li id="/directory" onClick={this.handleMenu}>
+                                <a>
                                     <span><MdIcons.MdImportContacts/></span>
-                                    <span>Directorio</span>
+                                    <span id="/directory">Directorio</span>
                                 </a>
                             </li>
                             
-                            <li key="correspondence">
-                                <a id="/correspondence" onClick={this.handleMenu}>
+                            <li id="/correspondence" onClick={this.handleMenu}>
+                                <a>
                                     <span><ImIcons.ImFileText2/></span>
-                                    <span>Nueva Correspondencia</span>
+                                    <span id="/correspondence">Nueva Correspondencia</span>
                                 </a>
                             </li>
 
-                            <li key="sent">
-                                <a id="/sent" onClick={this.handleMenu}>
+                            <li id="/sent" onClick={this.handleMenu}>
+                                <a>
                                     <span><ImIcons.ImBoxRemove/></span>
-                                    <span>Enviados</span>
+                                    <span id="/sent">Enviados</span>
                                 </a>
                             </li>
                             
-                            <li key="receipt">
-                                <a id="/receipt" onClick={this.handleMenu}>
+                            <li id="/receipt" onClick={this.handleMenu}>
+                                <a>
                                     <span><ImIcons.ImBoxAdd/></span>
-                                    <span>Recibidos</span>
+                                    <span id="/receipt">Recibidos</span>
                                 </a>
                             </li>
 
-                            <li key="history">
-                                <a id="/history" onClick={this.handleMenu}>
+                            <li id="/history" onClick={this.handleMenu}>
+                                <a>
                                     <span><ImIcons.ImHistory/></span>
-                                    <span>Historico</span>
+                                    <span id="/history">Historico</span>
                                 </a>
                             </li>
 
-                            {/* <li key="report">
-                                <a id="/report" onClick={this.handleMenu}>
+                            {/* <li id="/report" onClick={this.handleMenu}>
+                                <a>
                                     <span><ImIcons.ImStatsDots/></span>
                                     <span>Reportes</span>
                                 </a>
                             </li> */}
 
-                            <li key="exit">
-                                <a id="/salir" onClick={this.handleMenu}>
+                            <li id="/salir" onClick={this.handleMenu}>
+                                <a>
                                     <span><ImIcons.ImExit/></span>
-                                    <span>Salir</span>
+                                    <span id="/salir">Salir</span>
                                 </a>
                             </li>
                         </ul>

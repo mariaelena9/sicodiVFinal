@@ -1,5 +1,6 @@
 //Imports
 import React, { Component } from "react";
+import ReactDOM from 'react-dom';
 
 //Iconos
 import { IoChevronBackOutline } from "react-icons/io5";
@@ -24,12 +25,10 @@ class Correspondence extends Component {
     async hideComponent(name) {
         switch (name) {
             case "showDigital":
-                this.setState({ show1: true });
-                this.setState({ show2: false });
+                ReactDOM.render(<Digital/>, document.getElementById('root'));
                 break;
             case "showFisica":
-                this.setState({ show2: true });
-                this.setState({ show1: false });
+                ReactDOM.render(<Fisica/>, document.getElementById('root'));
                 break;
             default:
                 break;
@@ -59,11 +58,6 @@ class Correspondence extends Component {
                         </button>
                         
                     </div>
-
-                    {this.state.show1 && <Digital />}
-                    {/* <hr /> */}
-                    {this.state.show2 && <Fisica />}
-
                 </div>
             </div>
         );

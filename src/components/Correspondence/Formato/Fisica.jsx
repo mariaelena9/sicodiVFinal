@@ -22,6 +22,7 @@ class Fisica extends Component {
         tipos: [],
         form: {
             id_Correspondencia: '',
+            numOficio: '',
             fechaEmisión: '',
             fechaRecepción: '',
             fk_DependenciaO: '',
@@ -73,7 +74,8 @@ class Fisica extends Component {
             || this.state.form.fk_DependenciaD === "invalido" || this.state.form.fk_DependenciaD === ""
             || this.state.form.fk_UsuarioD === "invalido" || this.state.form.fk_UsuarioD === ""
             || this.state.form.fk_TipoCo === "invalido" || this.state.form.fk_TipoCo === ""
-            || this.state.form.fechaEmisión === '' || this.state.form.fechaRecepción === "") {
+            || this.state.form.fechaEmisión === '' || this.state.form.fechaRecepción === ""
+            || this.state.form.numOficio === '') {
             Swal.fire({
                 title: 'No se puede registrar',
                 text: 'Porfavor complete todos los campos de forma correcta.',
@@ -83,8 +85,19 @@ class Fisica extends Component {
             })
             return;
         }
+
         delete this.state.form.id_Correspondencia;
         await axios.post(`${environment.urlServer}/correspondence/insert`, this.state.form).then(response => {
+            if(response.data === "ER_DUP_ENTRY"){
+                Swal.fire({
+                    title: 'No se puede registrar',
+                    text: 'Se detectó una entrada duplicada "'+this.state.form.numOficio+'" para el número de oficio, por favor ingrese uno nuevo.',
+                    icon: 'warning',
+                    showConfirmButton: true
+                })
+                return;
+            }
+
             this.insertFiles(response);
             this.state.form.fechaEmisión = '';
             this.state.form.fechaRecepción = '';
@@ -96,6 +109,8 @@ class Fisica extends Component {
             this.state.form.asunto = '';
             this.state.form.descripción = '';
             this.state.form.observaciones = '';
+            this.state.form.numOficio = '';
+
             Swal.fire({
                 title: 'Acción realizada correctamente',
                 text: 'Correspondencia registrada exitosamente.',
@@ -157,10 +172,15 @@ class Fisica extends Component {
         });
     }
 
+    handleClick(e) {
+        e.preventDefault();
+        ReactDOM.render(<Correspondence/>, document.getElementById('root'));
+    }
+
     render() {
         return (
             <div>
-                <div className="buttonBack">
+                <div className="buttonBack" style={{cursor: "pointer"}} onClick={this.handleClick}>
                     <IoChevronBackOutline/>
                     <h3>Información básica</h3>
                 </div>
@@ -170,6 +190,8 @@ class Fisica extends Component {
                         <TextField InputLabelProps={{ shrink: true }} name="fechaEmisión" required key="fechaEmisión" type="date" id="fechaEmisión" label="Fecha de emisión" onChange={this.handleChange} value={this.state.form ? this.state.form.fechaEmisión : ''}></TextField>
                         <TextField InputLabelProps={{ shrink: true }} name="fechaRecepción" required key="fechaRecepción" type="date" id="fechaRecepción" label="Fecha de recepción" onChange={this.handleChange} value={this.state.form ? this.state.form.fechaRecepción : ''}></TextField>
                     </div>
+                    <TextField name="numOficio" required key="numOficio" type="text" id="numOficio" label="Oficio" onChange={this.handleChange} value={this.state.form ? this.state.form.numOficio : ''}></TextField>
+                    <br/>
                     <h3>Información de remitente</h3>
                     <div className="originInfo">
                         <select className="select" id="fk_DependenciaO" name="fk_DependenciaO" onChange={this.handleChange} value={this.state.form ? this.state.form.fk_DependenciaO : ''}>

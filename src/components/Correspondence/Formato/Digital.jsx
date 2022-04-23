@@ -3,6 +3,7 @@ import { Component } from "react";
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { IoChevronBackOutline } from "react-icons/io5";
 
 //Componentes
 import Correspondence from '../Correspondence'
@@ -23,8 +24,9 @@ class Digital extends Component {
         tipos: [],
         form: {
             id_Correspondencia: '',
+            numOficio: '',
             fechaEmisión: '',
-            fechaRecepción: '',
+            fechaRecepción: '0000-00-00',
             fk_DependenciaO: localStorage.getItem("iddependencia"),
             fk_UsuarioO: localStorage.getItem("idusuario"),
             fk_DependenciaD: '',
@@ -41,7 +43,7 @@ class Digital extends Component {
     componentDidMount() {
         this.getDependences();
         this.getTipoCo();
-        console.log(this.state.form);
+        this.state.form.fechaEmisión = new Date().toISOString().substring(0, 10);
     }
 
     //Función para registrar la correspondencia en la BD
@@ -62,7 +64,6 @@ class Digital extends Component {
                 [e.target.name]: e.target.value
             }
         });
-        console.log(this.state.form)
     }
 
     //Función para insertar en la BD la correspondencia
@@ -73,7 +74,8 @@ class Digital extends Component {
             || this.state.form.fk_DependenciaD === "invalido" || this.state.form.fk_DependenciaD === ""
             || this.state.form.fk_UsuarioD === "invalido" || this.state.form.fk_UsuarioD === ""
             || this.state.form.fk_TipoCo === "invalido" || this.state.form.fk_TipoCo === ""
-            || this.state.form.fechaEmisión === '' || this.state.form.fechaRecepción === "") {
+            || this.state.form.fechaEmisión === ''
+            || this.state.form.numOficio === '') {
             Swal.fire({
                 title: 'No se puede registrar',
                 text: 'Porfavor complete todos los campos de forma correcta.',
@@ -85,6 +87,16 @@ class Digital extends Component {
         }
         delete this.state.form.id_Correspondencia;
         await axios.post(`${environment.urlServer}/correspondence/insert`, this.state.form).then(response => {
+            if(response.data === "ER_DUP_ENTRY"){
+                Swal.fire({
+                    title: 'No se puede registrar',
+                    text: 'Se detectó una entrada duplicada "'+this.state.form.numOficio+'" para el número de oficio, por favor ingrese uno nuevo.',
+                    icon: 'warning',
+                    showConfirmButton: true
+                })
+                return;
+            }
+
             this.insertFiles(response);
             this.state.form.fechaEmisión = '';
             this.state.form.fechaRecepción = '';
@@ -94,6 +106,7 @@ class Digital extends Component {
             this.state.form.asunto = '';
             this.state.form.descripción = '';
             this.state.form.observaciones = '';
+            this.state.form.numOficio = '';
             Swal.fire({
                 title: 'Acción realizada correctamente',
                 text: 'Correspondencia registrada exitosamente.',
@@ -103,7 +116,7 @@ class Digital extends Component {
             })
             ReactDOM.render(<Correspondence />, document.getElementById('root'));
         }).catch(error => {
-            console.log(error.message);
+            console.log(error);
         })
     }
 
@@ -142,16 +155,26 @@ class Digital extends Component {
         });
     }
 
+    handleClick(e) {
+        e.preventDefault();
+        ReactDOM.render(<Correspondence/>, document.getElementById('root'));
+    }
+
     render() {
         return (
             <div>
+                <div className="buttonBack" style={{ cursor: "pointer" }} onClick={this.handleClick}>
+                    <IoChevronBackOutline />
+                    <h3>Información básica</h3>
+                </div>
                 <h3>Información básica</h3>
                 <form>
                     <div className="dates">
-                        <TextField InputLabelProps={{ shrink: true }} name="fechaEmisión" required key="fechaEmisión" type="date" id="fechaEmisión" label="Fecha de emisión" onChange={this.handleChange} value={this.state.form ? this.state.form.fechaEmisión : ''}></TextField>
-                        <TextField InputLabelProps={{ shrink: true }} name="fechaRecepción" required key="fechaRecepción" type="date" id="fechaRecepción" label="Fecha de recepción" onChange={this.handleChange} value={this.state.form ? this.state.form.fechaRecepción : ''}></TextField>
+                        <TextField InputProps={{ readOnly: true }} InputLabelProps={{ shrink: true }} name="fechaEmisión" required key="fechaEmisión" type="date" id="fechaEmisión" label="Fecha de emisión" onChange={this.handleChange} value={this.state.form ? this.state.form.fechaEmisión : ''}></TextField>
                     </div>
                     <br />
+                    <TextField name="numOficio" required key="numOficio" type="text" id="numOficio" label="Oficio" onChange={this.handleChange} value={this.state.form ? this.state.form.numOficio : ''}></TextField>
+                    <br/>
                     <h3>Información de destinatario</h3>
                     <div className="originInfo">
                         <select className="select" id="fk_DependenciaD" name="fk_DependenciaD" onChange={this.handleChange} value={this.state.form ? this.state.form.fk_DependenciaD : ''}>
