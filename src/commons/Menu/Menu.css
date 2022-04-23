@@ -27,59 +27,11 @@
   flex-direction: column;
 }
 
-.infocuenta__contenedor {
-  background-color: var(--primario);
-  width: 18vw;
-  height: 15.2vh;
-  position: sticky;
-  left: 0;
-  margin: 0;
-  font-family: Gotham;
-}
-
-
-.infocuenta {
-  display: flex;
-  flex-direction: column;
-  margin: 0;
-  padding: .5rem;
-  width: 100%;
-  align-items: center;
-  color: var(--blanco);
-  text-align: center;
-  font-family: Gotham;
-}
-
 .name {
   font-family: GothamRounded;
 }
 
-
-
 /*================================================================================================*/
-
-nav {
-  background: var(--primario);
-  width: 10vw;
-  height: 64vh;
-  position: sticky;
-  left: 0;
-  margin: 0;
-
-  font-family: Gotham;
-}
-
-nav ul {
-  list-style: none;
-}
-
-nav ul li {
-  position: relative;
-  display: block;
-  border-bottom: 1px solid rgba(255, 255, 255, .5);
-  cursor: pointer;
-  transition: background 0.5s;
-}
 
 nav ul li:hover {
   background: var(--primarioOscuro);
@@ -93,26 +45,26 @@ nav ul li a {
   font-size: 1rem;
 }
 
-nav ul li a span {
-  margin-right: 10px;
-
-}
-
 .nav__bar {
   width: 5vw;
+  background-color: var(--primario);
+  height: 100%;
 }
 
-.navegacion {
-  background: black;
-  height: 100%
-}
+/* .navegacion {
+    background: black;
+    height: 100%;
+    background-color: pink;
+} */
 
 /* MENUUUUU */
 
 .menuss {
   display: flex;
   flex-direction: column;
-  width: 15.4rem;
+  width: 15rem;
+  height: 100%;
+  position: sticky;
 }
 
 .menuss a span:first-child {
@@ -140,11 +92,11 @@ nav ul li a span {
 }
 
 .menuss a span {
-  transition: transform 0.2s ease-in;
+  transition: transform 0.5s ease-out;
 }
 
 .menuss a:hover span:first-child {
-  transform: translateY(100%);
+  transform: translateX(12%);
 }
 
 .menuss a:hover span:last-child {
