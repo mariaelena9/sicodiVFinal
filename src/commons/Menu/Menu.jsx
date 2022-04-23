@@ -45,61 +45,54 @@ class Menu extends Component{
     render(){
         return(
             <Router className="contenido">
-
+                
                     <div className="principal">
                     
-                        {/* <div className="infocuenta__contenedor">
-                            <div className="infocuenta">
-                                <ImIcons.ImUser/>
-                                <p className="name">{localStorage.getItem('userName')}</p>
-                                <br></br>
-                                <p className="rol">{localStorage.getItem('userCargo')}</p>
-                            </div>
-                            <hr/>
-                        </div> */}
+                        
 
                     <div className="navegacion">
                         <nav className="nav__bar">
+                            
                         <ul className="menuss">
-                            <li key="home">
-                                <a id="/home" onClick={this.handleMenu}>
-                                    <span><AiIcons.AiFillHome/></span> 
-                                    <span>Inicio</span>
+                            <li key="home" onClick={this.handleMenu}>
+                                <a id="/home">
+                                    <span id="/home"><AiIcons.AiFillHome/></span> 
+                                    <span id="/home">Inicio</span>
                                 </a>
                             </li>
 
-                            <li key="directory">
-                                <a id="/directory" onClick={this.handleMenu}>
-                                    <span><MdIcons.MdImportContacts/></span>
-                                    <span>Directorio</span>
+                            <li key="directory" onClick={this.handleMenu}>
+                                <a id="/directory" >
+                                    <span id="/directory"><MdIcons.MdImportContacts/></span>
+                                    <span id="/directory">Directorio</span>
                                 </a>
                             </li>
                             
-                            <li key="correspondence">
-                                <a id="/correspondence" onClick={this.handleMenu}>
-                                    <span><ImIcons.ImFileText2/></span>
-                                    <span>Nueva Correspondencia</span>
+                            <li key="correspondence" onClick={this.handleMenu}>
+                                <a id="/correspondence" >
+                                    <span id="/correspondence"><ImIcons.ImFileText2/></span>
+                                    <span id="/correspondence">Corres</span>
                                 </a>
                             </li>
 
-                            <li key="sent">
-                                <a id="/sent" onClick={this.handleMenu}>
-                                    <span><ImIcons.ImBoxRemove/></span>
-                                    <span>Enviados</span>
+                            <li key="sent" onClick={this.handleMenu}>
+                                <a id="/sent">
+                                    <span id="/sent"><ImIcons.ImBoxRemove/></span>
+                                    <span id="/sent">Enviados</span>
                                 </a>
                             </li>
                             
-                            <li key="receipt">
-                                <a id="/receipt" onClick={this.handleMenu}>
-                                    <span><ImIcons.ImBoxAdd/></span>
-                                    <span>Recibidos</span>
+                            <li key="receipt" onClick={this.handleMenu}>
+                                <a id="/receipt" >
+                                    <span id="/receipt"><ImIcons.ImBoxAdd/></span>
+                                    <span id="/receipt">Recibidos</span>
                                 </a>
                             </li>
 
-                            <li key="history">
-                                <a id="/history" onClick={this.handleMenu}>
-                                    <span><ImIcons.ImHistory/></span>
-                                    <span>Historico</span>
+                            <li key="history" onClick={this.handleMenu}>
+                                <a id="/history" >
+                                    <span id="/history"><ImIcons.ImHistory/></span>
+                                    <span id="/history">Historico</span>
                                 </a>
                             </li>
 
@@ -110,10 +103,10 @@ class Menu extends Component{
                                 </a>
                             </li> */}
 
-                            <li key="exit">
-                                <a id="/salir" onClick={this.handleMenu}>
-                                    <span><ImIcons.ImExit/></span>
-                                    <span>Salir</span>
+                            <li key="exit" onClick={this.handleMenu}>
+                                <a id="/salir" >
+                                    <span id="/salir"><ImIcons.ImExit/></span>
+                                    <span id="/salir">Salir</span>
                                 </a>
                             </li>
                         </ul>
