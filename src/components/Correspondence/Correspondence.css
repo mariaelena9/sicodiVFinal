@@ -65,8 +65,8 @@
 .correspondencecontent {
   display: flex;
   flex-direction: column;
-  width: 79vw;
-  height: 91vh;
+  width: 95vw;
+  height: 86vh;
   padding: 20px;
   overflow: scroll;
   animation-duration: 1s;

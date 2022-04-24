@@ -73,7 +73,7 @@
     justify-content:flex-start;
     background-color: var(--primarioOscuro);
     width: 100%;
-    height: 2rem;
+    height: 5vh;
     position: sticky;
     left: 0;
     margin: 0;

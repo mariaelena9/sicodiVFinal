@@ -49,47 +49,46 @@ class Menu extends Component {
                 <div className="principal">
                     <div className="navegacion">
                         <nav className="nav__bar">
-
                             <ul className="menuss">
                                 <li id="/home" onClick={this.handleMenu}>
                                     <a id="/home">
                                         <span><AiIcons.AiFillHome /></span>
-                                        <span id="/home">Inicio</span>
+                                        <span class="menuText" id="/home">Inicio</span>
                                     </a>
                                 </li>
 
                                 <li id="/directory" onClick={this.handleMenu}>
                                     <a id="/directory">
                                         <span><MdIcons.MdImportContacts /></span>
-                                        <span id="/directory">Directorio</span>
+                                        <span class="menuText" id="/directory">Directorio</span>
                                     </a>
                                 </li>
 
                                 <li id="/correspondence" onClick={this.handleMenu}>
                                     <a id="/correspondence">
                                         <span><ImIcons.ImFileText2 /></span>
-                                        <span id="/correspondence">Nueva Correspondencia</span>
+                                        <span class="menuText" id="/correspondence">Nueva Correspondencia</span>
                                     </a>
                                 </li>
 
                                 <li id="/sent" onClick={this.handleMenu}>
                                     <a id="/sent">
                                         <span><ImIcons.ImBoxRemove /></span>
-                                        <span id="/sent">Enviados</span>
+                                        <span class="menuText" id="/sent">Enviados</span>
                                     </a>
                                 </li>
 
                                 <li id="/receipt" onClick={this.handleMenu}>
                                     <a id="/receipt">
                                         <span><ImIcons.ImBoxAdd /></span>
-                                        <span id="/receipt">Recibidos</span>
+                                        <span class="menuText" id="/receipt">Recibidos</span>
                                     </a>
                                 </li>
 
                                 <li id="/history" onClick={this.handleMenu}>
                                     <a id="/history">
                                         <span><ImIcons.ImHistory /></span>
-                                        <span id="/history">Historico</span>
+                                        <span class="menuText" id="/history">Historico</span>
                                     </a>
                                 </li>
 
@@ -103,7 +102,7 @@ class Menu extends Component {
                                 <li key="exit" id="/salir" onClick={this.handleMenu}>
                                     <a id="/salir" >
                                         <span id="/salir"><ImIcons.ImExit /></span>
-                                        <span id="/salir">Salir</span>
+                                        <span class="menuText" id="/salir">Salir</span>
                                     </a>
                                 </li>
                             </ul>

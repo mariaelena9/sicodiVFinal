@@ -33,9 +33,10 @@
 }
 
 .detailscontent {
-    width: 79vw;
-    height: 91vh;
+    width: 95vw;
+    height: 86vh;
     display: flex;
+    flex-direction: column;
     overflow: scroll;
     padding: 20px;
     animation-duration: 1s;

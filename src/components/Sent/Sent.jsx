@@ -68,44 +68,40 @@ class Sent extends Component {
 
     render() {
         return (
-            <div className="sentbody">
-                <div className="sentcontent">
-                    <div className="direction">
-                        <div className="sentsearch">
-                            <div className="icon-search"> <AiOutlineSearch /> </div>
-                            <input type='text' placeholder="Buscar en toda la correspondencia" name="keyword" id="keyword" onChange={this.handleChange}></input>
-                        </div>
-
-                        <br />
-                        <div className="filtersbtn">
-                            <button value="0" className="btnall" onClick={this.handleFilter}>Todos</button>
-                            <button value="1" className="btnproc" onClick={this.handleFilter}>Proceso</button>
-                            <button value="2" className="btnsent" onClick={this.handleFilter}>Enviado</button>
-                            <button value="3" className="btnstore" onClick={this.handleFilter}>Archivado</button>
-                        </div>
-
-                        <br />
-
-                        {this.state.correspondencias.length === 0 ? <h2>Sin enviados</h2> : ""}
-
-                        <table>
-                            <tbody>
-                                {this.state.correspondencias.map(elemento => (
-                                    <tr className="sentrow" onClick={() => this.seeDetails(elemento.id_Correspondencia)}>
-                                        <td>
-                                            <p><b>{elemento.usuarioD}</b></p>
-                                            <p><b>{elemento.asunto}</b></p>
-                                            <p>{elemento.descripción}</p>
-                                        </td>
-                                        <td style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                                            <p>{elemento.estatus}</p>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
+            <div className="sentcontent">
+                <div className="sentsearch">
+                    <div className="icon-search"> <AiOutlineSearch /> </div>
+                    <input type='text' placeholder="Buscar en toda la correspondencia" name="keyword" id="keyword" onChange={this.handleChange}></input>
                 </div>
+
+                <br />
+                <div className="filtersbtn">
+                    <button value="0" className="btnall" onClick={this.handleFilter}>Todos</button>
+                    <button value="1" className="btnproc" onClick={this.handleFilter}>Proceso</button>
+                    <button value="2" className="btnsent" onClick={this.handleFilter}>Enviado</button>
+                    <button value="3" className="btnstore" onClick={this.handleFilter}>Archivado</button>
+                </div>
+
+                <br />
+
+                {this.state.correspondencias.length === 0 ? <h2>Sin enviados</h2> : ""}
+
+                <table>
+                    <tbody>
+                        {this.state.correspondencias.map(elemento => (
+                            <tr className="sentrow" onClick={() => this.seeDetails(elemento.id_Correspondencia)}>
+                                <td>
+                                    <p><b>{elemento.usuarioD}</b></p>
+                                    <p><b>{elemento.asunto}</b></p>
+                                    <p>{elemento.descripción}</p>
+                                </td>
+                                <td style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                                    <p>{elemento.estatus}</p>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </div>
         );
     }

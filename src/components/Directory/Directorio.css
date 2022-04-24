@@ -4,7 +4,7 @@
     --oscuro: rgba(0, 0, 0, 0.1);
     --gris: #888;
     --negro: #000;
-  }
+}
 
 
 @font-face {
@@ -47,11 +47,12 @@
 
 /*======================================================================================*/
 .contentDirectory {
-    width: 79vw;
-    height: 91vh;
-    display: flex;
-    overflow: scroll;
+    width: 95vw;
+    height: 86vh;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
 }
 
 .Tarjeta {
@@ -174,13 +175,6 @@
     align-items: flex-start;
     color: black;
     font-family: Gotham;
-}
-
-.direction {
-    display: flex;
-    flex-direction: column;
-    width: 79vw;
-    height: 91vh;
 }
 
 .Search {

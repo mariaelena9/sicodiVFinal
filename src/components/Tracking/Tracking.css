@@ -111,14 +111,6 @@ cursor: pointer;
   font-family: Gotham;
 }
 
-.direction{
-  display: flex;
-  flex-direction: column;
-  width: 79vw;
-  height: 91vh;
-}
-
-
 .Search input{
   width:100%;
   font-family: Gotham;
