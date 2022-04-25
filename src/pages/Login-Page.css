@@ -1,40 +1,26 @@
 .container{
     display: flex;
-    flex-direction: column;
     width: 100vw;
-    height: 89vh;
-}
-
-.main{
-    display: flex;
-    flex-direction: column;
+    height: 91vh;
 }
 
 .leftSide{
     display: flex;
     flex-direction: column;
     width: 25vw;
-    height: 91vh;
     background-color: #57061d;
     justify-content: center;
     align-items: center;
-
 }
 
 .nayaritLogo{
     width: 70%;
-    /* border: solid orange 1px; */
 }
 
 .rightSide{
     display: flex;
     flex-direction: column;
-    width: 70%;
-    height: 80vh;
+    width: 75vw;
     justify-content: center;
     align-items: center;
-}
-
-.principal{
-    display: flex;
 }

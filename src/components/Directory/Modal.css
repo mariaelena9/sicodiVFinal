@@ -1,9 +1,9 @@
 .modal {
   position: fixed;
-  top: 9vh;
-  left: 21vw;
-  width: 79vw;
-  height: 91vh;
+  top: 14vh;
+  left: 5vw;
+  width: 95vw;
+  height: 86vh;
   background: rgba(0, 0, 0, 0.6);
 }
 
@@ -13,13 +13,13 @@
   align-items: center;
   position: fixed;
   background: #E7E7E7;
-  top: 17vh;
-  left: 30vw;
+  top: 22vh;
+  left: 20vw;
   width: 60vw;
   padding: 15px;
   margin: auto;
   border-radius: 5px;
-  height: auto;
+  height: 70vh;
   animation-duration: 0.7s;
   animation-name: slidein;
 }

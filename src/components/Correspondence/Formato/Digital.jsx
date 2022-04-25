@@ -1,5 +1,6 @@
 //Imports
 import { Component } from "react";
+import { useState } from "react";
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -15,6 +16,7 @@ import { environment } from '../../../config/settings';
 import TextField from '@mui/material/TextField';
 
 class Digital extends Component {
+
     state = {
         showDigital: false,
         showFisica: false,
@@ -22,6 +24,7 @@ class Digital extends Component {
         dependencias: [],
         usuarios: [],
         tipos: [],
+        archivos: [],
         form: {
             id_Correspondencia: '',
             numOficio: '',
@@ -87,10 +90,10 @@ class Digital extends Component {
         }
         delete this.state.form.id_Correspondencia;
         await axios.post(`${environment.urlServer}/correspondence/insert`, this.state.form).then(response => {
-            if(response.data === "ER_DUP_ENTRY"){
+            if (response.data === "ER_DUP_ENTRY") {
                 Swal.fire({
                     title: 'No se puede registrar',
-                    text: 'Se detectó una entrada duplicada "'+this.state.form.numOficio+'" para el número de oficio, por favor ingrese uno nuevo.',
+                    text: 'Se detectó una entrada duplicada "' + this.state.form.numOficio + '" para el número de oficio, por favor ingrese uno nuevo.',
                     icon: 'warning',
                     showConfirmButton: true
                 })
@@ -98,15 +101,6 @@ class Digital extends Component {
             }
 
             this.insertFiles(response);
-            this.state.form.fechaEmisión = '';
-            this.state.form.fechaRecepción = '';
-            this.state.form.fk_DependenciaD = '';
-            this.state.form.fk_UsuarioD = '';
-            this.state.form.fk_TipoCo = '';
-            this.state.form.asunto = '';
-            this.state.form.descripción = '';
-            this.state.form.observaciones = '';
-            this.state.form.numOficio = '';
             Swal.fire({
                 title: 'Acción realizada correctamente',
                 text: 'Correspondencia registrada exitosamente.',
@@ -114,14 +108,47 @@ class Digital extends Component {
                 showConfirmButton: false,
                 timer: 2000
             })
-            ReactDOM.render(<Correspondence />, document.getElementById('root'));
         }).catch(error => {
             console.log(error);
         })
     }
 
-    insertFiles(id) {
-        console.log(id.data.insertId);
+    prepararArchivos = e => {
+        this.state.archivos = [];
+
+        for(let i = 0; i < e.length; i++){
+            let tmpPath = URL.createObjectURL(e[i]);
+            let f = tmpPath
+            f.Move("../src");
+            let file = {
+                nombre: e[i].name,
+                extension: e[i].type.split("/")[1],
+                link: tmpPath
+            };
+            this.state.archivos.push(file);   
+        }
+        console.log(this.state.archivos);
+    }
+
+    insertFiles = async (id) => {
+        for (let index = 0; index < this.state.archivos.length; index++) {
+            
+            await axios.post(`${environment.urlServer}/files/insert/${id.data.insertId}`, this.state.archivos[index])
+            .then(response => {
+                ReactDOM.render(<Correspondence />, document.getElementById('root'));
+                this.state.form.fechaEmisión = '';
+                this.state.form.fechaRecepción = '';
+                this.state.form.fk_DependenciaD = '';
+                this.state.form.fk_UsuarioD = '';
+                this.state.form.fk_TipoCo = '';
+                this.state.form.asunto = '';
+                this.state.form.descripción = '';
+                this.state.form.observaciones = '';
+                this.state.form.numOficio = '';
+            }).catch(error=>{
+                console.log(error);
+            });
+        }
     }
 
     //Consultar las dependencias de la BD
@@ -157,24 +184,27 @@ class Digital extends Component {
 
     handleClick(e) {
         e.preventDefault();
-        ReactDOM.render(<Correspondence/>, document.getElementById('root'));
+        ReactDOM.render(<Correspondence />, document.getElementById('root'));
     }
 
     render() {
         return (
-            <div>
+            <div className="correspondencecontent">
                 <div className="buttonBack" style={{ cursor: "pointer" }} onClick={this.handleClick}>
                     <IoChevronBackOutline />
-                    <h3>Información básica</h3>
+                    <h3>Modo de correspondencia</h3>
                 </div>
+                <br />
                 <h3>Información básica</h3>
                 <form>
                     <div className="dates">
                         <TextField InputProps={{ readOnly: true }} InputLabelProps={{ shrink: true }} name="fechaEmisión" required key="fechaEmisión" type="date" id="fechaEmisión" label="Fecha de emisión" onChange={this.handleChange} value={this.state.form ? this.state.form.fechaEmisión : ''}></TextField>
                     </div>
                     <br />
+                    <label>Código de oficio:</label>
+                    <br />
                     <TextField name="numOficio" required key="numOficio" type="text" id="numOficio" label="Oficio" onChange={this.handleChange} value={this.state.form ? this.state.form.numOficio : ''}></TextField>
-                    <br/>
+                    <br />
                     <h3>Información de destinatario</h3>
                     <div className="originInfo">
                         <select className="select" id="fk_DependenciaD" name="fk_DependenciaD" onChange={this.handleChange} value={this.state.form ? this.state.form.fk_DependenciaD : ''}>
@@ -210,7 +240,7 @@ class Digital extends Component {
                         <p>
                             Subir archivos:
                             <br />
-                            <input type="file" accept="image/png, image/jpeg" multiple></input>
+                            <input type="file" name="files" multiple onChange={(e => this.prepararArchivos(e.target.files))} />
                         </p>
                         <br />
                         <button type="submit" onClick={this.handleSubmit}>Enviar</button>

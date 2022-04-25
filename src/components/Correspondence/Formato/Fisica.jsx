@@ -179,17 +179,20 @@ class Fisica extends Component {
 
     render() {
         return (
-            <div>
+            <div className="correspondencecontent">
                 <div className="buttonBack" style={{cursor: "pointer"}} onClick={this.handleClick}>
                     <IoChevronBackOutline/>
-                    <h3>Información básica</h3>
+                    <h3>Modo de correspondencia</h3>
                 </div>
-                
+                <br/>
+                <h3>Información básica</h3>
                 <form>
                     <div className="dates">
                         <TextField InputLabelProps={{ shrink: true }} name="fechaEmisión" required key="fechaEmisión" type="date" id="fechaEmisión" label="Fecha de emisión" onChange={this.handleChange} value={this.state.form ? this.state.form.fechaEmisión : ''}></TextField>
                         <TextField InputLabelProps={{ shrink: true }} name="fechaRecepción" required key="fechaRecepción" type="date" id="fechaRecepción" label="Fecha de recepción" onChange={this.handleChange} value={this.state.form ? this.state.form.fechaRecepción : ''}></TextField>
                     </div>
+                    <label>Código de oficio:</label>
+                    <br/>
                     <TextField name="numOficio" required key="numOficio" type="text" id="numOficio" label="Oficio" onChange={this.handleChange} value={this.state.form ? this.state.form.numOficio : ''}></TextField>
                     <br/>
                     <h3>Información de remitente</h3>
