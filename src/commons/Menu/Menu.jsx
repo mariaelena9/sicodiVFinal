@@ -67,7 +67,7 @@ class Menu extends Component {
                                 <li id="/correspondence" onClick={this.handleMenu}>
                                     <a id="/correspondence">
                                         <span><ImIcons.ImFileText2 /></span>
-                                        <span class="menuText" id="/correspondence">Nueva Correspondencia</span>
+                                        <span class="menuText" id="/correspondence">Correspondencia</span>
                                     </a>
                                 </li>
 

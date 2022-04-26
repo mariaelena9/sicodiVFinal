@@ -91,8 +91,8 @@ class Sent extends Component {
                         {this.state.correspondencias.map(elemento => (
                             <tr className="sentrow" onClick={() => this.seeDetails(elemento.id_Correspondencia)}>
                                 <td>
-                                    <p><b>{elemento.usuarioD}</b></p>
-                                    <p><b>{elemento.asunto}</b></p>
+                                    <p><b>Para: </b>{elemento.usuarioD}</p>
+                                    <p><b>Asunto: </b>{elemento.asunto}</p>
                                     <p>{elemento.descripción}</p>
                                 </td>
                                 <td style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>

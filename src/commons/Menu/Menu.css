@@ -88,6 +88,7 @@ nav ul li a {
   display: none;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 li:hover span:last-child {
