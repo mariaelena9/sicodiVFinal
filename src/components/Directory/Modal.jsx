@@ -11,11 +11,6 @@ const Modal = ({ handleClose, show, children }) => {
           X
         </button>
         {children}
-        <div className='modalButton'>
-          <button type="button">
-            Escribir
-          </button>
-        </div>
       </section>
     </div>
   );

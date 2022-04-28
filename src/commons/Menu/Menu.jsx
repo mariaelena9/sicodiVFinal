@@ -21,7 +21,6 @@ class Menu extends Component {
     //Función para controlar el funcionamiento del menú
     handleMenu(e) {
         e.preventDefault();
-        console.log(e.target.id);
         if (e.target.id === '/home') {
             ReactDOM.render(<Inicio page="Inicio" />, document.getElementById('root'));
         } else if (e.target.id === '/directory') {
@@ -53,42 +52,42 @@ class Menu extends Component {
                                 <li id="/home" onClick={this.handleMenu}>
                                     <a id="/home">
                                         <span><AiIcons.AiFillHome /></span>
-                                        <span class="menuText" id="/home">Inicio</span>
+                                        <span className="menuText" id="/home">Inicio</span>
                                     </a>
                                 </li>
 
                                 <li id="/directory" onClick={this.handleMenu}>
                                     <a id="/directory">
                                         <span><MdIcons.MdImportContacts /></span>
-                                        <span class="menuText" id="/directory">Directorio</span>
+                                        <span className="menuText" id="/directory">Directorio</span>
                                     </a>
                                 </li>
 
                                 <li id="/correspondence" onClick={this.handleMenu}>
                                     <a id="/correspondence">
                                         <span><ImIcons.ImFileText2 /></span>
-                                        <span class="menuText" id="/correspondence">Correspondencia</span>
+                                        <span className="menuText" id="/correspondence">Correspondencia</span>
                                     </a>
                                 </li>
 
                                 <li id="/sent" onClick={this.handleMenu}>
                                     <a id="/sent">
                                         <span><ImIcons.ImBoxRemove /></span>
-                                        <span class="menuText" id="/sent">Enviados</span>
+                                        <span className="menuText" id="/sent">Enviados</span>
                                     </a>
                                 </li>
 
                                 <li id="/receipt" onClick={this.handleMenu}>
                                     <a id="/receipt">
                                         <span><ImIcons.ImBoxAdd /></span>
-                                        <span class="menuText" id="/receipt">Recibidos</span>
+                                        <span className="menuText" id="/receipt">Recibidos</span>
                                     </a>
                                 </li>
 
                                 <li id="/history" onClick={this.handleMenu}>
                                     <a id="/history">
                                         <span><ImIcons.ImHistory /></span>
-                                        <span class="menuText" id="/history">Historico</span>
+                                        <span className="menuText" id="/history">Historico</span>
                                     </a>
                                 </li>
 
@@ -102,7 +101,7 @@ class Menu extends Component {
                                 <li key="exit" id="/salir" onClick={this.handleMenu}>
                                     <a id="/salir" >
                                         <span id="/salir"><ImIcons.ImExit /></span>
-                                        <span class="menuText" id="/salir">Salir</span>
+                                        <span className="menuText" id="/salir">Salir</span>
                                     </a>
                                 </li>
                             </ul>

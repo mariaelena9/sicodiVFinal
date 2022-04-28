@@ -46,11 +46,12 @@ class Sent extends Component {
     }
 
     handleFilter = (event) => {
+        document.getElementById("keyword").value = "";
         if (event.target.value === "0") {
             this.getSentCorrespondence();
             return;
         }
-        axios.get(`${environment.urlServer}/correspondence/filterSent/${event.target.value}`).then(res => {
+        axios.get(`${environment.urlServer}/correspondence/filterSent/${event.target.value}/${localStorage.getItem("idusuario")}`).then(res => {
             this.setState({ correspondencias: res.data });
             this.setState({ corresFiltradas: res.data });
         }).catch(error => {
@@ -75,6 +76,32 @@ class Sent extends Component {
                 </div>
 
                 <br />
+
+                <div className="filtersDiv">
+                    <div className="filterInd">
+                        <label>Filtrar por dependencia</label>
+                        <select name="deps" id="dependencia" onChange={this.handleFilter}>
+                            <option value="fk_DependenciaO">Selecciona Dependencia</option>
+                            {this.state.dependencias.map(elemento => (
+                                <option onChange={this.change} key={elemento.iddependencia} value={elemento.iddependencia}>{elemento.nombre}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="filterInd">
+                        <label>Filtrar por fecha de emisión</label>
+                        <input type="date" id="fecha" label="Filtrar por fecha" onChange={this.handleFilter}></input>
+                    </div>
+                </div>
+
+                <div className="filtersbtn">
+                    <button value="fk_TipoCo" id="tipo" className="btnall" onClick={this.handleFilter}>Todos</button>
+                    <button value="1" id="tipo" className="btnproc" onClick={this.handleFilter}>Informativos</button>
+                    <button value="2" id="tipo" className="btnsent" onClick={this.handleFilter}>Requerimentos</button>
+                    <button value="3" id="tipo" className="btnstore" onClick={this.handleFilter}>Copias</button>
+                </div>
+
+                <br/>
+
                 <div className="filtersbtn">
                     <button value="0" className="btnall" onClick={this.handleFilter}>Todos</button>
                     <button value="1" className="btnproc" onClick={this.handleFilter}>Proceso</button>

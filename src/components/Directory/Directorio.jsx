@@ -10,7 +10,6 @@ import Swal from 'sweetalert2';
 import { environment } from '../../config/settings';
 
 //Iconos
-import { IoChevronBackOutline } from "react-icons/io5";
 import { FaUserTie } from "react-icons/fa";
 import { AiOutlineSearch } from "react-icons/ai";
 import { MdEmail } from "react-icons/md";
@@ -21,6 +20,7 @@ import { MdWork } from "react-icons/md";
 
 //Componentes
 import Modal from './Modal.jsx';
+import Digital from "../Correspondence/Formato/Digital";
 
 class Directorio extends Component {
     //CONSTRUCTOR DEL COMPONENTE
@@ -35,6 +35,8 @@ class Directorio extends Component {
         this.setState({ show: true });
         axios.get(`${environment.urlServer}/user/getuser/${dato}`).then(res => {
             this.setState({
+                idUsuario: res.data.idusuario,
+                fkdependencia: res.data.fkdependencia,
                 name: res.data.nombre,
                 lastNameP: res.data.apPaterno,
                 lastNameM: res.data.apMaterno,
@@ -60,6 +62,7 @@ class Directorio extends Component {
         keyword: '',
         form: {
             idUsuario: '',
+            fkdpto: '',
             name: '',
             lastNameP: '',
             lastNameM: '',
@@ -120,6 +123,10 @@ class Directorio extends Component {
         });
     }
 
+    handleWriteTo = async (event) => {
+        ReactDOM.render(<Digital data={event} />, document.getElementById('root'));
+    }
+
     render() { //Renderiza los elementos gráficos del componente
         return (
             <div className="main">
@@ -142,6 +149,11 @@ class Directorio extends Component {
                                 <AiFillPhone />
                                 <p>{this.state.phone}</p>
                             </div>
+                            <div className='modalButton'>
+                                <button type="button" onClick={() => this.handleWriteTo({ usuario: this.state.idUsuario, dependencia: this.state.fkdependencia })}>
+                                    Escribir
+                                </button>
+                            </div>
                         </div>
                     </Modal>
 
@@ -161,7 +173,7 @@ class Directorio extends Component {
 
                             <div className="filter">
                                 <p className="filter-text">Dependencia: </p>
-                                <select name="deps" id="depselect" valueChange onChange={this.change}>
+                                <select name="deps" id="depselect" onChange={this.change}>
                                     <option value="iddpto">Selecciona Dependencia</option>
                                     {this.state.dependencias.map(elemento => (
                                         <option onChange={this.change} key={elemento.iddependencia} value={elemento.iddependencia}>{elemento.nombre}</option>

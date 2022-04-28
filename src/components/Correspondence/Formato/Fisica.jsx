@@ -41,6 +41,9 @@ class Fisica extends Component {
     componentDidMount() {
         this.getDependences();
         this.getTipoCo();
+        var today = new Date().toISOString().split('T')[0];
+        document.getElementsByName("fechaEmisión")[0].setAttribute('max', today);
+        document.getElementsByName("fechaRecepción")[0].setAttribute('max', today);
     }
 
     //Función para registrar la correspondencia en la BD
@@ -74,6 +77,7 @@ class Fisica extends Component {
             || this.state.form.fk_DependenciaD === "invalido" || this.state.form.fk_DependenciaD === ""
             || this.state.form.fk_UsuarioD === "invalido" || this.state.form.fk_UsuarioD === ""
             || this.state.form.fk_TipoCo === "invalido" || this.state.form.fk_TipoCo === ""
+            || this.state.form.asunto === '' || this.state.form.descripción === ''
             || this.state.form.fechaEmisión === '' || this.state.form.fechaRecepción === ""
             || this.state.form.numOficio === '') {
             Swal.fire({
@@ -88,10 +92,10 @@ class Fisica extends Component {
 
         delete this.state.form.id_Correspondencia;
         await axios.post(`${environment.urlServer}/correspondence/insert`, this.state.form).then(response => {
-            if(response.data === "ER_DUP_ENTRY"){
+            if (response.data === "ER_DUP_ENTRY") {
                 Swal.fire({
                     title: 'No se puede registrar',
-                    text: 'Se detectó una entrada duplicada "'+this.state.form.numOficio+'" para el número de oficio, por favor ingrese uno nuevo.',
+                    text: 'Se detectó una entrada duplicada "' + this.state.form.numOficio + '" para el número de oficio, por favor ingrese uno nuevo.',
                     icon: 'warning',
                     showConfirmButton: true
                 })
@@ -174,17 +178,17 @@ class Fisica extends Component {
 
     handleClick(e) {
         e.preventDefault();
-        ReactDOM.render(<Correspondence/>, document.getElementById('root'));
+        ReactDOM.render(<Correspondence />, document.getElementById('root'));
     }
 
     render() {
         return (
             <div className="correspondencecontent">
-                <div className="buttonBack" style={{cursor: "pointer"}} onClick={this.handleClick}>
-                    <IoChevronBackOutline/>
+                <div className="buttonBack" style={{ cursor: "pointer" }} onClick={this.handleClick}>
+                    <IoChevronBackOutline />
                     <h3>Modo de correspondencia</h3>
                 </div>
-                <br/>
+                <br />
                 <h3>Información básica</h3>
                 <form>
                     <div className="dates">
@@ -192,9 +196,9 @@ class Fisica extends Component {
                         <TextField InputLabelProps={{ shrink: true }} name="fechaRecepción" required key="fechaRecepción" type="date" id="fechaRecepción" label="Fecha de recepción" onChange={this.handleChange} value={this.state.form ? this.state.form.fechaRecepción : ''}></TextField>
                     </div>
                     <label>Código de oficio:</label>
-                    <br/>
+                    <br />
                     <TextField name="numOficio" required key="numOficio" type="text" id="numOficio" label="Oficio" onChange={this.handleChange} value={this.state.form ? this.state.form.numOficio : ''}></TextField>
-                    <br/>
+                    <br />
                     <h3>Información de remitente</h3>
                     <div className="originInfo">
                         <select className="select" id="fk_DependenciaO" name="fk_DependenciaO" onChange={this.handleChange} value={this.state.form ? this.state.form.fk_DependenciaO : ''}>

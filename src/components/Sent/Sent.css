@@ -27,6 +27,24 @@
 }
 
 /*======================================================================================*/
+.filtersDiv {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.filtersDiv .filterInd {
+    display: flex;
+    flex-direction: column;
+}
+
+.filterInd input, .filterInd select{
+    padding: 5px;
+    border: solid #780727 2px;
+    border-radius: 5px;
+    outline: none;
+    font-size: 1rem;
+}
 
 .sentmiddle {
     display: flex;

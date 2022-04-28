@@ -1,6 +1,5 @@
 //Imports
 import { Component } from "react";
-import { useState } from "react";
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -16,37 +15,44 @@ import { environment } from '../../../config/settings';
 import TextField from '@mui/material/TextField';
 
 class Digital extends Component {
+    constructor(props) {
+        super(props);
 
-    state = {
-        showDigital: false,
-        showFisica: false,
-        data: [],
-        dependencias: [],
-        usuarios: [],
-        tipos: [],
-        archivos: [],
-        form: {
-            id_Correspondencia: '',
-            numOficio: '',
-            fechaEmisión: '',
-            fechaRecepción: '0000-00-00',
-            fk_DependenciaO: localStorage.getItem("iddependencia"),
-            fk_UsuarioO: localStorage.getItem("idusuario"),
-            fk_DependenciaD: '',
-            fk_UsuarioD: '',
-            fk_TipoCo: '',
-            asunto: '',
-            descripción: '',
-            observaciones: '',
-            formato: 'Digital',
+        this.state = {
+            showDigital: false,
+            showFisica: false,
+            data: [],
+            dependencias: [],
+            usuarios: [],
+            tipos: [],
+            archivos: [],
+            form: {
+                id_Correspondencia: '',
+                numOficio: '',
+                fechaEmisión: '',
+                fechaRecepción: '',
+                fk_DependenciaO: localStorage.getItem("iddependencia"),
+                fk_UsuarioO: localStorage.getItem("idusuario"),
+                fk_DependenciaD: this.props.data !== undefined ? this.props.data.dependencia : '',
+                fk_UsuarioD: this.props.data !== undefined ? this.props.data.usuario : '',
+                fk_TipoCo: '',
+                asunto: '',
+                descripción: '',
+                observaciones: '',
+                formato: 'Digital',
+            }
         }
     }
 
     //Se ejecutará al momento de montar el componente
     componentDidMount() {
+        if (this.state.form.fk_DependenciaD !== '') {
+            this.getUsers(this.state.form.fk_DependenciaD);
+        }
         this.getDependences();
         this.getTipoCo();
-        this.state.form.fechaEmisión = new Date().toISOString().substring(0, 10);
+        this.state.form.fechaEmisión= new Date().toISOString().substring(0, 10);
+        this.state.form.fechaRecepción= new Date().toISOString().substring(0, 10);
     }
 
     //Función para registrar la correspondencia en la BD
@@ -77,6 +83,7 @@ class Digital extends Component {
             || this.state.form.fk_DependenciaD === "invalido" || this.state.form.fk_DependenciaD === ""
             || this.state.form.fk_UsuarioD === "invalido" || this.state.form.fk_UsuarioD === ""
             || this.state.form.fk_TipoCo === "invalido" || this.state.form.fk_TipoCo === ""
+            || this.state.form.asunto === '' || this.state.form.descripción === ''
             || this.state.form.fechaEmisión === ''
             || this.state.form.numOficio === '') {
             Swal.fire({
@@ -114,9 +121,9 @@ class Digital extends Component {
     }
 
     prepararArchivos = e => {
-        this.state.archivos = [];
+        this.setState({ archivos: [] });
 
-        for(let i = 0; i < e.length; i++){
+        for (let i = 0; i < e.length; i++) {
             let tmpPath = URL.createObjectURL(e[i]);
             let f = tmpPath
             f.Move("../src");
@@ -125,29 +132,29 @@ class Digital extends Component {
                 extension: e[i].type.split("/")[1],
                 link: tmpPath
             };
-            this.state.archivos.push(file);   
+            this.state.archivos.push(file);
         }
         console.log(this.state.archivos);
     }
 
     insertFiles = async (id) => {
         for (let index = 0; index < this.state.archivos.length; index++) {
-            
+
             await axios.post(`${environment.urlServer}/files/insert/${id.data.insertId}`, this.state.archivos[index])
-            .then(response => {
-                ReactDOM.render(<Correspondence />, document.getElementById('root'));
-                this.state.form.fechaEmisión = '';
-                this.state.form.fechaRecepción = '';
-                this.state.form.fk_DependenciaD = '';
-                this.state.form.fk_UsuarioD = '';
-                this.state.form.fk_TipoCo = '';
-                this.state.form.asunto = '';
-                this.state.form.descripción = '';
-                this.state.form.observaciones = '';
-                this.state.form.numOficio = '';
-            }).catch(error=>{
-                console.log(error);
-            });
+                .then(response => {
+                    ReactDOM.render(<Correspondence />, document.getElementById('root'));
+                    this.state.form.fechaEmisión = '';
+                    this.state.form.fechaRecepción = '';
+                    this.state.form.fk_DependenciaD = '';
+                    this.state.form.fk_UsuarioD = '';
+                    this.state.form.fk_TipoCo = '';
+                    this.state.form.asunto = '';
+                    this.state.form.descripción = '';
+                    this.state.form.observaciones = '';
+                    this.state.form.numOficio = '';
+                }).catch(error => {
+                    console.log(error);
+                });
         }
     }
 
@@ -168,6 +175,10 @@ class Digital extends Component {
                 return;
             }
             this.setState({ usuarios: Response.data });
+            if (this.props.data) {
+                document.getElementById('fk_DependenciaD').value = this.props.data.dependencia;
+                document.getElementById('fk_UsuarioD').value = this.props.data.usuario;
+            }
         }).catch(error => {
             console.log(error.message);
         });
@@ -201,10 +212,10 @@ class Digital extends Component {
                         <TextField InputProps={{ readOnly: true }} InputLabelProps={{ shrink: true }} name="fechaEmisión" required key="fechaEmisión" type="date" id="fechaEmisión" label="Fecha de emisión" onChange={this.handleChange} value={this.state.form ? this.state.form.fechaEmisión : ''}></TextField>
                     </div>
                     <br />
-                    <label>Código de oficio:</label>
+                    <label><b>Código de oficio:</b></label>
                     <br />
                     <TextField name="numOficio" required key="numOficio" type="text" id="numOficio" label="Oficio" onChange={this.handleChange} value={this.state.form ? this.state.form.numOficio : ''}></TextField>
-                    <br />
+                    <br /><br />
                     <h3>Información de destinatario</h3>
                     <div className="originInfo">
                         <select className="select" id="fk_DependenciaD" name="fk_DependenciaD" onChange={this.handleChange} value={this.state.form ? this.state.form.fk_DependenciaD : ''}>

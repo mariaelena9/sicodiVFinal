@@ -13,24 +13,64 @@ import { environment } from '../../config/settings';
 
 class Received extends Component {
     state = {
+        dependencias: [],
         correspondencias: [],
         corresFiltradas: [],
-        keyword: ''
+        keyword: '',
+        filtroTipo: 'fk_TipoCo',
+        filtroFecha: 'fechaEmisión',
+        filtroDepen: 'fk_DependenciaO'
     }
 
     componentDidMount() {
         this.getReceivedCorrespondence();
+        this.getDependencies();
     }
 
     seeDetails = (id) => {
-        ReactDOM.render(<Details idcor={id} />, document.getElementById('root'));
+        axios.put(`${environment.urlServer}/correspondence/setRead/${id}`).then(res => {
+            ReactDOM.render(<Details idcor={id} />, document.getElementById('root'));
+        }).catch(error => {
+            console.log(error.message);
+        });
+    }
+
+    getDependencies = () => { //Consulta todas las dependencias de la BD
+        axios.get(`${environment.urlServer}/dependence/getdependence`).then(res => {
+            this.setState({ dependencias: res.data });
+        }).catch(error => {
+            console.log(error.message);
+        });
     }
 
     getReceivedCorrespondence() {
         axios.get(`${environment.urlServer}/correspondence/getReceived/${localStorage.getItem("idusuario")}`).then(res => {
             this.setState({ correspondencias: res.data });
             this.setState({ corresFiltradas: res.data });
-            console.log(this.state.correspondencias);
+        }).catch(error => {
+            console.log(error.message);
+        });
+    }
+
+    handleFilter = async (event) => {
+        document.getElementById("keyword").value = "";
+        switch (event.target.id) {
+            case "tipo":
+                this.state.filtroTipo = event.target.value;
+                break;
+            case "fecha":
+                this.state.filtroFecha = '"' + event.target.value + '"';
+                break;
+            case "dependencia":
+                this.state.filtroDepen = event.target.value;
+                break;
+            default:
+                break;
+        }
+        console.log(this.state);
+        await axios.get(`${environment.urlServer}/correspondence/filterReceived/${this.state.filtroTipo}/${this.state.filtroFecha}/${this.state.filtroDepen}/${localStorage.getItem("idusuario")}`).then(res => {
+            this.setState({ correspondencias: res.data });
+            this.setState({ corresFiltradas: res.data });
         }).catch(error => {
             console.log(error.message);
         });
@@ -45,11 +85,28 @@ class Received extends Component {
                 </div>
 
                 <br />
+
+                <div className="filtersDiv">
+                    <div className="filterInd">
+                        <label>Filtrar por dependencia</label>
+                        <select name="deps" id="dependencia" onChange={this.handleFilter}>
+                            <option value="fk_DependenciaO">Selecciona Dependencia</option>
+                            {this.state.dependencias.map(elemento => (
+                                <option onChange={this.change} key={elemento.iddependencia} value={elemento.iddependencia}>{elemento.nombre}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="filterInd">
+                        <label>Filtrar por fecha de emisión</label>
+                        <input type="date" id="fecha" label="Filtrar por fecha" onChange={this.handleFilter}></input>
+                    </div>
+                </div>
+
                 <div className="filtersbtn">
-                    <button value="0" className="btnall" onClick={this.handleFilter}>Todos</button>
-                    <button value="1" className="btnproc" onClick={this.handleFilter}>Informativos</button>
-                    <button value="2" className="btnsent" onClick={this.handleFilter}>Requerimentos</button>
-                    <button value="3" className="btnstore" onClick={this.handleFilter}>Copias</button>
+                    <button value="fk_TipoCo" id="tipo" className="btnall" onClick={this.handleFilter}>Todos</button>
+                    <button value="1" id="tipo" className="btnproc" onClick={this.handleFilter}>Informativos</button>
+                    <button value="2" id="tipo" className="btnsent" onClick={this.handleFilter}>Requerimentos</button>
+                    <button value="3" id="tipo" className="btnstore" onClick={this.handleFilter}>Copias</button>
                 </div>
 
                 <br />
@@ -67,6 +124,12 @@ class Received extends Component {
                                 </td>
                                 <td style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                                     <p>{elemento.tipo}</p>
+                                    <br/>
+                                    {
+                                        elemento.leida === 0?
+                                        <div style={{width:"10px", height:"10px", borderRadius:"100%", backgroundColor: "red"}}></div>
+                                        : <div style={{width:"10px", height:"10px", borderRadius:"100%", backgroundColor: "gray"}}></div>
+                                    }
                                 </td>
                             </tr>
                         ))}

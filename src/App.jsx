@@ -29,7 +29,7 @@ class App extends Component {
         if(localStorage.getItem('auth')==="true"){
             ReactDOM.render(<Header/>, document.getElementById('header'));
             ReactDOM.render(<Menu/>, document.getElementById('menu'));
-            ReactDOM.render(<Home/>, document.getElementById('root'));
+            ReactDOM.render(<Home page={"Inicio"}/>, document.getElementById('root'));
         } else {
             ReactDOM.render(<Header/>, document.getElementById('header'));
             ReactDOM.render("", document.getElementById('menu'));
