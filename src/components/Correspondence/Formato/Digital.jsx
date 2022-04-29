@@ -107,6 +107,19 @@ class Digital extends Component {
                 return;
             }
 
+            if (this.state.archivos.length === 0) {
+                ReactDOM.render(<Correspondence />, document.getElementById('root'));
+                this.state.form.fechaEmisión = '';
+                this.state.form.fechaRecepción = '';
+                this.state.form.fk_DependenciaD = '';
+                this.state.form.fk_UsuarioD = '';
+                this.state.form.fk_TipoCo = '';
+                this.state.form.asunto = '';
+                this.state.form.descripción = '';
+                this.state.form.observaciones = '';
+                this.state.form.numOficio = '';
+            }
+            
             this.insertFiles(response);
             Swal.fire({
                 title: 'Acción realizada correctamente',
