@@ -9,6 +9,7 @@ import { IoChevronBackOutline } from "react-icons/io5";
 //Componentes
 import Sent from "../Sent/Sent";
 import Received from "../Received/Received";
+import Digital from "../Correspondence/Formato/Digital"
 
 //Archivo de configuracion
 import { environment } from '../../config/settings';
@@ -31,7 +32,6 @@ class Details extends Component {
     getCorrespondenceInfo() {
         axios.get(`${environment.urlServer}/correspondence/getDetail/${this.props.idcor}`).then(res => {
             this.setState({ correspondenciaInfo: res.data });
-            console.log(res.data);
             this.setState({ fechaE: this.state.correspondenciaInfo.fechaEmisión });
             this.setState({ fechaR: this.state.correspondenciaInfo.fechaRecepción });
         }).catch(error => {
@@ -40,7 +40,7 @@ class Details extends Component {
     }
 
     handleBack = () => {
-        if(this.props.tipo === 1){
+        if (this.props.tipo === 1) {
             ReactDOM.render(<Sent />, document.getElementById('root'));
         } else {
             ReactDOM.render(<Received />, document.getElementById('root'));
@@ -48,7 +48,7 @@ class Details extends Component {
     }
 
     handleResponse = () => {
-
+        ReactDOM.render(<Digital data={{ usuario: this.state.correspondenciaInfo.idremitente, dependencia: this.state.correspondenciaInfo.iddepremitente }} />, document.getElementById('root'));
     }
 
     render() {
@@ -58,7 +58,7 @@ class Details extends Component {
                     <IoChevronBackOutline />
                     <h3>{this.props.tipo === 1 ? "Enviados" : "Recibidos"}</h3>
                 </div>
-                <br/>
+                <br />
                 <div className="basicInfo">
                     <div className="infoIzq">
                         <h4>Información básica</h4>
@@ -67,9 +67,9 @@ class Details extends Component {
                         <p>Tipo: {this.state.correspondenciaInfo.nombre}</p>
                     </div>
                     <div className="infoDer">
-                        <h4>{this.props.tipo===1?"Información del destinatario: ":"Información del remitente: "}</h4>
-                        <p>{this.props.tipo===1?"Destino: ":"Origen: "}{this.state.correspondenciaInfo.dependenciaRemitente}</p>
-                        <p>{this.props.tipo===1?"Nombre del destinatario: ":"Nombre del remitente: "}{this.state.correspondenciaInfo.remitente}</p>
+                        <h4>{this.props.tipo === 1 ? "Información del destinatario: " : "Información del remitente: "}</h4>
+                        <p>{this.props.tipo === 1 ? "Destino: " : "Origen: "}{this.state.correspondenciaInfo.dependenciaRemitente}</p>
+                        <p>{this.props.tipo === 1 ? "Nombre del destinatario: " : "Nombre del remitente: "}{this.state.correspondenciaInfo.remitente}</p>
                         <p>Número de oficio: {this.state.correspondenciaInfo.numOficio}</p>
                     </div>
                 </div>
@@ -97,7 +97,7 @@ class Details extends Component {
                             <button className="download">Descargar</button>
                             <button className="follow">Seguimiento</button>
                             <button className="set">Asignar</button>
-                            {this.state.correspondenciaInfo.idtipo === 1? "": this.props.tipo===1? "": <button className="answer" onClick={() => this.handleResponse()}>Responder</button>}
+                            {this.state.correspondenciaInfo.idtipo === 1 ? "" : this.props.tipo === 1 ? "" : <button className="answer" onClick={() => this.handleResponse()}>Responder</button>}
                         </div>
                     </div>
                 </div>

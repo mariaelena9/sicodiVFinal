@@ -51,8 +51,8 @@ class Digital extends Component {
         }
         this.getDependences();
         this.getTipoCo();
-        this.state.form.fechaEmisión= new Date().toISOString().substring(0, 10);
-        this.state.form.fechaRecepción= new Date().toISOString().substring(0, 10);
+        this.state.form.fechaEmisión = new Date().toISOString().substring(0, 10);
+        this.state.form.fechaRecepción = new Date().toISOString().substring(0, 10);
     }
 
     //Función para registrar la correspondencia en la BD
@@ -218,19 +218,40 @@ class Digital extends Component {
                     <br /><br />
                     <h3>Información de destinatario</h3>
                     <div className="originInfo">
-                        <select className="select" id="fk_DependenciaD" name="fk_DependenciaD" onChange={this.handleChange} value={this.state.form ? this.state.form.fk_DependenciaD : ''}>
-                            <option value="invalido">Elige la dependencia destino</option>
-                            {this.state.dependencias.map(elemento => (
-                                <option key={elemento.iddependencia} value={elemento.iddependencia}>{elemento.nombre}</option>
-                            ))}
-                        </select>
+
+                        {
+                            this.props.data !== undefined ?
+                                <select disabled className="select" id="fk_DependenciaD" name="fk_DependenciaD" onChange={this.handleChange} value={this.state.form ? this.state.form.fk_DependenciaD : ''}>
+                                    <option value="invalido">Elige la dependencia destino</option>
+                                    {this.state.dependencias.map(elemento => (
+                                        <option key={elemento.iddependencia} value={elemento.iddependencia}>{elemento.nombre}</option>
+                                    ))}
+                                </select> :
+                                <select className="select" id="fk_DependenciaD" name="fk_DependenciaD" onChange={this.handleChange} value={this.state.form ? this.state.form.fk_DependenciaD : ''}>
+                                    <option value="invalido">Elige la dependencia destino</option>
+                                    {this.state.dependencias.map(elemento => (
+                                        <option key={elemento.iddependencia} value={elemento.iddependencia}>{elemento.nombre}</option>
+                                    ))}
+                                </select>
+                        }
+
                         <br />
-                        <select className="select" id="fk_UsuarioD" name="fk_UsuarioD" onChange={this.handleChange} value={this.state.form ? this.state.form.fk_UsuarioD : ''}>
-                            <option value="invalido">Elige un destinatario</option>
-                            {this.state.usuarios.map(elemento => (
-                                <option key={elemento.idusuario} value={elemento.idusuario}>{elemento.nombre} {elemento.apPaterno} {elemento.apMaterno}</option>
-                            ))}
-                        </select>
+
+                        {
+                            this.props.data !== undefined ?
+                                <select disabled className="select" id="fk_UsuarioD" name="fk_UsuarioD" onChange={this.handleChange} value={this.state.form ? this.state.form.fk_UsuarioD : ''}>
+                                    <option value="invalido">Elige un destinatario</option>
+                                    {this.state.usuarios.map(elemento => (
+                                        <option key={elemento.idusuario} value={elemento.idusuario}>{elemento.nombre} {elemento.apPaterno} {elemento.apMaterno}</option>
+                                    ))}
+                                </select> :
+                                <select className="select" id="fk_UsuarioD" name="fk_UsuarioD" onChange={this.handleChange} value={this.state.form ? this.state.form.fk_UsuarioD : ''}>
+                                    <option value="invalido">Elige un destinatario</option>
+                                    {this.state.usuarios.map(elemento => (
+                                        <option key={elemento.idusuario} value={elemento.idusuario}>{elemento.nombre} {elemento.apPaterno} {elemento.apMaterno}</option>
+                                    ))}
+                                </select>
+                        }
                     </div>
                     <br />
                     <h3>Información de correspondencia</h3>
