@@ -29,7 +29,7 @@ class Received extends Component {
 
     seeDetails = (id) => {
         axios.put(`${environment.urlServer}/correspondence/setRead/${id}`).then(res => {
-            ReactDOM.render(<Details idcor={id} />, document.getElementById('root'));
+            ReactDOM.render(<Details idcor={id} tipo={2} />, document.getElementById('root'));
         }).catch(error => {
             console.log(error.message);
         });
@@ -76,6 +76,14 @@ class Received extends Component {
         });
     }
 
+    //Función base para manipular un objeto formulario, ayuda a controlar las modificaciones
+    handleChange = (event) => {
+        this.state.keyword = event.target.value;
+        this.state.correspondencias = this.state.corresFiltradas.filter(user => user.usuarioO.toLowerCase().includes(this.state.keyword.toLowerCase()));
+        console.log(this.state.correspondencias);
+        this.getDependencies();
+    }
+
     render() {
         return (
             <div className="sentcontent">
@@ -118,17 +126,20 @@ class Received extends Component {
                         {this.state.correspondencias.map(elemento => (
                             <tr className="sentrow" onClick={() => this.seeDetails(elemento.id_Correspondencia)}>
                                 <td>
-                                    <p><b>De: </b>{elemento.usuarioO}</p>
+                                    <div style={{ display: "flex", justifyContent: "space-between" }}>
+                                        <p><b>De: </b>{elemento.usuarioO}</p>
+                                        <p><b>Fecha: </b>{new Date(elemento.fechaEmisión).getUTCDate()}/{new Date(elemento.fechaEmisión).toLocaleString('default', { month: 'long' })}/{new Date(elemento.fechaEmisión).getFullYear()}</p>
+                                    </div>
                                     <p><b>Asunto: </b>{elemento.asunto}</p>
                                     <p>{elemento.descripción}</p>
                                 </td>
                                 <td style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                                     <p>{elemento.tipo}</p>
-                                    <br/>
+                                    <br />
                                     {
-                                        elemento.leida === 0?
-                                        <div style={{width:"10px", height:"10px", borderRadius:"100%", backgroundColor: "red"}}></div>
-                                        : <div style={{width:"10px", height:"10px", borderRadius:"100%", backgroundColor: "gray"}}></div>
+                                        elemento.leida === 0 ?
+                                            <div style={{ width: "10px", height: "10px", borderRadius: "100%", backgroundColor: "red" }}></div>
+                                            : <div style={{ width: "10px", height: "10px", borderRadius: "100%", backgroundColor: "gray" }}></div>
                                     }
                                 </td>
                             </tr>

@@ -108,6 +108,11 @@
   display: flex;
   flex-direction: column;
 }
+
+.originInfo button{
+  width: 100px;
+}
+
 .btnFisica, .btnDigital {
   display: flex;
   flex-direction: column;

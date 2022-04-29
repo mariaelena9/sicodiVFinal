@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
 //Hojas de estilo
+import './App.css'
 import './commons/Header/Header.css';
 import './commons/Loader/Loader.css'
 import './commons/Menu/Menu.css';

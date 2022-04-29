@@ -34,7 +34,7 @@ class Sent extends Component {
     }
 
     seeDetails = (id) => {
-        ReactDOM.render(<Details idcor={id} />, document.getElementById('root'));
+        ReactDOM.render(<Details idcor={id} tipo={1} />, document.getElementById('root'));
     }
 
     //Función base para manipular un objeto formulario, ayuda a controlar las modificaciones
@@ -77,7 +77,7 @@ class Sent extends Component {
 
                 <br />
 
-                <div className="filtersDiv">
+                {/* <div className="filtersDiv">
                     <div className="filterInd">
                         <label>Filtrar por dependencia</label>
                         <select name="deps" id="dependencia" onChange={this.handleFilter}>
@@ -98,9 +98,9 @@ class Sent extends Component {
                     <button value="1" id="tipo" className="btnproc" onClick={this.handleFilter}>Informativos</button>
                     <button value="2" id="tipo" className="btnsent" onClick={this.handleFilter}>Requerimentos</button>
                     <button value="3" id="tipo" className="btnstore" onClick={this.handleFilter}>Copias</button>
-                </div>
+                </div> */}
 
-                <br/>
+                <br />
 
                 <div className="filtersbtn">
                     <button value="0" className="btnall" onClick={this.handleFilter}>Todos</button>
@@ -118,7 +118,10 @@ class Sent extends Component {
                         {this.state.correspondencias.map(elemento => (
                             <tr className="sentrow" onClick={() => this.seeDetails(elemento.id_Correspondencia)}>
                                 <td>
-                                    <p><b>Para: </b>{elemento.usuarioD}</p>
+                                    <div style={{display: "flex", justifyContent: "space-between"}}>
+                                        <p><b>Para: </b>{elemento.usuarioD}</p>
+                                        <p><b>Fecha: </b>{new Date(elemento.fechaEmisión).getUTCDate()}/{new Date(elemento.fechaEmisión).toLocaleString('default', { month: 'long' })}/{new Date(elemento.fechaEmisión).getFullYear()}</p>
+                                    </div>
                                     <p><b>Asunto: </b>{elemento.asunto}</p>
                                     <p>{elemento.descripción}</p>
                                 </td>

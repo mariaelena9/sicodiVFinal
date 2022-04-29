@@ -36,10 +36,9 @@ class Directorio extends Component {
         axios.get(`${environment.urlServer}/user/getuser/${dato}`).then(res => {
             this.setState({
                 idUsuario: res.data.idusuario,
-                fkdependencia: res.data.fkdependencia,
-                name: res.data.nombre,
-                lastNameP: res.data.apPaterno,
-                lastNameM: res.data.apMaterno,
+                fkdependencia: res.data.iddependencia,
+                fkdpto: res.data.Departamento,
+                name: res.data.UserName,
                 email: res.data.email,
                 depa: res.data.cargo,
                 phone: res.data.telefono
@@ -134,9 +133,10 @@ class Directorio extends Component {
                     <Modal show={this.state.show} handleClose={this.hideModal}>
                         <div className="modalContent">
                             <div className="modalName">
-                                <p>{this.state.name} {this.state.lastNameP} {this.state.lastNameM}</p>
+                                <p>{this.state.name}</p>
                                 <BsFillPersonFill />
                             </div>
+                            <p><b>Departamento:</b> {this.state.fkdpto}</p>
                             <div className="modalEmail">
                                 <BsEnvelopeFill />
                                 <p>{this.state.email}</p>
