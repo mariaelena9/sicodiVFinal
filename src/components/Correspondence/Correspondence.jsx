@@ -1,28 +1,27 @@
-//Imports
-import React, { Component } from "react";
+/* @CORRESPONDENCIA */
+
+//Importación de React:
+import React, { Component, Fragment } from "react"; //Importación de Component
+
+//Importación del DOM:
 import ReactDOM from 'react-dom';
 
-//Iconos
-import { IoChevronBackOutline } from "react-icons/io5";
+//Importación de recursos (iconos):
 import { ImPencil2 } from "react-icons/im";
 import { ImDisplay } from "react-icons/im";
 
-//Componentes
+//Importación de componentes:
 import Digital from "./Formato/Digital";
 import Fisica from "./Formato/Fisica"
 
+//_Class Component_
 class Correspondence extends Component {
-    state = {
-        showDigital: false,
-        showFisica: false,
-    }
 
-    componentDidMount() {
-        this.setState({ show1: false });
-        this.setState({ show2: false });
-    }
+/* @Michelle: componentDidMount()es un hook que se invoca justo después de que se haya montado un componente de React, 
+    es decir, después del primer ciclo de vida de render().
+*/
 
-    async hideComponent(name) {
+    async showComponent(name) {
         switch (name) {
             case "showDigital":
                 ReactDOM.render(<Digital/>, document.getElementById('root'));
@@ -37,31 +36,34 @@ class Correspondence extends Component {
 
     render() {
         return (
-            <div className="body">
-                <div className="correspondencecontent">
-                    <div className="buttonBack">
-                        {/* <i><IoChevronBackOutline /></i> */}
-                        <p className="TitlePage">Nueva Correspondencia</p>
-                    </div>
-                    <br />
-
-                    <div className="formatodiv">
-
-                        <button className="btnFisica" onClick={() => this.hideComponent("showFisica")}>
-                            <ImPencil2/>
-                            Física
-                        </button>
-
-                        <button className="btnDigital" onClick={() => this.hideComponent("showDigital")}>
-                            <ImDisplay/>
-                            Digital
-                        </button>
+            <Fragment>
+                <div className="body">
+                    <div className="correspondencecontent">
+                        <div className="buttonBack">
+                            <p className="TitlePage">Nueva Correspondencia</p>
+                        </div>
                         
+                        <br />
+
+                        <div className="formatodiv">
+
+                            <button className="btnFisica" onClick={() => this.showComponent("showFisica")}>
+                                <ImPencil2/>
+                                Física
+                            </button>
+
+                            <button className="btnDigital" onClick={() => this.showComponent("showDigital")}>
+                                <ImDisplay/>
+                                Digital
+                            </button>
+                            
+                        </div>
                     </div>
                 </div>
-            </div>
+            </Fragment>
         );
     }
 }
 
+// Exportación de componente
 export default Correspondence;

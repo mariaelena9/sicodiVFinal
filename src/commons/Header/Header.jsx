@@ -1,18 +1,25 @@
 /* @HEADER */
 
-//Imports
-import React from "react";
+//Importación de React:
+import React, { Fragment } from "react"; //Importación de Fragment [Contenedor General]
+
+//Importación de iconos para react:
 import * as ImIcons from 'react-icons/im';
+
+//Importación del DOM:
 import ReactDOM from 'react-dom';
 
-//Recursos
+//Importación de recursos (logotipos)
 import logoSicodi from '../../assets/SICODISinFondo.png'
 import logoGob from '../../assets/logosgg.png';
 
+//_Functional Component_ 
 function Header() {
     return (
-        <div className="general">
+        <Fragment>
             <div className="header">
+
+                {/* Información Estatica */}
                 <div className="header__content">
 
                     <div className="header__content--logoIzq">
@@ -31,6 +38,9 @@ function Header() {
                 </div>
             </div>
 
+            {/* Información Dinamica para el usuario logeado */}
+
+            {/*@Michelle: El objeto [localStorage] almacena los datos sin fecha de caducidad. */}
             {
                 localStorage.getItem('auth') === "true" ?
                     <div className="infocuenta__contenedor">
@@ -43,14 +53,16 @@ function Header() {
                     :
                     ""
             }
-        </div>
+        </Fragment>
     );
 }
 
+//Función timer para el usuario
 function tick() {
-    ReactDOM.render(<Header/>, document.getElementById('header'));
+    ReactDOM.render(<Header />, document.getElementById('header'));
 }
 
 setInterval(tick, 1000);
 
+//Exportación del componente:
 export default Header;

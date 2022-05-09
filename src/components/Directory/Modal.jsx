@@ -16,4 +16,5 @@ const Modal = ({ handleClose, show, children }) => {
   );
 };
 
+//Exportación del componente:
 export default Modal;
