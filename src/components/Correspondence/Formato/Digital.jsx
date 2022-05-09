@@ -121,6 +121,19 @@ class Digital extends Component {
                 return;
             }
 
+            if (this.state.archivos.length === 0) {
+                ReactDOM.render(<Correspondence />, document.getElementById('root'));
+                this.state.form.fechaEmisión = '';
+                this.state.form.fechaRecepción = '';
+                this.state.form.fk_DependenciaD = '';
+                this.state.form.fk_UsuarioD = '';
+                this.state.form.fk_TipoCo = '';
+                this.state.form.asunto = '';
+                this.state.form.descripción = '';
+                this.state.form.observaciones = '';
+                this.state.form.numOficio = '';
+            }
+            
             this.insertFiles(response);
             Swal.fire({
                 title: 'Acción realizada correctamente',
@@ -250,6 +263,56 @@ class Digital extends Component {
                         <br />
 
                         <label><b>Código de oficio:</b></label>
+                    <label><b>Código de oficio:</b></label>
+                    <br />
+                    <TextField name="numOficio" required key="numOficio" type="text" id="numOficio" label="Oficio" onChange={this.handleChange} value={this.state.form ? this.state.form.numOficio : ''}></TextField>
+                    <br /><br />
+                    <h3>Información de destinatario</h3>
+                    <div className="originInfo">
+
+                        {
+                            this.props.data !== undefined ?
+                                <select disabled className="select" id="fk_DependenciaD" name="fk_DependenciaD" onChange={this.handleChange} value={this.state.form ? this.state.form.fk_DependenciaD : ''}>
+                                    <option value="invalido">Elige la dependencia destino</option>
+                                    {this.state.dependencias.map(elemento => (
+                                        <option key={elemento.iddependencia} value={elemento.iddependencia}>{elemento.nombre}</option>
+                                    ))}
+                                </select> :
+                                <select className="select" id="fk_DependenciaD" name="fk_DependenciaD" onChange={this.handleChange} value={this.state.form ? this.state.form.fk_DependenciaD : ''}>
+                                    <option value="invalido">Elige la dependencia destino</option>
+                                    {this.state.dependencias.map(elemento => (
+                                        <option key={elemento.iddependencia} value={elemento.iddependencia}>{elemento.nombre}</option>
+                                    ))}
+                                </select>
+                        }
+
+                        <br />
+
+                        {
+                            this.props.data !== undefined ?
+                                <select disabled className="select" id="fk_UsuarioD" name="fk_UsuarioD" onChange={this.handleChange} value={this.state.form ? this.state.form.fk_UsuarioD : ''}>
+                                    <option value="invalido">Elige un destinatario</option>
+                                    {this.state.usuarios.map(elemento => (
+                                        <option key={elemento.idusuario} value={elemento.idusuario}>{elemento.nombre} {elemento.apPaterno} {elemento.apMaterno}</option>
+                                    ))}
+                                </select> :
+                                <select className="select" id="fk_UsuarioD" name="fk_UsuarioD" onChange={this.handleChange} value={this.state.form ? this.state.form.fk_UsuarioD : ''}>
+                                    <option value="invalido">Elige un destinatario</option>
+                                    {this.state.usuarios.map(elemento => (
+                                        <option key={elemento.idusuario} value={elemento.idusuario}>{elemento.nombre} {elemento.apPaterno} {elemento.apMaterno}</option>
+                                    ))}
+                                </select>
+                        }
+                    </div>
+                    <br />
+                    <h3>Información de correspondencia</h3>
+                    <div className="originInfo">
+                        <select className="select" id="fk_TipoCo" name="fk_TipoCo" onChange={this.handleChange} value={this.state.form ? this.state.form.fk_TipoCo : ''}>
+                            <option value="invalido">Elige un tipo de correspondencia</option>
+                            {this.state.tipos.map(elemento => (
+                                <option key={elemento.idtipo} value={elemento.idtipo}>{elemento.nombre}</option>
+                            ))}
+                        </select>
                         <br />
                         <TextField
                             id="numOficio"

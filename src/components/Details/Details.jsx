@@ -16,6 +16,7 @@ import { IoChevronBackOutline } from "react-icons/io5";
 //Importación de componentes:
 import Sent from "../Sent/Sent";
 import Received from "../Received/Received";
+import Digital from "../Correspondence/Formato/Digital"
 
 //Archivo de configuración
 import { environment } from '../../config/settings';
@@ -49,7 +50,7 @@ class Details extends Component {
     }
 
     handleBack = () => {
-        if(this.props.tipo === 1){
+        if (this.props.tipo === 1) {
             ReactDOM.render(<Sent />, document.getElementById('root'));
         } else {
             ReactDOM.render(<Received />, document.getElementById('root'));
@@ -57,7 +58,7 @@ class Details extends Component {
     }
 
     handleResponse = () => {
-
+        ReactDOM.render(<Digital data={{ usuario: this.state.correspondenciaInfo.idremitente, dependencia: this.state.correspondenciaInfo.iddepremitente }} />, document.getElementById('root'));
     }
 
     render() {
