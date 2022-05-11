@@ -10,7 +10,6 @@ import Details from "../Details/Details"
 
 //Archivo de configuración
 import { environment } from '../../config/settings';
-import { margin } from "@mui/system";
 
 class Sent extends Component {
 
@@ -18,11 +17,16 @@ class Sent extends Component {
         correspondencias: [],
         dependencias: [],
         corresFiltradas: [],
-        keyword: ''
+        keyword: '',
+        filtroTipo: 'fk_TipoCo',
+        filtroFecha: 'fechaEmisión',
+        filtroDepen: 'fk_DependenciaD',
+        filtroEstado: 'fk_estatusco'
     }
 
     componentDidMount() {
         this.getSentCorrespondence();
+        this.getDependencies();
     }
 
     getSentCorrespondence() {
@@ -46,13 +50,30 @@ class Sent extends Component {
         this.getDependencies();
     }
 
-    handleFilter = (event) => {
+    handleFilter = async (event) => {
         document.getElementById("keyword").value = "";
-        if (event.target.value === "0") {
-            this.getSentCorrespondence();
-            return;
+        switch (event.target.id) {
+            case "tipo":
+                this.state.filtroTipo = event.target.value;
+                break;
+            case "estado":
+                this.state.filtroEstado = event.target.value;
+                break;
+            case "fecha":
+                if (event.target.value === "") {
+                    this.state.filtroFecha = "fechaEmisión";
+                    break;
+                }
+                this.state.filtroFecha = '"' + event.target.value + '"';
+                break;
+            case "dependencia":
+                this.state.filtroDepen = event.target.value;
+                break;
+            default:
+                break;
         }
-        axios.get(`${environment.urlServer}/correspondence/filterSent/${event.target.value}/${localStorage.getItem("idusuario")}`).then(res => {
+        console.log(this.state);
+        await axios.get(`${environment.urlServer}/correspondence/filterSent/${this.state.filtroEstado}/${this.state.filtroTipo}/${this.state.filtroFecha}/${this.state.filtroDepen}/${localStorage.getItem("idusuario")}`).then(res => {
             this.setState({ correspondencias: res.data });
             this.setState({ corresFiltradas: res.data });
         }).catch(error => {
@@ -81,16 +102,16 @@ class Sent extends Component {
 
                 {/* BARRA DE BÚSQUEDA */}
                 <div className="sentsearch">
-                    <div className="icon-search"> 
-                        <AiOutlineSearch /> 
+                    <div className="icon-search">
+                        <AiOutlineSearch />
                     </div>
 
-                    <input 
-                        type='text' 
-                        placeholder="Búsqueda de remitente..." 
-                        name="keyword" 
-                        id="keyword" 
-                        onChange={this.handleChange}> 
+                    <input
+                        type='text'
+                        placeholder="Búsqueda de remitente..."
+                        name="keyword"
+                        id="keyword"
+                        onChange={this.handleChange}>
                     </input>
                 </div>
 
@@ -98,12 +119,12 @@ class Sent extends Component {
 
                 {/* FILTROS */}
                 <div className="filtersDiv">
-                    
+
                     {/* Filtro por dependencia */}
                     <div className="filterInd">
                         <label className="info_para">Filtrar por dependencia</label>
                         <select name="deps" id="dependencia" onChange={this.handleFilter}>
-                            <option value="fk_DependenciaO">Selecciona Dependencia</option>
+                            <option value="fk_DependenciaD">Selecciona Dependencia</option>
                             {this.state.dependencias.map(elemento => (
                                 <option onChange={this.change} key={elemento.iddependencia} value={elemento.iddependencia}>{elemento.nombre}</option>
                             ))}
@@ -118,18 +139,18 @@ class Sent extends Component {
                 </div>
 
                 <br></br>
-                
+
                 {/* FILTROS PARA TIPO DE CORRESPONDENCIA */}
                 <div className="filters_type--sent">
 
                     {/* Filtro por estatus de correspondencia */}
                     <div className="filtersbtn">
-                        <button value="0" className="btnall" onClick={this.handleFilter}>Todos</button>
-                        <button value="2" className="btnsent" onClick={this.handleFilter}>Enviados</button>
-                        <button value="1" className="btnproc" onClick={this.handleFilter}>En Proceso</button>
-                        <button value="3" className="btnstore" onClick={this.handleFilter}>Archivados</button>
+                        <button value="fk_estatusco" id="estado" className="btnall" onClick={this.handleFilter}>Todos</button>
+                        <button value="2" id="estado" className="btnsent" onClick={this.handleFilter}>Enviados</button>
+                        <button value="1" id="estado" className="btnproc" onClick={this.handleFilter}>En Proceso</button>
+                        <button value="3" id="estado" className="btnstore" onClick={this.handleFilter}>Archivados</button>
                     </div>
-                    
+
                     {/* Filtro por tipo de correspondencia */}
                     <div className="filtersbtn">
                         <button value="fk_TipoCo" id="tipo" className="btnall_type--c" onClick={this.handleFilter}>Todos</button>
@@ -148,7 +169,7 @@ class Sent extends Component {
                         {this.state.correspondencias.map(elemento => (
                             <tr className="sentrow" onClick={() => this.seeDetails(elemento.id_Correspondencia)}>
                                 <td>
-                                    <div style={{ display: "flex", justifyContent: "space-between" }}> 
+                                    <div style={{ display: "flex", justifyContent: "space-between" }}>
                                         <p className="info_para"><span>Para: </span>{elemento.usuarioD}</p>
                                         <p className="info_para"><span>Fecha: </span>
                                             {new Date(elemento.fechaEmisión).getUTCDate() > 10 ? new Date(elemento.fechaEmisión).getUTCDate() : "0" + new Date(elemento.fechaEmisión).getUTCDate()}/
@@ -166,14 +187,14 @@ class Sent extends Component {
                                     <p className="info_para">{elemento.estatus}</p>
 
                                     <div>
-                                        <AiFillEye/>
+                                        <AiFillEye />
                                     </div>
                                 </td>
-                                
-                                
+
+
                             </tr>
 
-                            
+
                         ))}
                     </tbody>
                 </table>

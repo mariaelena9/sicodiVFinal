@@ -59,6 +59,10 @@ class Received extends Component {
                 this.state.filtroTipo = event.target.value;
                 break;
             case "fecha":
+                if(event.target.value==="") { 
+                    this.state.filtroFecha = "fechaEmisión"; 
+                    break;
+                }
                 this.state.filtroFecha = '"' + event.target.value + '"';
                 break;
             case "dependencia":

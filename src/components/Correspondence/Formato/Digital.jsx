@@ -133,7 +133,7 @@ class Digital extends Component {
                 this.state.form.observaciones = '';
                 this.state.form.numOficio = '';
             }
-            
+
             this.insertFiles(response);
             Swal.fire({
                 title: 'Acción realizada correctamente',
@@ -185,7 +185,7 @@ class Digital extends Component {
         }
     }
     //========================================================
-    
+
     //==================== CONSULTAS GET  ====================
 
     //Consultar todas las dependencias de la BD
@@ -287,10 +287,10 @@ class Digital extends Component {
                                 value={this.state.form ? this.state.form.fk_DependenciaD : ''}>
                                 <option value="invalido">Elige la dependencia destino</option>
                                 {this.state.dependencias.map(elemento => (
-                                    <option 
-                                        key={elemento.iddependencia} 
+                                    <option
+                                        key={elemento.iddependencia}
                                         value={elemento.iddependencia}>
-                                            {elemento.nombre}
+                                        {elemento.nombre}
                                     </option>
                                 ))}
                             </select>
@@ -304,10 +304,10 @@ class Digital extends Component {
                                 value={this.state.form ? this.state.form.fk_UsuarioD : ''}>
                                 <option value="invalido">Elige un destinatario</option>
                                 {this.state.usuarios.map(elemento => (
-                                    <option 
-                                        key={elemento.idusuario} 
+                                    <option
+                                        key={elemento.idusuario}
                                         value={elemento.idusuario}>
-                                            {elemento.nombre} {elemento.apPaterno} {elemento.apMaterno}
+                                        {elemento.nombre} {elemento.apPaterno} {elemento.apMaterno}
                                     </option>
                                 ))}
                             </select>
@@ -316,7 +316,7 @@ class Digital extends Component {
 
                         <h3 className="fontRounded">Información de correspondencia</h3>
                         <br></br>
-                        
+
                         <div className="originInfo">
                             <select
                                 id="fk_TipoCo"
@@ -326,10 +326,10 @@ class Digital extends Component {
                                 value={this.state.form ? this.state.form.fk_TipoCo : ''}>
                                 <option value="invalido">Elige un tipo de correspondencia</option>
                                 {this.state.tipos.map(elemento => (
-                                    <option 
-                                        key={elemento.idtipo} 
+                                    <option
+                                        key={elemento.idtipo}
                                         value={elemento.idtipo}>
-                                            {elemento.nombre}
+                                        {elemento.nombre}
                                     </option>
                                 ))}
                             </select>
@@ -340,7 +340,7 @@ class Digital extends Component {
                                 key="asunto"
                                 name="asunto"
                                 label="Asunto:"
-                                required 
+                                required
                                 onChange={this.handleChange}
                                 value={this.state.form ? this.state.form.asunto : ''}>
                             </TextField>
@@ -348,12 +348,12 @@ class Digital extends Component {
 
                             <TextField
                                 multiline
-                                rows={10} 
+                                rows={10}
                                 id="descripción"
                                 key="descripción"
                                 name="descripción"
                                 label="Descripcion:"
-                                required        
+                                required
                                 onChange={this.handleChange}
                                 value={this.state.form ? this.state.form.descripción : ''}>
                             </TextField>
@@ -361,32 +361,33 @@ class Digital extends Component {
 
                             <TextField
                                 multiline
-                                rows={5} 
+                                rows={5}
                                 id="observaciones"
                                 key="observaciones"
                                 name="observaciones"
-                                label="Observaciones:"  
-                                required        
+                                label="Observaciones:"
+                                required
                                 onChange={this.handleChange}
                                 value={this.state.form ? this.state.form.fechaobservaciones : ''}>
                             </TextField>
                             <br />
 
-                            <p> Subir archivos: </p>
+                            <div className="send-options">
+                                <div className="input-archivos">
+                                    <input
+                                        type="file"
+                                        name="files"
+                                        accept=".pdf"
+                                        onChange={(e => this.prepararArchivos(e.target.files))}
+                                    />
+                                </div>
 
-                            <input
-                                type="file"
-                                name="files"
-                                multiple 
-                                onChange={(e => this.prepararArchivos(e.target.files))}
-                            />
-                            <br />
-
-                            <button
-                                type="submit"
-                                onClick={this.handleSubmit}>
-                                Enviar
-                            </button>
+                                <button
+                                    type="submit"
+                                    onClick={this.handleSubmit}>
+                                    Enviar
+                                </button>
+                            </div>
                         </div>
                     </form>
                 </div>

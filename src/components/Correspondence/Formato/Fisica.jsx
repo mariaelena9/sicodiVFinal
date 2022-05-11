@@ -414,12 +414,9 @@ class Fisica extends Component {
                             <div className="input-archivos">
                                 <input
                                     type="file"
-                                    accept="image/png, image/jpeg"
-                                    multiple>
+                                    accept=".pdf">
                                 </input>
                             </div>
-                            
-                            <br />
 
                             <button
                                 type="submit"

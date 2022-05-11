@@ -16,8 +16,8 @@ import './components/Home/Inicio.css'
 import './components/Log In/Login.css';
 import './components/Sent/Sent.css';
 import './components/Details/Details.css';
-import './components/Tracking/Tracking.css'
-import './pages/Login-Page.css'
+import './components/Tracking/Tracking.css';
+import './pages/Login-Page.css';
 
 //Componentes
 import LoginPage from './pages/Login-Page';
