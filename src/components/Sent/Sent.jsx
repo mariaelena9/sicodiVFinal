@@ -3,13 +3,14 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 
 //Iconos
-import { AiOutlineSearch } from "react-icons/ai";
+import { AiOutlineSearch, AiFillEye } from "react-icons/ai";
 
 //Componentes
 import Details from "../Details/Details"
 
 //Archivo de configuración
 import { environment } from '../../config/settings';
+import { margin } from "@mui/system";
 
 class Sent extends Component {
 
@@ -70,16 +71,37 @@ class Sent extends Component {
     render() {
         return (
             <div className="sentcontent">
-                <div className="sentsearch">
-                    <div className="icon-search"> <AiOutlineSearch /> </div>
-                    <input type='text' placeholder="Buscar en toda la correspondencia" name="keyword" id="keyword" onChange={this.handleChange}></input>
+
+                {/* TITULO DE PÁGINA */}
+                <div className="buttonBack">
+                    <p className="TitlePage">Enviados</p>
                 </div>
 
-                <br />
+                <br></br>
 
-                {/* <div className="filtersDiv">
+                {/* BARRA DE BÚSQUEDA */}
+                <div className="sentsearch">
+                    <div className="icon-search"> 
+                        <AiOutlineSearch /> 
+                    </div>
+
+                    <input 
+                        type='text' 
+                        placeholder="Búsqueda de remitente..." 
+                        name="keyword" 
+                        id="keyword" 
+                        onChange={this.handleChange}> 
+                    </input>
+                </div>
+
+                <br></br>
+
+                {/* FILTROS */}
+                <div className="filtersDiv">
+                    
+                    {/* Filtro por dependencia */}
                     <div className="filterInd">
-                        <label>Filtrar por dependencia</label>
+                        <label className="info_para">Filtrar por dependencia</label>
                         <select name="deps" id="dependencia" onChange={this.handleFilter}>
                             <option value="fk_DependenciaO">Selecciona Dependencia</option>
                             {this.state.dependencias.map(elemento => (
@@ -87,29 +109,37 @@ class Sent extends Component {
                             ))}
                         </select>
                     </div>
+
+                    {/* Filtro por fecha de emisión */}
                     <div className="filterInd">
-                        <label>Filtrar por fecha de emisión</label>
+                        <label className="info_para">Filtrar por fecha de emisión</label>
                         <input type="date" id="fecha" label="Filtrar por fecha" onChange={this.handleFilter}></input>
                     </div>
                 </div>
 
-                <div className="filtersbtn">
-                    <button value="fk_TipoCo" id="tipo" className="btnall" onClick={this.handleFilter}>Todos</button>
-                    <button value="1" id="tipo" className="btnproc" onClick={this.handleFilter}>Informativos</button>
-                    <button value="2" id="tipo" className="btnsent" onClick={this.handleFilter}>Requerimentos</button>
-                    <button value="3" id="tipo" className="btnstore" onClick={this.handleFilter}>Copias</button>
-                </div> */}
+                <br></br>
+                
+                {/* FILTROS PARA TIPO DE CORRESPONDENCIA */}
+                <div className="filters_type--sent">
 
-                <br />
-
-                <div className="filtersbtn">
-                    <button value="0" className="btnall" onClick={this.handleFilter}>Todos</button>
-                    <button value="1" className="btnproc" onClick={this.handleFilter}>Proceso</button>
-                    <button value="2" className="btnsent" onClick={this.handleFilter}>Enviado</button>
-                    <button value="3" className="btnstore" onClick={this.handleFilter}>Archivado</button>
+                    {/* Filtro por estatus de correspondencia */}
+                    <div className="filtersbtn">
+                        <button value="0" className="btnall" onClick={this.handleFilter}>Todos</button>
+                        <button value="2" className="btnsent" onClick={this.handleFilter}>Enviados</button>
+                        <button value="1" className="btnproc" onClick={this.handleFilter}>En Proceso</button>
+                        <button value="3" className="btnstore" onClick={this.handleFilter}>Archivados</button>
+                    </div>
+                    
+                    {/* Filtro por tipo de correspondencia */}
+                    <div className="filtersbtn">
+                        <button value="fk_TipoCo" id="tipo" className="btnall_type--c" onClick={this.handleFilter}>Todos</button>
+                        <button value="1" id="tipo" className="btn_info--c" onClick={this.handleFilter}>Informativos</button>
+                        <button value="2" id="tipo" className="btn_req--c" onClick={this.handleFilter}>Requerimentos</button>
+                        <button value="3" id="tipo" className="btn_cop--c" onClick={this.handleFilter}>Copias</button>
+                    </div>
                 </div>
 
-                <br />
+                <br></br>
 
                 {this.state.correspondencias.length === 0 ? <h2>Sin enviados</h2> : ""}
 
@@ -118,17 +148,32 @@ class Sent extends Component {
                         {this.state.correspondencias.map(elemento => (
                             <tr className="sentrow" onClick={() => this.seeDetails(elemento.id_Correspondencia)}>
                                 <td>
-                                    <div style={{display: "flex", justifyContent: "space-between"}}>
-                                        <p><b>Para: </b>{elemento.usuarioD}</p>
-                                        <p><b>Fecha: </b>{new Date(elemento.fechaEmisión).getUTCDate()}/{new Date(elemento.fechaEmisión).toLocaleString('default', { month: 'long' })}/{new Date(elemento.fechaEmisión).getFullYear()}</p>
+                                    <div style={{ display: "flex", justifyContent: "space-between" }}> 
+                                        <p className="info_para"><span>Para: </span>{elemento.usuarioD}</p>
+                                        <p className="info_para"><span>Fecha: </span>
+                                            {new Date(elemento.fechaEmisión).getUTCDate() > 10 ? new Date(elemento.fechaEmisión).getUTCDate() : "0" + new Date(elemento.fechaEmisión).getUTCDate()}/
+                                            {new Date(elemento.fechaEmisión).toLocaleString('default', { month: 'short' })}/
+                                            {new Date(elemento.fechaEmisión).getFullYear()}
+                                        </p>
                                     </div>
-                                    <p><b>Asunto: </b>{elemento.asunto}</p>
-                                    <p>{elemento.descripción}</p>
+
+                                    <p className="info_para"><span>Asunto: </span>{elemento.asunto}</p>
+                                    {/* <p className="info_para" style={{marginTop:"1rem"}}>{elemento.descripción}</p> */}
+
                                 </td>
+
                                 <td style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                                    <p>{elemento.estatus}</p>
+                                    <p className="info_para">{elemento.estatus}</p>
+
+                                    <div>
+                                        <AiFillEye/>
+                                    </div>
                                 </td>
+                                
+                                
                             </tr>
+
+                            
                         ))}
                     </tbody>
                 </table>

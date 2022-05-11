@@ -1,15 +1,22 @@
 /* @DIRECTORIO */
 
-//Imports
-import React, { Component } from "react";
+//Importación de React:
+import React, { Component, Fragment } from "react"; //Importación de Component y Fragment
+
+//Importación del DOM:
 import ReactDOM from "react-dom";
+
+/*@Michelle: Axios está optimizado para facilitar el consumo de servicios web, API REST y que devuelvan datos JSON */
+//Importación de axios:
 import axios from 'axios';
+
+//Importación de Swal (Para alertas emergentes):
 import Swal from 'sweetalert2';
 
-//Archivo de configuracion
+//Archivo de configuración
 import { environment } from '../../config/settings';
 
-//Iconos
+//Importación de recursos (iconos):
 import { FaUserTie } from "react-icons/fa";
 import { AiOutlineSearch } from "react-icons/ai";
 import { MdEmail } from "react-icons/md";
@@ -18,10 +25,11 @@ import { BsFillPersonFill } from "react-icons/bs";
 import { BsEnvelopeFill } from "react-icons/bs";
 import { MdWork } from "react-icons/md";
 
-//Componentes
+//Importación de componentes
 import Modal from './Modal.jsx';
 import Digital from "../Correspondence/Formato/Digital";
 
+//_Class Component_
 class Directorio extends Component {
     //CONSTRUCTOR DEL COMPONENTE
     constructor() {
@@ -128,26 +136,27 @@ class Directorio extends Component {
 
     render() { //Renderiza los elementos gráficos del componente
         return (
-            <div className="main">
+            <Fragment>
                 <div className="contentDirectory">
                     <Modal show={this.state.show} handleClose={this.hideModal}>
                         <div className="modalContent">
                             <div className="modalName">
-                                <p>{this.state.name}</p>
-                                <BsFillPersonFill />
+                                <p className="p-letter">{this.state.name}</p>
+                                <BsFillPersonFill/>
                             </div>
-                            <p><b>Departamento:</b> {this.state.fkdpto}</p>
+                            <p className="p-letter"><b>Departamento:</b> {this.state.fkdpto}</p>
+                            <br></br>
                             <div className="modalEmail">
-                                <BsEnvelopeFill />
-                                <p>{this.state.email}</p>
+                                <div className="icon-modal"><BsEnvelopeFill /> </div>
+                                <p className="p-letter">{this.state.email}</p>
                             </div>
                             <div className="modalPos">
-                                <MdWork />
-                                <p>{this.state.depa}</p>
+                                <div className="icon-modal"><MdWork /></div>
+                                <p className="p-letter">{this.state.depa}</p>
                             </div>
                             <div className="modalPhone">
-                                <AiFillPhone />
-                                <p>{this.state.phone}</p>
+                                <div className="icon-modal"><AiFillPhone /> </div>
+                                <p className="p-letter">{this.state.phone}</p>
                             </div>
                             <div className='modalButton'>
                                 <button type="button" onClick={() => this.handleWriteTo({ usuario: this.state.idUsuario, dependencia: this.state.fkdependencia })}>
@@ -164,7 +173,7 @@ class Directorio extends Component {
                             </div>
 
                             <div className="Search">
-                                <input type='text' placeholder="Busqueda..." name="keyword" id="keyword" onChange={this.handleChange}></input>
+                                <input type='text' placeholder="Nombre de contacto..." name="keyword" id="keyword" onChange={this.handleChange}></input>
                                 <div className="icon-search"> <AiOutlineSearch /> </div>
                             </div>
                         </div>
@@ -209,9 +218,10 @@ class Directorio extends Component {
                         </div>
                     </div>
                 </div>
-            </div>
+            </Fragment>
         )
     }
 }
 
+//Exportación del componente:
 export default Directorio;

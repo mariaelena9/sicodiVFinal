@@ -1,25 +1,40 @@
-//Imports
+/* @FORMATO PARA OPCIÓN FISICA */
+
+//Importación de Componente desde React:
 import { Component } from "react";
+
+//Importación del DOM:
 import ReactDOM from 'react-dom';
+
+/*@Michelle: Axios está optimizado para facilitar el consumo de servicios web, API REST y que devuelvan datos JSON */
+//Importación de axios:
 import axios from 'axios';
+
+//Importación de Swal (Para alertas emergentes):
 import Swal from 'sweetalert2';
+
+//Importación de recursos (iconos):
 import { IoChevronBackOutline } from "react-icons/io5";
-//Componentes
+
+//Importación de componentes:
 import Correspondence from '../Correspondence'
 
-//Archivo de configuracion
+//Archivo de configuración
 import { environment } from '../../../config/settings';
 
 //Objetos MATD
 import TextField from '@mui/material/TextField';
 
+//_Class Component_
 class Fisica extends Component {
+    //Estado inicial
     state = {
-        data: [],
+        //Catalogos
         dependencias: [],
         usuariosD: [],
         usuariosO: [],
         tipos: [],
+        //Datos que se van a registrar en la base de datos [correspondencia]
         form: {
             id_Correspondencia: '',
             numOficio: '',
@@ -37,30 +52,40 @@ class Fisica extends Component {
         }
     }
 
+    /* @Michelle: componentDidMount()es un hook que se invoca justo después de que se haya montado un componente de React, 
+        es decir, después del primer ciclo de vida de render().
+    */
+
     //Se ejecutará al momento de montar el componente
     componentDidMount() {
-        this.getDependences();
-        this.getTipoCo();
+        this.getDependences(); //Función getDependeces() -> Va a mostrar el combo de las dependencias
+        this.getTipoCo();      //Función getTipoCo() ->Va a mostrar el combo de los tipos de correspondencia
         var today = new Date().toISOString().split('T')[0];
-        document.getElementsByName("fechaEmisión")[0].setAttribute('max', today);
-        document.getElementsByName("fechaRecepción")[0].setAttribute('max', today);
+        document.getElementsByName("fechaEmisión")[0].setAttribute('max', today); //Se hace validación de no fecha futura en emisión
+        document.getElementsByName("fechaRecepción")[0].setAttribute('max', today); //Se hace validación de no fecha futura en recepción
     }
 
+    //=========== FUNCIONES ===========
+    
     //Función para registrar la correspondencia en la BD
     handleSubmit = (e) => {
         e.preventDefault();
         this.insertCorrespondence();
     }
 
+    /* @Michelle: Asíncrono, no va detener el flujo del proyecto, cada que haya cambios*/
+
     //Función base para manipular un objeto formulario, ayuda a controlar las modificaciones
-    handleChange = async e => {
-        e.persist();
+    handleChange = async (e) => {
+        e.preventDefault();
         if (e.target.name === "fk_DependenciaD") {
             this.getUsersD(e.target.value);
         }
         if (e.target.name === "fk_DependenciaO") {
             this.getUsersO(e.target.value);
         }
+
+        /* Con el await dentro del async se generá una promesa, entonces si se detiene el flujo */
         await this.setState({
             form: {
                 ...this.state.form,
@@ -68,6 +93,10 @@ class Fisica extends Component {
             }
         });
     }
+
+
+
+    //==================== CONSULTAS INSERT  ====================
 
     //Función para insertar en la BD la correspondencia
     //Consumo del metodo INSERT de la API
@@ -90,7 +119,6 @@ class Fisica extends Component {
             return;
         }
 
-        delete this.state.form.id_Correspondencia;
         await axios.post(`${environment.urlServer}/correspondence/insert`, this.state.form).then(response => {
             if (response.data === "ER_DUP_ENTRY") {
                 Swal.fire({
@@ -131,8 +159,12 @@ class Fisica extends Component {
     insertFiles(id) {
         console.log(id.data.insertId);
     }
+    //========================================================
 
-    //Consultar las dependencias de la BD
+
+    //==================== CONSULTAS GET  ====================
+
+    //Consultar todas las dependencias de la BD
     getDependences() {
         axios.get(`${environment.urlServer}/dependence/getdependence`).then(Response => {
             this.setState({ dependencias: Response.data });
@@ -141,7 +173,7 @@ class Fisica extends Component {
         });
     }
 
-    //Consultar los usuarios de la BD
+    //Consultar todos los usuarios de la BD filtrados por departamento
     getUsersD(id) {
         axios.get(`${environment.urlServer}/user/getUserByDep/${id}`).then(Response => {
             if (Response.data === 'Sin resultados') {
@@ -175,86 +207,226 @@ class Fisica extends Component {
             console.log(error.message);
         });
     }
+    //========================================================
 
+    //Función de botón para regresar a opción de correspondencia
     handleClick(e) {
         e.preventDefault();
         ReactDOM.render(<Correspondence />, document.getElementById('root'));
     }
 
+    //Renderización de Componente
     render() {
         return (
             <div className="correspondencecontent">
                 <div className="buttonBack" style={{ cursor: "pointer" }} onClick={this.handleClick}>
                     <IoChevronBackOutline />
-                    <h3>Modo de correspondencia</h3>
+                    <h3 className="fontRounded">Modo de correspondencia | Física</h3>
                 </div>
                 <br />
-                <h3>Información básica</h3>
+
+                {/* CODIFICACIÓN DE CORRESPONDENCIA DIGITAL */}
+                <h3 className="fontRounded">Información básica</h3>
+                <br></br>
+                {/* Inicio de Formulario */}
                 <form>
                     <div className="dates">
-                        <TextField InputLabelProps={{ shrink: true }} name="fechaEmisión" required key="fechaEmisión" type="date" id="fechaEmisión" label="Fecha de emisión" onChange={this.handleChange} value={this.state.form ? this.state.form.fechaEmisión : ''}></TextField>
-                        <TextField InputLabelProps={{ shrink: true }} name="fechaRecepción" required key="fechaRecepción" type="date" id="fechaRecepción" label="Fecha de recepción" onChange={this.handleChange} value={this.state.form ? this.state.form.fechaRecepción : ''}></TextField>
+
+                        <TextField
+                            id="numOficio"
+                            key="numOficio"
+                            name="numOficio"
+                            label="Número de Oficio"
+                            InputLabelProps={{ shrink: true }}
+                            placeholder="Número de Oficio"
+                            required
+                            type="text"
+                            onChange={this.handleChange}
+                            value={this.state.form ? this.state.form.numOficio : ''}>
+                        </TextField>
+
+                        <TextField
+                            id="fechaEmisión" //Identificar único
+                            key="fechaEmisión" //Llave identificador propio de React -> Ayuda a react a identificar los items
+                            name="fechaEmisión" //Nombre identificador
+                            label="Fecha de emisión" //Etiqueta
+                            InputLabelProps={{ shrink: true }} //Le da la propiedad de encogido al label -> Lo pone arriba del textfield
+                            required //El campo es requerido            
+                            type="date" //Tipo de info que va a recibir 
+                            onChange={this.handleChange} //Función
+                            value={this.state.form ? this.state.form.fechaEmisión : ''} //Toma valor 
+                        >
+                        </TextField>
+
+                        <TextField
+                            id="fechaRecepción"
+                            key="fechaRecepción"
+                            name="fechaRecepción"
+                            label="Fecha de recepción"
+                            InputLabelProps={{ shrink: true }}
+                            required
+                            type="date"
+                            onChange={this.handleChange}
+                            value={this.state.form ? this.state.form.fechaRecepción : ''}>
+                        </TextField>
+
+                        
                     </div>
-                    <label>Código de oficio:</label>
-                    <br />
-                    <TextField name="numOficio" required key="numOficio" type="text" id="numOficio" label="Oficio" onChange={this.handleChange} value={this.state.form ? this.state.form.numOficio : ''}></TextField>
-                    <br />
-                    <h3>Información de remitente</h3>
+
+                    <h3 className="fontRounded">Información de remitente</h3>
+                    <br></br>
+
                     <div className="originInfo">
-                        <select className="select" id="fk_DependenciaO" name="fk_DependenciaO" onChange={this.handleChange} value={this.state.form ? this.state.form.fk_DependenciaO : ''}>
+                        <select
+                            id="fk_DependenciaO"
+                            name="fk_DependenciaO"
+                            className="select"
+                            onChange={this.handleChange}
+                            value={this.state.form ? this.state.form.fk_DependenciaO : ''}>
                             <option value="invalido">Elige la dependencia origen</option>
                             {this.state.dependencias.map(elemento => (
-                                <option key={elemento.iddependencia} value={elemento.iddependencia}>{elemento.nombre}</option>
+                                <option
+                                    key={elemento.iddependencia}
+                                    value={elemento.iddependencia}>
+                                        {elemento.nombre}
+                                </option>
                             ))}
                         </select>
                         <br />
-                        <select className="select" id="fk_UsuarioO" name="fk_UsuarioO" onChange={this.handleChange} value={this.state.form ? this.state.form.fk_UsuarioO : ''}>
+
+                        <select
+                            id="fk_UsuarioO"
+                            name="fk_UsuarioO"
+                            className="select"
+                            onChange={this.handleChange}
+                            value={this.state.form ? this.state.form.fk_UsuarioO : ''}>
                             <option value="invalido">Elige un remitente</option>
                             {this.state.usuariosO.map(elemento => (
-                                <option key={elemento.idusuario} value={elemento.idusuario}>{elemento.nombre} {elemento.apPaterno} {elemento.apMaterno}</option>
+                                <option 
+                                    key={elemento.idusuario} 
+                                    value={elemento.idusuario}>
+                                        {elemento.nombre} {elemento.apPaterno} {elemento.apMaterno}
+                                </option>
                             ))}
                         </select>
                     </div>
                     <br />
-                    <h3>Información de destinatario</h3>
+
+                    <h3 className="fontRounded">Información de destinatario</h3>
+                    <br></br>
+
                     <div className="originInfo">
-                        <select className="select" id="fk_DependenciaD" name="fk_DependenciaD" onChange={this.handleChange} value={this.state.form ? this.state.form.fk_DependenciaD : ''}>
+                        <select
+                            id="fk_DependenciaD"
+                            name="fk_DependenciaD"
+                            className="select"
+                            onChange={this.handleChange}
+                            value={this.state.form ? this.state.form.fk_DependenciaD : ''}>
                             <option value="invalido">Elige la dependencia destino</option>
                             {this.state.dependencias.map(elemento => (
-                                <option key={elemento.iddependencia} value={elemento.iddependencia}>{elemento.nombre}</option>
+                                <option 
+                                    key={elemento.iddependencia} 
+                                    value={elemento.iddependencia}>
+                                        {elemento.nombre}
+                                </option>
                             ))}
                         </select>
                         <br />
-                        <select className="select" id="fk_UsuarioD" name="fk_UsuarioD" onChange={this.handleChange} value={this.state.form ? this.state.form.fk_UsuarioD : ''}>
+
+                        <select
+                            id="fk_UsuarioD"
+                            name="fk_UsuarioD"
+                            className="select"
+                            onChange={this.handleChange}
+                            value={this.state.form ? this.state.form.fk_UsuarioD : ''}>
                             <option value="invalido">Elige un destinatario</option>
                             {this.state.usuariosD.map(elemento => (
-                                <option key={elemento.idusuario} value={elemento.idusuario}>{elemento.nombre} {elemento.apPaterno} {elemento.apMaterno}</option>
+                                <option 
+                                    key={elemento.idusuario} 
+                                    value={elemento.idusuario}>
+                                        {elemento.nombre} {elemento.apPaterno} {elemento.apMaterno}
+                                </option>
                             ))}
                         </select>
                     </div>
                     <br />
-                    <h3>Información de correspondencia</h3>
+
+                    <h3 className="fontRounded">Información de correspondencia</h3>
+                    <br></br>
+
                     <div className="originInfo">
-                        <select className="select" id="fk_TipoCo" name="fk_TipoCo" onChange={this.handleChange} value={this.state.form ? this.state.form.fk_TipoCo : ''}>
+                        <select
+                            id="fk_TipoCo"
+                            name="fk_TipoCo"
+                            className="select"
+                            onChange={this.handleChange}
+                            value={this.state.form ? this.state.form.fk_TipoCo : ''}>
                             <option value="invalido">Elige un tipo de correspondencia</option>
                             {this.state.tipos.map(elemento => (
-                                <option key={elemento.idtipo} value={elemento.idtipo}>{elemento.nombre}</option>
+                                <option 
+                                    key={elemento.idtipo} 
+                                    value={elemento.idtipo}>
+                                        {elemento.nombre}
+                                </option>
                             ))}
                         </select>
                         <br />
-                        <TextField required name="asunto" key="asunto" id="asunto" label="Asunto:" onChange={this.handleChange} value={this.state.form ? this.state.form.asunto : ''}></TextField>
+
+                        <TextField
+                            id="asunto"
+                            key="asunto"
+                            name="asunto"
+                            className="asunto"
+                            label="Asunto:"
+                            required
+                            onChange={this.handleChange}
+                            value={this.state.form ? this.state.form.asunto : ''}>
+                        </TextField>
                         <br />
-                        <TextField multiline name="descripción" key="descripción" rows={10} required id="descripción" label="Descripcion:" onChange={this.handleChange} value={this.state.form ? this.state.form.descripción : ''}></TextField>
+
+                        <TextField
+                            multiline
+                            rows={10}
+                            id="descripción"
+                            key="descripción"
+                            name="descripción"
+                            label="Descripcion:"
+                            required 
+                            onChange={this.handleChange}
+                            value={this.state.form ? this.state.form.descripción : ''}>
+                        </TextField>
                         <br />
-                        <TextField multiline name="observaciones" key="observaciones" rows={5} required id="observaciones" label="Observaciones:" onChange={this.handleChange} value={this.state.form ? this.state.form.fechaobservaciones : ''}></TextField>
+
+                        <TextField
+                            multiline 
+                            rows={5}
+                            id="observaciones"
+                            key="observaciones"
+                            name="observaciones"
+                            label="Observaciones:"
+                            required 
+                            onChange={this.handleChange}
+                            value={this.state.form ? this.state.form.fechaobservaciones : ''}>
+                        </TextField>
                         <br />
-                        <p>
-                            Subir archivos:
+                    
+                        <div className="send-options">
+                            <div className="input-archivos">
+                                <input
+                                    type="file"
+                                    accept="image/png, image/jpeg"
+                                    multiple>
+                                </input>
+                            </div>
+                            
                             <br />
-                            <input type="file" accept="image/png, image/jpeg" multiple></input>
-                        </p>
-                        <br />
-                        <button type="submit" onClick={this.handleSubmit}>Enviar</button>
+
+                            <button
+                                type="submit"
+                                onClick={this.handleSubmit}>
+                                Enviar
+                            </button>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -262,4 +434,5 @@ class Fisica extends Component {
     }
 }
 
+//Exportación del componente:
 export default Fisica;

@@ -130,3 +130,11 @@
 .answer:hover {
     background-color: #3d6244;
 }
+
+.info_detail {
+    font-family: Gotham;
+}
+
+.info_detail span {
+    font-family: GothamRounded;
+}

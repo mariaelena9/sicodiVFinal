@@ -1,0 +1,21 @@
+/* Colores utilizados */
+:root {
+    --primario: #780727;
+    --primarioOscuro: #380212;
+    --blanco: #fff;
+    --negro: #000;
+    --gris: #888;
+    --oscuro: rgba(0, 0, 0, 0.1);
+}
+
+/* Fuente utilizada */
+@font-face {
+    font-family: GothamRounded;
+    src: url(../../assets/GothamRounded/GothamRounded-Bold.otf);
+}
+
+@font-face {
+    font-family: Gotham;
+    src: url(../../assets/GothamRounded/GothamRounded-Light.otf);
+}
+

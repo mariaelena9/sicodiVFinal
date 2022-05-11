@@ -1,18 +1,3 @@
-:root {
-    --primario: #780727;
-    --blanco: #fff;
-}
-
-@font-face {
-    font-family: GothamRounded;
-    src: url(../../assets/GothamRounded/GothamRounded-Bold.otf);
-}
-
-@font-face {
-    font-family: Gotham;
-    src: url(../../assets/GothamRounded/GothamRounded-Light.otf);
-}
-
 * {
     padding: 0;
     margin: 0;

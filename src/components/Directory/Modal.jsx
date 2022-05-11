@@ -6,7 +6,12 @@ const Modal = ({ handleClose, show, children }) => {
       <section className="modal-main">
         <button type="button" onClick={handleClose}
           style={{
-            display: "flex", justifyContent: "center", alignItems: "center", width: "25px", height: "25px", borderRadius: "100%"
+            display: "flex", 
+            justifyContent: "center", 
+            alignItems: "center", 
+            alignSelf: "flex-end",
+            width: "30px", 
+            height: "30px"
           }}>
           X
         </button>
@@ -16,4 +21,5 @@ const Modal = ({ handleClose, show, children }) => {
   );
 };
 
+//Exportación del componente:
 export default Modal;

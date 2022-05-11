@@ -1,14 +1,20 @@
-//Imports
-import React, { Component } from "react";
-import { BrowserRouter as Router } from 'react-router-dom';
+/* @MENÚ */
+
+//Importación de React:
+import React, { Component } from "react"; //Importación de [Component]
+
+//Importación del DOM:
 import ReactDOM from 'react-dom';
 
-//Iconos
+//Importación de Router, para navegar entre enlaces y/o componentes distintos, sin perder la interfaz
+import { BrowserRouter as Router } from 'react-router-dom';
+
+//Importación de iconos:
 import * as ImIcons from 'react-icons/im';
 import * as AiIcons from 'react-icons/ai';
 import * as MdIcons from 'react-icons/md';
 
-//Componentes
+//Importación de componentes:
 import Directorio from "../../components/Directory/Directorio";
 import Correspondence from "../../components/Correspondence/Correspondence";
 import Inicio from "../../components/Home/Inicio";
@@ -16,7 +22,11 @@ import Loader from "../Loader/Loader";
 import Sent from "../../components/Sent/Sent";
 import Received from "../../components/Received/Received";
 
+//_Class Component_
 class Menu extends Component {
+
+/*@Michelle: [e.preventDefault] cancela el evento si este es cancelable, 
+sin detener el resto del funcionamiento del evento, es decir, puede ser llamado de nuevo.*/
 
     //Función para controlar el funcionamiento del menú
     handleMenu(e) {
@@ -41,14 +51,16 @@ class Menu extends Component {
             ReactDOM.render(<Loader texto1="Cerrando sesión" type="logout" />, document.getElementById('root'));
         }
     }
-
+    
     render() {
         return (
-            <Router className="contenido">
+            <Router>
                 <div className="principal">
                     <div className="navegacion">
                         <nav className="nav__bar">
                             <ul className="menuss">
+
+                                {/* Inicio */}
                                 <li id="/home" onClick={this.handleMenu}>
                                     <a id="/home">
                                         <span><AiIcons.AiFillHome /></span>
@@ -56,6 +68,7 @@ class Menu extends Component {
                                     </a>
                                 </li>
 
+                                {/* Directorio */}
                                 <li id="/directory" onClick={this.handleMenu}>
                                     <a id="/directory">
                                         <span><MdIcons.MdImportContacts /></span>
@@ -63,6 +76,7 @@ class Menu extends Component {
                                     </a>
                                 </li>
 
+                                {/* Correspondencia */}
                                 <li id="/correspondence" onClick={this.handleMenu}>
                                     <a id="/correspondence">
                                         <span><ImIcons.ImFileText2 /></span>
@@ -70,6 +84,7 @@ class Menu extends Component {
                                     </a>
                                 </li>
 
+                                {/* Enviados */}
                                 <li id="/sent" onClick={this.handleMenu}>
                                     <a id="/sent">
                                         <span><ImIcons.ImBoxRemove /></span>
@@ -77,6 +92,7 @@ class Menu extends Component {
                                     </a>
                                 </li>
 
+                                {/* Recibidos */}
                                 <li id="/receipt" onClick={this.handleMenu}>
                                     <a id="/receipt">
                                         <span><ImIcons.ImBoxAdd /></span>
@@ -84,6 +100,7 @@ class Menu extends Component {
                                     </a>
                                 </li>
 
+                                {/* Historico */}
                                 <li id="/history" onClick={this.handleMenu}>
                                     <a id="/history">
                                         <span><ImIcons.ImHistory /></span>
@@ -98,6 +115,7 @@ class Menu extends Component {
                                 </a>
                             </li> */}
 
+                                {/* Salir */}
                                 <li key="exit" id="/salir" onClick={this.handleMenu}>
                                     <a id="/salir" >
                                         <span id="/salir"><ImIcons.ImExit /></span>
@@ -113,4 +131,5 @@ class Menu extends Component {
     }
 }
 
+//Exportación del Componente:
 export default Menu;

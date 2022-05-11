@@ -87,16 +87,27 @@ class Received extends Component {
     render() {
         return (
             <div className="sentcontent">
+                <div className="buttonBack">
+                    <p className="TitlePage">Recibidos</p>
+                </div>
+                <br></br>
+                
                 <div className="sentsearch">
                     <div className="icon-search"> <AiOutlineSearch /> </div>
-                    <input type='text' placeholder="Buscar en toda la correspondencia" name="keyword" id="keyword" onChange={this.handleChange}></input>
+                    <input 
+                        type='text' 
+                        placeholder="Buscar en toda la correspondencia" 
+                        name="keyword" 
+                        id="keyword" 
+                        onChange={this.handleChange}>
+                    </input>
                 </div>
 
                 <br />
 
                 <div className="filtersDiv">
                     <div className="filterInd">
-                        <label>Filtrar por dependencia</label>
+                        <label className="info_de">Filtrar por dependencia</label>
                         <select name="deps" id="dependencia" onChange={this.handleFilter}>
                             <option value="fk_DependenciaO">Selecciona Dependencia</option>
                             {this.state.dependencias.map(elemento => (
@@ -105,7 +116,8 @@ class Received extends Component {
                         </select>
                     </div>
                     <div className="filterInd">
-                        <label>Filtrar por fecha de emisión</label>
+                        <label className="info_de">Filtrar por fecha de emisión</label>
+                        <br></br>
                         <input type="date" id="fecha" label="Filtrar por fecha" onChange={this.handleFilter}></input>
                     </div>
                 </div>
@@ -127,14 +139,14 @@ class Received extends Component {
                             <tr className="sentrow" onClick={() => this.seeDetails(elemento.id_Correspondencia)}>
                                 <td>
                                     <div style={{ display: "flex", justifyContent: "space-between" }}>
-                                        <p><b>De: </b>{elemento.usuarioO}</p>
-                                        <p><b>Fecha: </b>{new Date(elemento.fechaEmisión).getUTCDate()}/{new Date(elemento.fechaEmisión).toLocaleString('default', { month: 'long' })}/{new Date(elemento.fechaEmisión).getFullYear()}</p>
+                                        <p className="info_de"><span>De: </span>{elemento.usuarioO}</p>
+                                        <p className="info_de"><span>Fecha: </span>{new Date(elemento.fechaEmisión).getUTCDate()}/{new Date(elemento.fechaEmisión).toLocaleString('default', { month: 'long' })}/{new Date(elemento.fechaEmisión).getFullYear()}</p>
                                     </div>
-                                    <p><b>Asunto: </b>{elemento.asunto}</p>
-                                    <p>{elemento.descripción}</p>
+                                    <p className="info_de"><span>Asunto: </span> {elemento.asunto} </p>
+                                    {/* <p>{elemento.descripción}</p> */}
                                 </td>
                                 <td style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                                    <p>{elemento.tipo}</p>
+                                    <p className="info_para">{elemento.tipo}</p>
                                     <br />
                                     {
                                         elemento.leida === 0 ?

@@ -1,3 +1,19 @@
+:root {
+  --primario: #780727;
+  --primarioOscuro: #380212;
+  --blanco: #fff;
+}
+
+@font-face {
+  font-family: GothamRounded;
+  src: url(../../assets/GothamRounded/GothamRounded-Bold.otf);
+}
+
+@font-face {
+  font-family: Gotham;
+  src: url(../../assets/GothamRounded/GothamRounded-Light.otf);
+}
+
 .modal {
   position: fixed;
   top: 14vh;
@@ -10,7 +26,7 @@
 .modal-main {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: right;
   position: fixed;
   background: #E7E7E7;
   top: 22vh;
@@ -21,7 +37,7 @@
   border-radius: 5px;
   height: 70vh;
   animation-duration: 0.7s;
-  animation-name: slidein;
+  animation-name: scaleUp;
 }
 
 .modalButton {
@@ -47,6 +63,10 @@
   flex-direction: column;
 }
 
+.p-letter {
+  font-family: Gotham;
+}
+
 .modalEmail,
 .modalPos,
 .modalPhone {
@@ -54,7 +74,7 @@
   margin: 10px;
   width: 50%;
   gap: 10px;
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 .display-block {
@@ -66,12 +86,38 @@
   opacity: 0;
 }
 
-@keyframes slidein {
-  from {
-    left: 100vw;
-  }
+.icon-modal {
+  color: var(--primarioOscuro);
+}
 
-  to {
-    left: 30vw;
+ /* @keyframes unfoldIn {
+  0% {
+    transform:scaleY(.005) scaleX(0);
+  }
+  50% {
+    transform:scaleY(.005) scaleX(1);
+  }
+  100% {
+    transform:scaleY(1) scaleX(1);
+  }
+} */ 
+
+@keyframes zoomIn {
+  0% {
+    transform:scale(0);
+  }
+  100% {
+    transform:scale(1);
+  }
+}
+
+@keyframes scaleUp {
+  0% {
+    transform:scale(.8) translateY(1000px);
+    opacity:0;
+  }
+  100% {
+    transform:scale(1) translateY(0px);
+    opacity:1;
   }
 }

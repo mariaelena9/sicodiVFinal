@@ -1,31 +1,41 @@
-//Imports
-import { Component } from "react";
+/* @FORMATO PARA OPCIÓN DIGITAL */
+
+//Importación de Componente desde React:
+import { Component, Fragment } from "react"; //Importación de Component y Fragment
+
+//Importación del DOM:
 import ReactDOM from 'react-dom';
+
+/*@Michelle: Axios está optimizado para facilitar el consumo de servicios web, API REST y que devuelvan datos JSON */
+//Importación de axios:
 import axios from 'axios';
+
+//Importación de Swal (Para alertas emergentes):
 import Swal from 'sweetalert2';
+
+//Importación de recursos (iconos):
 import { IoChevronBackOutline } from "react-icons/io5";
 
-//Componentes
+//Importación de componentes:
 import Correspondence from '../Correspondence'
 
-//Archivo de configuracion
+//Archivo de configuración
 import { environment } from '../../../config/settings';
 
 //Objetos MATD
 import TextField from '@mui/material/TextField';
 
+//_Class Component_
 class Digital extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            showDigital: false,
-            showFisica: false,
-            data: [],
             dependencias: [],
             usuarios: [],
             tipos: [],
             archivos: [],
+            //Datos que se van a registrar en la base de datos [correspondencia]
             form: {
                 id_Correspondencia: '',
                 numOficio: '',
@@ -51,9 +61,11 @@ class Digital extends Component {
         }
         this.getDependences();
         this.getTipoCo();
-        this.state.form.fechaEmisión= new Date().toISOString().substring(0, 10);
-        this.state.form.fechaRecepción= new Date().toISOString().substring(0, 10);
+        this.state.form.fechaEmisión = new Date().toISOString().substring(0, 10);
+        this.state.form.fechaRecepción = new Date().toISOString().substring(0, 10);
     }
+
+    //=========== FUNCIONES ===========
 
     //Función para registrar la correspondencia en la BD
     handleSubmit = (e) => {
@@ -62,7 +74,7 @@ class Digital extends Component {
     }
 
     //Función base para manipular un objeto formulario, ayuda a controlar las modificaciones
-    handleChange = async e => {
+    handleChange = async (e) => {
         e.persist();
         if (e.target.name === "fk_DependenciaD") {
             this.getUsers(e.target.value);
@@ -74,6 +86,8 @@ class Digital extends Component {
             }
         });
     }
+
+    //==================== CONSULTAS INSERT  ====================
 
     //Función para insertar en la BD la correspondencia
     //Consumo del metodo INSERT de la API
@@ -157,8 +171,11 @@ class Digital extends Component {
                 });
         }
     }
+    //========================================================
+    
+    //==================== CONSULTAS GET  ====================
 
-    //Consultar las dependencias de la BD
+    //Consultar todas las dependencias de la BD
     getDependences() {
         axios.get(`${environment.urlServer}/dependence/getdependence`).then(Response => {
             this.setState({ dependencias: Response.data });
@@ -167,7 +184,7 @@ class Digital extends Component {
         });
     }
 
-    //Consultar los usuarios de la BD
+    //Consultar todos los usuarios de la BD filtrados por departamento
     getUsers(id) {
         axios.get(`${environment.urlServer}/user/getUserByDep/${id}`).then(Response => {
             if (Response.data === 'Sin resultados') {
@@ -192,74 +209,178 @@ class Digital extends Component {
             console.log(error.message);
         });
     }
+    //========================================================
 
+    //Función de botón para regresar a opción de correspondencia
     handleClick(e) {
         e.preventDefault();
         ReactDOM.render(<Correspondence />, document.getElementById('root'));
     }
 
+    //Renderización de Componente
     render() {
         return (
-            <div className="correspondencecontent">
-                <div className="buttonBack" style={{ cursor: "pointer" }} onClick={this.handleClick}>
-                    <IoChevronBackOutline />
-                    <h3>Modo de correspondencia</h3>
-                </div>
-                <br />
-                <h3>Información básica</h3>
-                <form>
-                    <div className="dates">
-                        <TextField InputProps={{ readOnly: true }} InputLabelProps={{ shrink: true }} name="fechaEmisión" required key="fechaEmisión" type="date" id="fechaEmisión" label="Fecha de emisión" onChange={this.handleChange} value={this.state.form ? this.state.form.fechaEmisión : ''}></TextField>
+            <Fragment>
+                <div className="correspondencecontent">
+                    <div className="buttonBack" style={{ cursor: "pointer" }} onClick={this.handleClick}>
+                        <IoChevronBackOutline />
+                        <h3 className="fontRounded">Modo de correspondencia</h3>
                     </div>
                     <br />
-                    <label><b>Código de oficio:</b></label>
-                    <br />
-                    <TextField name="numOficio" required key="numOficio" type="text" id="numOficio" label="Oficio" onChange={this.handleChange} value={this.state.form ? this.state.form.numOficio : ''}></TextField>
-                    <br /><br />
-                    <h3>Información de destinatario</h3>
-                    <div className="originInfo">
-                        <select className="select" id="fk_DependenciaD" name="fk_DependenciaD" onChange={this.handleChange} value={this.state.form ? this.state.form.fk_DependenciaD : ''}>
-                            <option value="invalido">Elige la dependencia destino</option>
-                            {this.state.dependencias.map(elemento => (
-                                <option key={elemento.iddependencia} value={elemento.iddependencia}>{elemento.nombre}</option>
-                            ))}
-                        </select>
-                        <br />
-                        <select className="select" id="fk_UsuarioD" name="fk_UsuarioD" onChange={this.handleChange} value={this.state.form ? this.state.form.fk_UsuarioD : ''}>
-                            <option value="invalido">Elige un destinatario</option>
-                            {this.state.usuarios.map(elemento => (
-                                <option key={elemento.idusuario} value={elemento.idusuario}>{elemento.nombre} {elemento.apPaterno} {elemento.apMaterno}</option>
-                            ))}
-                        </select>
-                    </div>
-                    <br />
-                    <h3>Información de correspondencia</h3>
-                    <div className="originInfo">
-                        <select className="select" id="fk_TipoCo" name="fk_TipoCo" onChange={this.handleChange} value={this.state.form ? this.state.form.fk_TipoCo : ''}>
-                            <option value="invalido">Elige un tipo de correspondencia</option>
-                            {this.state.tipos.map(elemento => (
-                                <option key={elemento.idtipo} value={elemento.idtipo}>{elemento.nombre}</option>
-                            ))}
-                        </select>
-                        <br />
-                        <TextField required name="asunto" key="asunto" id="asunto" label="Asunto:" onChange={this.handleChange} value={this.state.form ? this.state.form.asunto : ''}></TextField>
-                        <br />
-                        <TextField multiline name="descripción" key="descripción" rows={10} required id="descripción" label="Descripcion:" onChange={this.handleChange} value={this.state.form ? this.state.form.descripción : ''}></TextField>
-                        <br />
-                        <TextField multiline name="observaciones" key="observaciones" rows={5} required id="observaciones" label="Observaciones:" onChange={this.handleChange} value={this.state.form ? this.state.form.fechaobservaciones : ''}></TextField>
-                        <br />
-                        <p>
-                            Subir archivos:
+
+                    {/* CODIFICACIÓN DE CORRESPONDENCIA DIGITAL */}
+                    <h3 className="fontRounded">Información básica</h3>
+                    <br></br>
+
+                    {/* Inicio de Formulario */}
+                    <form>
+                        <div className="dates">
+                            <TextField
+                                id="fechaEmisión"
+                                key="fechaEmisión"
+                                name="fechaEmisión"
+                                label="Fecha de emisión"
+                                InputLabelProps={{ shrink: true }}
+                                InputProps={{ readOnly: true }}
+                                required
+                                type="date"
+                                onChange={this.handleChange}
+                                value={this.state.form ? this.state.form.fechaEmisión : ''}>
+                            </TextField>
+
+                            <TextField
+                                id="numOficio"
+                                key="numOficio"
+                                name="numOficio"
+                                label="Número de Oficio"
+                                InputLabelProps={{ shrink: true }}
+                                placeholder="Número de Oficio"
+                                required
+                                type="text"
+                                onChange={this.handleChange}
+                                value={this.state.form ? this.state.form.numOficio : ''}>
+                            </TextField>
+                        </div>
+
+                        <h3 className="fontRounded">Información de destinatario</h3>
+                        <br></br>
+
+                        <div className="originInfo">
+                            <select
+                                id="fk_DependenciaD"
+                                name="fk_DependenciaD"
+                                className="select"
+                                onChange={this.handleChange}
+                                value={this.state.form ? this.state.form.fk_DependenciaD : ''}>
+                                <option value="invalido">Elige la dependencia destino</option>
+                                {this.state.dependencias.map(elemento => (
+                                    <option 
+                                        key={elemento.iddependencia} 
+                                        value={elemento.iddependencia}>
+                                            {elemento.nombre}
+                                    </option>
+                                ))}
+                            </select>
                             <br />
-                            <input type="file" name="files" multiple onChange={(e => this.prepararArchivos(e.target.files))} />
-                        </p>
+
+                            <select
+                                id="fk_UsuarioD"
+                                name="fk_UsuarioD"
+                                className="select"
+                                onChange={this.handleChange}
+                                value={this.state.form ? this.state.form.fk_UsuarioD : ''}>
+                                <option value="invalido">Elige un destinatario</option>
+                                {this.state.usuarios.map(elemento => (
+                                    <option 
+                                        key={elemento.idusuario} 
+                                        value={elemento.idusuario}>
+                                            {elemento.nombre} {elemento.apPaterno} {elemento.apMaterno}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
                         <br />
-                        <button type="submit" onClick={this.handleSubmit}>Enviar</button>
-                    </div>
-                </form>
-            </div>
+
+                        <h3 className="fontRounded">Información de correspondencia</h3>
+                        <br></br>
+                        
+                        <div className="originInfo">
+                            <select
+                                id="fk_TipoCo"
+                                name="fk_TipoCo"
+                                className="select"
+                                onChange={this.handleChange}
+                                value={this.state.form ? this.state.form.fk_TipoCo : ''}>
+                                <option value="invalido">Elige un tipo de correspondencia</option>
+                                {this.state.tipos.map(elemento => (
+                                    <option 
+                                        key={elemento.idtipo} 
+                                        value={elemento.idtipo}>
+                                            {elemento.nombre}
+                                    </option>
+                                ))}
+                            </select>
+                            <br />
+
+                            <TextField
+                                id="asunto"
+                                key="asunto"
+                                name="asunto"
+                                label="Asunto:"
+                                required 
+                                onChange={this.handleChange}
+                                value={this.state.form ? this.state.form.asunto : ''}>
+                            </TextField>
+                            <br />
+
+                            <TextField
+                                multiline
+                                rows={10} 
+                                id="descripción"
+                                key="descripción"
+                                name="descripción"
+                                label="Descripcion:"
+                                required        
+                                onChange={this.handleChange}
+                                value={this.state.form ? this.state.form.descripción : ''}>
+                            </TextField>
+                            <br />
+
+                            <TextField
+                                multiline
+                                rows={5} 
+                                id="observaciones"
+                                key="observaciones"
+                                name="observaciones"
+                                label="Observaciones:"  
+                                required        
+                                onChange={this.handleChange}
+                                value={this.state.form ? this.state.form.fechaobservaciones : ''}>
+                            </TextField>
+                            <br />
+
+                            <p> Subir archivos: </p>
+
+                            <input
+                                type="file"
+                                name="files"
+                                multiple 
+                                onChange={(e => this.prepararArchivos(e.target.files))}
+                            />
+                            <br />
+
+                            <button
+                                type="submit"
+                                onClick={this.handleSubmit}>
+                                Enviar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </Fragment>
         );
     }
 }
 
+//Exportación de componente:
 export default Digital;

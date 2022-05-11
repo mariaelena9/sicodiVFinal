@@ -160,13 +160,14 @@
 
 .filter select {
     width: 20.5vw;
-    border-radius: 5px;
-    border: solid #780727 2px;
     width: 21.3vw;
     padding: 2px;
     margin-left: 10px;
     font-size: 1rem;
     font-family: Gotham;
+    outline: none;
+    border: none;
+    border-bottom: solid #780727 2px;
 }
 
 .filter-text {
@@ -179,8 +180,7 @@
 
 .Search {
     display: flex;
-    border: solid #780727 2px;
-    border-radius: 5px;
+    border-bottom: solid #780727 2px;
     padding: 5px;
     width: 30vw;
 }
@@ -198,3 +198,4 @@
     margin-top: 5px;
     color: rgb(61, 61, 61);
 }
+

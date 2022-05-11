@@ -27,6 +27,22 @@
 }
 
 /*======================================================================================*/
+
+.sentsearch {
+    display: flex;
+    border-bottom: solid #780727 2px;
+    padding: 5px;
+    width: 31.5vw;
+}
+
+.sentsearch input {
+    width: 100%;
+    font-family: Gotham;
+    font-size: 1rem;
+    border: none;
+    outline: none;
+}
+
 .filtersDiv {
     display: flex;
     justify-content: space-between;
@@ -35,15 +51,16 @@
 
 .filtersDiv .filterInd {
     display: flex;
-    flex-direction: column;
+    gap: 1rem;
 }
 
 .filterInd input, .filterInd select{
     padding: 5px;
-    border: solid #780727 2px;
-    border-radius: 5px;
     outline: none;
+    border: none;
+    border-bottom: solid #780727 2px;
     font-size: 1rem;
+    font-family: Gotham;
 }
 
 .sentmiddle {
@@ -71,16 +88,20 @@
     }
 }
 
+/* Botones para filtrado de estatus de correspondencia */
+
 .filtersbtn button {
-    border-radius: 10px 10px 0px 0px;
+    border-radius: 2px 10px 0px 0px;
+    font-family: Gotham;
 }
 
+
 .filtersbtn .btnall {
-    background-color: #7184B5;
+    background-color: #D1B173;
 }
 
 .filtersbtn .btnall:hover {
-    background-color: #3a455f;
+    background-color: #826e46;
 }
 
 .filtersbtn .btnproc {
@@ -92,36 +113,48 @@
 }
 
 .filtersbtn .btnsent {
-    background-color: #D1B173;
-}
-
-.filtersbtn .btnsent:hover {
-    background-color: #826e46;
-}
-
-.filtersbtn .btnstore {
     background-color: #71B57E;
 }
 
-.filtersbtn .btnstore:hover {
+.filtersbtn .btnsent:hover {
     background-color: #3d6244;
 }
 
-.sentsearch {
-    display: flex;
-    border: solid #780727 2px;
-    border-radius: 5px;
-    padding: 5px;
-    width: 100%;
+.filtersbtn .btnstore {
+    background-color: #b59871;
 }
 
-.sentsearch input {
-    width: 100%;
-    font-family: Gotham;
-    font-size: 1rem;
-    border: none;
-    outline: none;
+.filtersbtn .btnstore:hover {
+    background-color: #b38648;
 }
+
+/* Botones para filtrado de tipo de correspondencia */
+
+.filtersbtn .btnall_type--c {
+    
+    background-color: #BB6464;
+}
+
+.filtersbtn .btnall_type--c:hover {
+    background-color: #826e46;
+}
+
+.filtersbtn .btn_info--c {
+    background-color: #E6BA95;
+}
+
+.filtersbtn .btn_info--c:hover {
+    
+}
+
+.filtersbtn .btn_req--c {
+    background-color: rgb(117,161,207);
+}
+
+.filtersbtn .btn_cop--c {
+    background-color: #6D8B74;
+}
+
 
 table {
     border-collapse: collapse;
@@ -139,4 +172,26 @@ table {
 
 td {
     padding: 10px;
+}
+
+.info_para {
+    font-family: Gotham;
+}
+
+.info_para span {
+    font-family: GothamRounded;
+}
+
+.info_de {
+    font-family: Gotham;
+}
+
+.info_de span {
+    font-family: GothamRounded;
+}
+
+.filters_type--sent {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
 }
