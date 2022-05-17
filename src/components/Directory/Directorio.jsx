@@ -111,7 +111,7 @@ class Directorio extends Component {
 
     change = (event) => { //Al cambiar el combobox consulta los usuarios filtrados por dependencia
         document.getElementById("keyword").value = "";
-        axios.get(`${environment.urlServer}/user/getUserByDep/${event.target.value}`).then(res => {
+        axios.get(`${environment.urlServer}/user/getUserByDep/${event.target.value}/${localStorage.getItem("idusuario")}`).then(res => {
             if (res.data === 'Sin resultados') {
                 Swal.fire({
                     title: 'Ups!',
