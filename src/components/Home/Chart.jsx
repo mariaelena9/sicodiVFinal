@@ -1,5 +1,4 @@
 import React from "react";
-
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -36,14 +35,18 @@ export const options = {
         display: true,
         labelString: "Estatus"
       }
+    },
+    y: {
+      max: 10,
+      min: 0
     }
   }
 };
 
 
 
-export function Chart({data}) {
-    
+export function Chart({data, title}) {
+  options.plugins.title.text = title;
   //console.log(new_data)
   return <Bar options={options} data={data} />;
 }
