@@ -37,7 +37,6 @@ export const options = {
       }
     },
     y: {
-      max: 10,
       min: 0
     }
   }
