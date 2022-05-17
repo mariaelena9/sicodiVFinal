@@ -144,7 +144,11 @@ class Received extends Component {
                                 <td>
                                     <div style={{ display: "flex", justifyContent: "space-between" }}>
                                         <p className="info_de"><span>De: </span>{elemento.usuarioO}</p>
-                                        <p className="info_de"><span>Fecha: </span>{new Date(elemento.fechaEmisión).getUTCDate()}/{new Date(elemento.fechaEmisión).toLocaleString('default', { month: 'long' })}/{new Date(elemento.fechaEmisión).getFullYear()}</p>
+                                        <p className="info_para"><span>Fecha: </span>
+                                            {new Date(elemento.fechaEmisión).getUTCDate() >= 10 ? new Date(elemento.fechaEmisión).getUTCDate() : "0" + new Date(elemento.fechaEmisión).getUTCDate()}/
+                                            {new Date(elemento.fechaEmisión).toLocaleString('default', { month: 'short' })}/
+                                            {new Date(elemento.fechaEmisión).getFullYear()}
+                                        </p>
                                     </div>
                                     <p className="info_de"><span>Asunto: </span> {elemento.asunto} </p>
                                     {/* <p>{elemento.descripción}</p> */}

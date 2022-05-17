@@ -21,6 +21,7 @@ import Inicio from "../../components/Home/Inicio";
 import Loader from "../Loader/Loader";
 import Sent from "../../components/Sent/Sent";
 import Received from "../../components/Received/Received";
+import Tracking from "../../components/Tracking/Tracking";
 
 //_Class Component_
 class Menu extends Component {
@@ -42,7 +43,7 @@ sin detener el resto del funcionamiento del evento, es decir, puede ser llamado 
         } else if (e.target.id === '/receipt') {
             ReactDOM.render(<Received />, document.getElementById('root'));
         } else if (e.target.id === '/history') {
-            ReactDOM.render(<Inicio page="Historico" />, document.getElementById('root'));
+            ReactDOM.render(<Tracking/>, document.getElementById('root'));
         } else if (e.target.id === '/report') {
             ReactDOM.render(<Inicio page="Reportes" />, document.getElementById('root'));
         } else if (e.target.id === '/salir') {

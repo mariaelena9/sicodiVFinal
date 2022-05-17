@@ -34,7 +34,7 @@ class Digital extends Component {
             dependencias: [],
             usuarios: [],
             tipos: [],
-            archivos: [],
+            selectedFile: [],
             //Datos que se van a registrar en la base de datos [correspondencia]
             form: {
                 id_Correspondencia: '',
@@ -49,6 +49,7 @@ class Digital extends Component {
                 asunto: '',
                 descripción: '',
                 observaciones: '',
+                fileName: '',
                 formato: 'Digital',
             }
         }
@@ -109,7 +110,7 @@ class Digital extends Component {
             })
             return;
         }
-        delete this.state.form.id_Correspondencia;
+
         await axios.post(`${environment.urlServer}/correspondence/insert`, this.state.form).then(response => {
             if (response.data === "ER_DUP_ENTRY") {
                 Swal.fire({
@@ -121,7 +122,7 @@ class Digital extends Component {
                 return;
             }
 
-            if (this.state.archivos.length === 0) {
+            if (this.state.selectedFile.length === 0) {
                 ReactDOM.render(<Correspondence />, document.getElementById('root'));
                 this.state.form.fechaEmisión = '';
                 this.state.form.fechaRecepción = '';
@@ -134,7 +135,15 @@ class Digital extends Component {
                 this.state.form.numOficio = '';
             }
 
-            this.insertFiles(response);
+            const action = {
+                "fk_Correspondencia": response.data.insertId,
+                "fk_usuario": localStorage.getItem("idusuario"),
+                "actiontype": "Enviado"
+            }
+            
+            axios.post(`${environment.urlServer}/history/insertAction`, action);
+
+            this.insertFiles(this.state.selectedFile[0], this.state.form.fileName, response);
             Swal.fire({
                 title: 'Acción realizada correctamente',
                 text: 'Correspondencia registrada exitosamente.',
@@ -147,42 +156,33 @@ class Digital extends Component {
         })
     }
 
-    prepararArchivos = e => {
-        this.setState({ archivos: [] });
-
-        for (let i = 0; i < e.length; i++) {
-            let tmpPath = URL.createObjectURL(e[i]);
-            let f = tmpPath
-            f.Move("../src");
-            let file = {
-                nombre: e[i].name,
-                extension: e[i].type.split("/")[1],
-                link: tmpPath
-            };
-            this.state.archivos.push(file);
-        }
-        console.log(this.state.archivos);
+    prepararArchivos = async e => {
+        this.state.selectedFile[0] = e.target.files[0];
+        this.state.form.fileName = e.target.files[0].name.replaceAll(' ', '_');
     }
 
-    insertFiles = async (id) => {
-        for (let index = 0; index < this.state.archivos.length; index++) {
-
-            await axios.post(`${environment.urlServer}/files/insert/${id.data.insertId}`, this.state.archivos[index])
-                .then(response => {
-                    ReactDOM.render(<Correspondence />, document.getElementById('root'));
-                    this.state.form.fechaEmisión = '';
-                    this.state.form.fechaRecepción = '';
-                    this.state.form.fk_DependenciaD = '';
-                    this.state.form.fk_UsuarioD = '';
-                    this.state.form.fk_TipoCo = '';
-                    this.state.form.asunto = '';
-                    this.state.form.descripción = '';
-                    this.state.form.observaciones = '';
-                    this.state.form.numOficio = '';
-                }).catch(error => {
-                    console.log(error);
-                });
-        }
+    insertFiles = async (file, name, id) => {
+        const formData = new FormData();
+        formData.append(
+            "file",
+            file,
+            name
+        );
+        await axios.post(`${environment.urlServer}/files/upload/${id.data.insertId}`, formData)
+            .then(response => {
+                ReactDOM.render(<Correspondence />, document.getElementById('root'));
+                this.state.form.fechaEmisión = '';
+                this.state.form.fechaRecepción = '';
+                this.state.form.fk_DependenciaD = '';
+                this.state.form.fk_UsuarioD = '';
+                this.state.form.fk_TipoCo = '';
+                this.state.form.asunto = '';
+                this.state.form.descripción = '';
+                this.state.form.observaciones = '';
+                this.state.form.numOficio = '';
+            }).catch(error => {
+                console.log(error);
+            });
     }
     //========================================================
 
@@ -246,7 +246,7 @@ class Digital extends Component {
                     <br></br>
 
                     {/* Inicio de Formulario */}
-                    <form>
+                    <form method="POST" encType="multipart/form-data">
                         <div className="dates">
                             <TextField
                                 id="fechaEmisión"
@@ -366,7 +366,6 @@ class Digital extends Component {
                                 key="observaciones"
                                 name="observaciones"
                                 label="Observaciones:"
-                                required
                                 onChange={this.handleChange}
                                 value={this.state.form ? this.state.form.fechaobservaciones : ''}>
                             </TextField>
@@ -376,9 +375,8 @@ class Digital extends Component {
                                 <div className="input-archivos">
                                     <input
                                         type="file"
-                                        name="files"
-                                        accept=".pdf"
-                                        onChange={(e => this.prepararArchivos(e.target.files))}
+                                        accept="application/pdf"
+                                        onChange={this.prepararArchivos}
                                     />
                                 </div>
 

@@ -172,7 +172,7 @@ class Sent extends Component {
                                     <div style={{ display: "flex", justifyContent: "space-between" }}>
                                         <p className="info_para"><span>Para: </span>{elemento.usuarioD}</p>
                                         <p className="info_para"><span>Fecha: </span>
-                                            {new Date(elemento.fechaEmisión).getUTCDate() > 10 ? new Date(elemento.fechaEmisión).getUTCDate() : "0" + new Date(elemento.fechaEmisión).getUTCDate()}/
+                                            {new Date(elemento.fechaEmisión).getUTCDate() >= 10 ? new Date(elemento.fechaEmisión).getUTCDate() : "0" + new Date(elemento.fechaEmisión).getUTCDate()}/
                                             {new Date(elemento.fechaEmisión).toLocaleString('default', { month: 'short' })}/
                                             {new Date(elemento.fechaEmisión).getFullYear()}
                                         </p>

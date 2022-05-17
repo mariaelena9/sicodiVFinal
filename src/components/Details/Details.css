@@ -81,10 +81,26 @@
 .options {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .files {
     width: 50%;
+}
+
+.fileInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.fileInfo i{
+    font-size: 1.5rem;
+}
+
+.fileInfo p{
+    font-size: 1rem;
 }
 
 .actions {

@@ -34,6 +34,7 @@ class Fisica extends Component {
         usuariosD: [],
         usuariosO: [],
         tipos: [],
+        selectedFile: [],
         //Datos que se van a registrar en la base de datos [correspondencia]
         form: {
             id_Correspondencia: '',
@@ -48,6 +49,7 @@ class Fisica extends Component {
             asunto: '',
             descripción: '',
             observaciones: '',
+            fileName: '',
             formato: 'Fisica',
         }
     }
@@ -66,7 +68,7 @@ class Fisica extends Component {
     }
 
     //=========== FUNCIONES ===========
-    
+
     //Función para registrar la correspondencia en la BD
     handleSubmit = (e) => {
         e.preventDefault();
@@ -77,7 +79,7 @@ class Fisica extends Component {
 
     //Función base para manipular un objeto formulario, ayuda a controlar las modificaciones
     handleChange = async (e) => {
-        e.preventDefault();
+        e.persist();
         if (e.target.name === "fk_DependenciaD") {
             this.getUsersD(e.target.value);
         }
@@ -130,18 +132,30 @@ class Fisica extends Component {
                 return;
             }
 
-            this.insertFiles(response);
-            this.state.form.fechaEmisión = '';
-            this.state.form.fechaRecepción = '';
-            this.state.form.fk_DependenciaO = '';
-            this.state.form.fk_UsuarioO = '';
-            this.state.form.fk_DependenciaD = '';
-            this.state.form.fk_UsuarioD = '';
-            this.state.form.fk_TipoCo = '';
-            this.state.form.asunto = '';
-            this.state.form.descripción = '';
-            this.state.form.observaciones = '';
-            this.state.form.numOficio = '';
+            if (this.state.selectedFile.length === 0) {
+                ReactDOM.render(<Correspondence />, document.getElementById('root'));
+                this.state.form.fechaEmisión = '';
+                this.state.form.fechaRecepción = '';
+                this.state.form.fk_DependenciaO = '';
+                this.state.form.fk_UsuarioO = '';
+                this.state.form.fk_DependenciaD = '';
+                this.state.form.fk_UsuarioD = '';
+                this.state.form.fk_TipoCo = '';
+                this.state.form.asunto = '';
+                this.state.form.descripción = '';
+                this.state.form.observaciones = '';
+                this.state.form.numOficio = '';
+            }
+
+            const action = {
+                "fk_Correspondencia": response.data.insertId,
+                "fk_usuario": localStorage.getItem("idusuario"),
+                "actiontype": "Enviado"
+            }
+            
+            axios.post(`${environment.urlServer}/history/insertAction`, action);
+
+            this.insertFiles(this.state.selectedFile[0], this.state.form.fileName, response);
 
             Swal.fire({
                 title: 'Acción realizada correctamente',
@@ -150,14 +164,40 @@ class Fisica extends Component {
                 showConfirmButton: false,
                 timer: 2000
             })
-            ReactDOM.render(<Correspondence />, document.getElementById('root'));
         }).catch(error => {
             console.log(error.message);
         })
     }
 
-    insertFiles(id) {
-        console.log(id.data.insertId);
+    prepararArchivos = async e => {
+        this.state.selectedFile[0] = e.target.files[0];
+        this.state.form.fileName = e.target.files[0].name.replaceAll(' ', '_');
+    }
+
+    insertFiles = async (file, name, id) => {
+        const formData = new FormData();
+        formData.append(
+            "file",
+            file,
+            name
+        );
+        await axios.post(`${environment.urlServer}/files/upload/${id.data.insertId}`, formData)
+            .then(response => {
+                ReactDOM.render(<Correspondence />, document.getElementById('root'));
+                this.state.form.fechaEmisión = '';
+                this.state.form.fechaRecepción = '';
+                this.state.form.fk_DependenciaO = '';
+                this.state.form.fk_UsuarioO = '';
+                this.state.form.fk_DependenciaD = '';
+                this.state.form.fk_UsuarioD = '';
+                this.state.form.fk_TipoCo = '';
+                this.state.form.asunto = '';
+                this.state.form.descripción = '';
+                this.state.form.observaciones = '';
+                this.state.form.numOficio = '';
+            }).catch(error => {
+                console.log(error);
+            });
     }
     //========================================================
 
@@ -270,7 +310,7 @@ class Fisica extends Component {
                             value={this.state.form ? this.state.form.fechaRecepción : ''}>
                         </TextField>
 
-                        
+
                     </div>
 
                     <h3 className="fontRounded">Información de remitente</h3>
@@ -288,7 +328,7 @@ class Fisica extends Component {
                                 <option
                                     key={elemento.iddependencia}
                                     value={elemento.iddependencia}>
-                                        {elemento.nombre}
+                                    {elemento.nombre}
                                 </option>
                             ))}
                         </select>
@@ -302,10 +342,10 @@ class Fisica extends Component {
                             value={this.state.form ? this.state.form.fk_UsuarioO : ''}>
                             <option value="invalido">Elige un remitente</option>
                             {this.state.usuariosO.map(elemento => (
-                                <option 
-                                    key={elemento.idusuario} 
+                                <option
+                                    key={elemento.idusuario}
                                     value={elemento.idusuario}>
-                                        {elemento.nombre} {elemento.apPaterno} {elemento.apMaterno}
+                                    {elemento.nombre} {elemento.apPaterno} {elemento.apMaterno}
                                 </option>
                             ))}
                         </select>
@@ -324,10 +364,10 @@ class Fisica extends Component {
                             value={this.state.form ? this.state.form.fk_DependenciaD : ''}>
                             <option value="invalido">Elige la dependencia destino</option>
                             {this.state.dependencias.map(elemento => (
-                                <option 
-                                    key={elemento.iddependencia} 
+                                <option
+                                    key={elemento.iddependencia}
                                     value={elemento.iddependencia}>
-                                        {elemento.nombre}
+                                    {elemento.nombre}
                                 </option>
                             ))}
                         </select>
@@ -341,10 +381,10 @@ class Fisica extends Component {
                             value={this.state.form ? this.state.form.fk_UsuarioD : ''}>
                             <option value="invalido">Elige un destinatario</option>
                             {this.state.usuariosD.map(elemento => (
-                                <option 
-                                    key={elemento.idusuario} 
+                                <option
+                                    key={elemento.idusuario}
                                     value={elemento.idusuario}>
-                                        {elemento.nombre} {elemento.apPaterno} {elemento.apMaterno}
+                                    {elemento.nombre} {elemento.apPaterno} {elemento.apMaterno}
                                 </option>
                             ))}
                         </select>
@@ -363,10 +403,10 @@ class Fisica extends Component {
                             value={this.state.form ? this.state.form.fk_TipoCo : ''}>
                             <option value="invalido">Elige un tipo de correspondencia</option>
                             {this.state.tipos.map(elemento => (
-                                <option 
-                                    key={elemento.idtipo} 
+                                <option
+                                    key={elemento.idtipo}
                                     value={elemento.idtipo}>
-                                        {elemento.nombre}
+                                    {elemento.nombre}
                                 </option>
                             ))}
                         </select>
@@ -391,31 +431,31 @@ class Fisica extends Component {
                             key="descripción"
                             name="descripción"
                             label="Descripcion:"
-                            required 
+                            required
                             onChange={this.handleChange}
                             value={this.state.form ? this.state.form.descripción : ''}>
                         </TextField>
                         <br />
 
                         <TextField
-                            multiline 
+                            multiline
                             rows={5}
                             id="observaciones"
                             key="observaciones"
                             name="observaciones"
                             label="Observaciones:"
-                            required 
                             onChange={this.handleChange}
                             value={this.state.form ? this.state.form.fechaobservaciones : ''}>
                         </TextField>
                         <br />
-                    
+
                         <div className="send-options">
                             <div className="input-archivos">
                                 <input
                                     type="file"
-                                    accept=".pdf">
-                                </input>
+                                    accept="application/pdf"
+                                    onChange={this.prepararArchivos}
+                                    />
                             </div>
 
                             <button
