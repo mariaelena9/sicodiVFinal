@@ -4,15 +4,9 @@
 import { Component } from "react";
 import axios from 'axios';
 
-
-
 import { Chart } from './Chart';
 import { environment } from '../../config/settings';
-import Home from './Inicio';
-import ReactDOM from 'react-dom';
 import moment from 'moment';
-
-
 
 const usuarioId = localStorage.getItem("idusuario");
 
@@ -69,10 +63,7 @@ class Inicio extends Component {
         this.getDataSecondTab().then(res =>this.setState({ data2: res, originalData2: res }));
 
         this.getRecivedCount().then(res =>this.setState({ recivedMails : res }));
-        this.getSentCount().then(res =>this.setState({ sentMails : res }));
-
-        
-       
+        this.getSentCount().then(res =>this.setState({ sentMails : res }));  
     }
     
     async getRecivedCount(){
@@ -314,9 +305,9 @@ class Inicio extends Component {
               process : filteredSentProcess.length,
               total: filterSentMails.length + filterRecivedMails.length
             }
-            console.log(infoArray);
+            // console.log(infoArray);
             const newData = await this.getDataFirstTab(infoArray)
-            console.log(newData);
+            // console.log(newData);
             this.setState({data : newData});
 
           }
@@ -330,7 +321,7 @@ class Inicio extends Component {
           
             var filteredRecivedInProcess = filterRecivedMails.filter( (data) => 1 == data.fk_estatusco);
             var filteredRecivedArchived = filterRecivedMails.filter( (data) => 3 == data.fk_estatusco);
-            console.log(filterSentMails);
+            // console.log(filterSentMails);
             const infoArray = {
               send : filterSentMails.length,
               recived : filterRecivedMails.length,
@@ -338,9 +329,9 @@ class Inicio extends Component {
               process : filteredSentProcess.length,
               total: filterSentMails.length + filterRecivedMails.length
             }
-            console.log(infoArray);
+            // console.log(infoArray);
             const newData = await this.getDataFirstTab(infoArray)
-            console.log(newData);
+            // console.log(newData);
             this.setState({data : newData});
           }
           if(filter == "thisMonth"){
@@ -361,9 +352,9 @@ class Inicio extends Component {
               process : filteredSentProcess.length,
               total: filterSentMails.length + filterRecivedMails.length
             }
-            console.log(infoArray);
+            // console.log(infoArray);
             const newData = await this.getDataFirstTab(infoArray)
-            console.log(newData);
+            // console.log(newData);
             this.setState({data : newData});
           }
         }
