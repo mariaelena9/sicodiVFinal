@@ -25,14 +25,25 @@ class Tracking extends Component {
     }
 
     componentDidMount() { //Se ejecutará al momento de montar el componente
-        if (this.props.id === undefined) {
-            return;
+        if (this.props.id !== undefined) {
+            this.getHistory();
         }
-        this.getHistory();
     }
 
     handleChange = async (event) => {
         this.state.numOficio = event.target.value;
+        console.log(this.state.numOficio);
+    }
+
+    handleSearch = () => {
+        console.log(this.state.numOficio);
+        axios.get(`${environment.urlServer}/history/getHistoryByOficio/${this.state.numOficio}`).then(Response => {
+            this.setState({ historyData: Response.data });
+            let no = this.state.historyData[0];
+            this.setState({ numOficio: no.numOficio });
+        }).catch(error => {
+            console.log(error.message);
+        });
     }
 
     getHistory = () => {
@@ -58,7 +69,7 @@ class Tracking extends Component {
 
                 <div className="Search">
                     <input type='text' placeholder="Número de oficio..." name="numOficio" id="numOficio" onChange={this.handleChange}></input>
-                    <div className="icon-search track-i"> <AiOutlineSearch /> </div>
+                    <div className="icon-search track-i" onClick={() => this.handleSearch()}> <AiOutlineSearch /> </div>
                 </div>
 
                 <br />
