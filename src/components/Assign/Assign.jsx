@@ -40,7 +40,19 @@ class Assign extends Component {
         return (
             <Fragment>
                 <div className="assigncontent">
-                    
+                    <div className="buttonBack">
+                        <p className="TitlePage">Asignar</p>
+                    </div>
+
+                    <div className="assignView">
+                        <div className="correspondenceInfo">
+
+                        </div>
+
+                        <div className="assignOption">
+
+                        </div>
+                    </div>
                 </div>
             </Fragment>
         );

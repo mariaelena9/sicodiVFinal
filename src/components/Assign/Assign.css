@@ -1,0 +1,22 @@
+.assigncontent {
+    display: flex;
+    flex-direction: column;
+    width: 95vw;
+    height: 86vh;
+    padding: 20px;
+    overflow: scroll;
+    animation-duration: 1s;
+    animation-name: popup;
+}
+
+.buttonBack p {
+    margin-top: -7px;
+    font-size: 1.7rem;
+    color: var(--negro);
+    font-family: Gotham;
+    margin-left: 1.2rem;
+}
+
+.assignView {
+    display: flex;
+}

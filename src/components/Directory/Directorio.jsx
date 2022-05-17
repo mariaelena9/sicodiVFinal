@@ -211,7 +211,6 @@ class Directorio extends Component {
                                         </div>
 
                                         <div className="img-message" onClick={() => this.showModal(user.idusuario)}> <MdEmail /></div>
-
                                     </div>
                                 );
                             })}
