@@ -13,27 +13,30 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import * as ImIcons from 'react-icons/im';
 import * as AiIcons from 'react-icons/ai';
 import * as MdIcons from 'react-icons/md';
+import * as RiIcons from 'react-icons/ri';
+import * as GrIcons from 'react-icons/gr';
 
 //Importación de componentes:
 import Directorio from "../../components/Directory/Directorio";
 import Correspondence from "../../components/Correspondence/Correspondence";
-import Inicio from "../../components/Home/Inicio";
+import Inicio from "../../components/History/History";
 import Loader from "../Loader/Loader";
 import Sent from "../../components/Sent/Sent";
 import Received from "../../components/Received/Received";
 import Tracking from "../../components/Tracking/Tracking";
+import Home from "../../components/Home/Home";
 
 //_Class Component_
 class Menu extends Component {
 
-/*@Michelle: [e.preventDefault] cancela el evento si este es cancelable, 
-sin detener el resto del funcionamiento del evento, es decir, puede ser llamado de nuevo.*/
+    /*@Michelle: [e.preventDefault] cancela el evento si este es cancelable, 
+    sin detener el resto del funcionamiento del evento, es decir, puede ser llamado de nuevo.*/
 
     //Función para controlar el funcionamiento del menú
     handleMenu(e) {
         e.preventDefault();
         if (e.target.id === '/home') {
-            ReactDOM.render(<Inicio page="Inicio" />, document.getElementById('root'));
+            ReactDOM.render(<Home page="Inicio" />, document.getElementById('root'));
         } else if (e.target.id === '/directory') {
             ReactDOM.render(<Directorio />, document.getElementById('root'));
         } else if (e.target.id === '/correspondence') {
@@ -43,16 +46,18 @@ sin detener el resto del funcionamiento del evento, es decir, puede ser llamado 
         } else if (e.target.id === '/receipt') {
             ReactDOM.render(<Received />, document.getElementById('root'));
         } else if (e.target.id === '/history') {
-            ReactDOM.render(<Tracking/>, document.getElementById('root'));
+            ReactDOM.render(<Inicio/>, document.getElementById('root'));
         } else if (e.target.id === '/report') {
             ReactDOM.render(<Inicio page="Reportes" />, document.getElementById('root'));
-        } else if (e.target.id === '/salir') {
+        }  
+        
+        else if (e.target.id === '/salir') {
             localStorage.clear();
             ReactDOM.render("", document.getElementById('menu'));
             ReactDOM.render(<Loader texto1="Cerrando sesión" type="logout" />, document.getElementById('root'));
         }
     }
-    
+
     render() {
         return (
             <Router>
@@ -101,6 +106,8 @@ sin detener el resto del funcionamiento del evento, es decir, puede ser llamado 
                                     </a>
                                 </li>
 
+                                {/* ADMINISTRADOR */}
+
                                 {/* Historico */}
                                 <li id="/history" onClick={this.handleMenu}>
                                     <a id="/history">
@@ -109,12 +116,21 @@ sin detener el resto del funcionamiento del evento, es decir, puede ser llamado 
                                     </a>
                                 </li>
 
-                                {/* <li id="/report" onClick={this.handleMenu}>
+                                {/* Usuarios */}
+                                <li id="/" onClick={this.handleMenu}>
                                 <a>
-                                    <span><ImIcons.ImStatsDots/></span>
+                                    <span><RiIcons.RiUserSettingsFill/></span>
                                     <span>Reportes</span>
                                 </a>
-                            </li> */}
+                                </li>
+
+                                {/* Documents */}
+                                <li id="/" onClick={this.handleMenu}>
+                                <a>
+                                    <span><GrIcons.GrDocumentPdf/></span>
+                                    <span>Documentos</span>
+                                </a>
+                                </li>
 
                                 {/* Salir */}
                                 <li key="exit" id="/salir" onClick={this.handleMenu}>

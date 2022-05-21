@@ -64,16 +64,7 @@ class Tracking extends Component {
                 <div className="buttonBack">
                     <p className="TitlePage">Seguimiento</p>
                 </div>
-
-                <br />
-
-                <div className="Search">
-                    <input type='text' placeholder="Número de oficio..." name="numOficio" id="numOficio" onChange={this.handleChange}></input>
-                    <div className="icon-search track-i" onClick={() => this.handleSearch()}> <AiOutlineSearch /> </div>
-                </div>
-
-                <br />
-
+                <br></br>
                 <div className="numOficio">
                     <h2>No. Oficio: {this.state.numOficio}</h2>
                 </div>

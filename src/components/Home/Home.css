@@ -1,0 +1,29 @@
+.home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    background-color: purple;
+}
+
+.principal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 86vh;
+    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+}
+
+.home__container img {
+    width: 60%;
+}
+
+.home__container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+
+}

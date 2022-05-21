@@ -8,7 +8,7 @@ import ReactDOM from 'react-dom';
 
 //Importación de Componentes:
 import Menu from "../Menu/Menu";
-import Inicio from "../../components/Home/Inicio";
+import Inicio from "../../components/History/History";
 import LoginPage from "../../pages/Login-Page";
 
 //Impotación de recursos (logotipos):

@@ -12,19 +12,22 @@ import './commons/Menu/Menu.css';
 import './components/Correspondence/Correspondence.css';
 import './components/Directory/Directorio.css'
 import './components/Directory/Modal.css';
-import './components/Home/Inicio.css'
+import './components/History/History.css'
 import './components/Log In/Login.css';
 import './components/Sent/Sent.css';
 import './components/Details/Details.css';
 import './components/Tracking/Tracking.css';
 import './components/Assign/Assign.css'
 import './pages/Login-Page.css';
+import './components/Home/Home.css'
 
 //Componentes
 import LoginPage from './pages/Login-Page';
-import Home from './components/Home/Inicio';
+import History from './components/History/History';
 import Header from './commons/Header/Header';
 import Menu from './commons/Menu/Menu';
+import Home from './components/Home/Home';
+
 
 class App extends Component {
     componentDidMount(){

@@ -215,7 +215,7 @@ class Fisica extends Component {
 
     //Consultar todos los usuarios de la BD filtrados por departamento
     getUsersD(id) {
-        axios.get(`${environment.urlServer}/user/getUserByDep/${id}`).then(Response => {
+        axios.get(`${environment.urlServer}/user/getUserByDep/${id}/${localStorage.getItem("idusuario")}`).then(Response => {
             if (Response.data === 'Sin resultados') {
                 this.setState({ usuariosD: [] });
                 return;
@@ -228,7 +228,7 @@ class Fisica extends Component {
 
     //Consultar los usuarios de la BD
     getUsersO(id) {
-        axios.get(`${environment.urlServer}/user/getUserByDep/${id}`).then(Response => {
+        axios.get(`${environment.urlServer}/user/getUserByDep/${id}/${localStorage.getItem("idusuario")}`).then(Response => {
             if (Response.data === 'Sin resultados') {
                 this.setState({ usuariosO: [] });
                 return;

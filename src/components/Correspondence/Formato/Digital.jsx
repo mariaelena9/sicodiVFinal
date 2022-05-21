@@ -199,7 +199,7 @@ class Digital extends Component {
 
     //Consultar todos los usuarios de la BD filtrados por departamento
     getUsers(id) {
-        axios.get(`${environment.urlServer}/user/getUserByDep/${id}`).then(Response => {
+        axios.get(`${environment.urlServer}/user/getUserByDep/${id}/${localStorage.getItem("idusuario")}`).then(Response => {
             if (Response.data === 'Sin resultados') {
                 this.setState({ usuarios: [] });
                 return;
