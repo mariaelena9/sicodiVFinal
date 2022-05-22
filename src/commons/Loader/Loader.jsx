@@ -13,6 +13,7 @@ import LoginPage from "../../pages/Login-Page";
 
 //Impotación de recursos (logotipos):
 import LogoNay from "../../assets/nayaritLogo.png";
+import Home from "../../components/Home/Home";
 
 //@Michelle: El Hook de efecto te permite llevar a cabo efectos secundarios en componentes funcionales. (Un hook no es más que una función).
 
@@ -23,7 +24,7 @@ function Loader(props) {
             if (props.type == "login") {
                 // <Menu />
                 ReactDOM.render(<Menu />, document.getElementById('menu'));
-                ReactDOM.render(<Inicio page="Inicio" />, document.getElementById('root'));
+                ReactDOM.render(<Home page="Inicio" />, document.getElementById('root'));
             } else if (props.type == "logout") {
                 ReactDOM.render("", document.getElementById('menu'));
                 ReactDOM.render(<LoginPage />, document.getElementById('root'));

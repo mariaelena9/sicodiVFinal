@@ -31,6 +31,7 @@ import Home from './components/Home/Home';
 
 class App extends Component {
     componentDidMount(){
+        // Si ya se tiene sesion iniciada
         if(localStorage.getItem('auth')==="true"){
             ReactDOM.render(<Header/>, document.getElementById('header'));
             ReactDOM.render(<Menu/>, document.getElementById('menu'));

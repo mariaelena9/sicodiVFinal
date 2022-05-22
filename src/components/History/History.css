@@ -10,9 +10,9 @@
 
 .Container {
   width: 45vw;
-    height: 80vh;
-    display: inline-block;
-    padding: 2em;
+  height: 70vh;
+  display: inline-block;
+  padding: 2em;
 }
 
 .chart {
@@ -62,4 +62,20 @@
 .welcome h2 span {
   color: #780727;
   font-family: GothamRounded;
+}
+
+.Container select {
+  width: 10vw;
+  padding: 2px;
+  margin-left: 10px;
+  font-size: 1rem;
+  font-family: Gotham;
+  outline: none;
+  border: none;
+  border: solid #780727 2px;
+  border-radius: 4px;
+}
+
+.dateSelector {
+  display: flex;
 }

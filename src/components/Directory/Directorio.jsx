@@ -94,8 +94,8 @@ class Directorio extends Component {
 
     getUser = () => { //Consulta todos los usuarios de la BD
         axios.get(`${environment.urlServer}/user/getusers/${localStorage.getItem('idusuario')}`).then(res => {
-            this.setState({ data: res.data });
-            this.setState({ data2: res.data });
+            this.setState({ data: res.data }); //Resultado de consulta [original]
+            this.setState({ data2: res.data }); //Resultado de consulta [copia]
         }).catch(error => {
             console.log(error.message);
         });
