@@ -125,11 +125,11 @@
 }
 
 .btnFisica {
-  background-image: url(../../assets/fisica.jpg);
+  background-image: url(../../assets/fisica_min.jpg);
 }
 
 .btnDigital {
-  background-image: url(../../assets/digital.jpg);
+  background-image: url(../../assets/digital_min.jpg);
 }
 
 .btnFisica, .btnDigital {

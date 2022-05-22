@@ -22,8 +22,13 @@
 .home__container {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
     justify-content: center;
     align-items: center;
 
+}
+
+.totalRecibidos {
+    color: white;
+   
+    height: 50px;
 }
