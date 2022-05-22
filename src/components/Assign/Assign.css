@@ -20,3 +20,32 @@
 .assignView {
     display: flex;
 }
+
+.assignOption {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    gap: 10px;
+    padding: 10px;
+}
+
+.assignOption select {
+    width: 45%;
+}
+
+.correspondenceInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    padding: 10px;
+    width: 50%;
+    border: 2px solid #780727;
+    border-radius: 10px;
+}
+
+.correspondenceRow {
+    display: flex;
+    justify-content: space-between;
+}

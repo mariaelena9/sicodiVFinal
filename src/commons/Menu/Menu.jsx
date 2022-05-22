@@ -75,6 +75,7 @@ class Menu extends Component {
                                 </li>
 
                                 {/* Directorio */}
+                                
                                 <li id="/directory" onClick={this.handleMenu}>
                                     <a id="/directory">
                                         <span><MdIcons.MdImportContacts /></span>

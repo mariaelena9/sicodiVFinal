@@ -11,7 +11,6 @@ import { environment } from '../../config/settings';
 import { RiMailSendLine } from "react-icons/ri";
 import { FaExchangeAlt } from "react-icons/fa";
 import { BsArchiveFill } from "react-icons/bs";
-import { AiOutlineSearch } from "react-icons/ai";
 
 class Tracking extends Component {
 

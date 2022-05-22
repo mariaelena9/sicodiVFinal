@@ -77,7 +77,7 @@ class Details extends Component {
     }
 
     handleTracking = () => {
-        ReactDOM.render(<Tracking id={this.state.correspondenciaInfo.id_Correspondencia} />, document.getElementById('root'));
+        ReactDOM.render(<Tracking id={this.state.correspondenciaInfo.fk_CorresMain!=null?this.state.correspondenciaInfo.fk_CorresMain:this.state.correspondenciaInfo.id_Correspondencia} />, document.getElementById('root'));
     }
 
     goToSetCorrespondence = () => {

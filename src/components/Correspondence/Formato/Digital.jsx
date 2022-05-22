@@ -51,6 +51,7 @@ class Digital extends Component {
                 observaciones: '',
                 fileName: '',
                 formato: 'Digital',
+                fk_CorresMain: null
             }
         }
     }
