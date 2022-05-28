@@ -416,36 +416,36 @@
 .btn_edit--user {
   padding: 0;
   margin: 0;
-  background-color: #fff;
+  background-color: rgba(0,0,0,0);
   color: #71B57E;
 }
 
 .btn_edit--user:hover {
-  background-color: #fff;
+  background-color: rgba(0,0,0,0);
   color: #3d6244;
 }
 
 .btn_delete--user {
   padding: 0;
   margin: 0;
-  background-color: #fff;
+  background-color: rgba(0,0,0,0);
   color: rgba(196, 0, 0, 0.678);
 }
 
 .btn_delete--user:hover{
-  background-color: #FFF;
+  background-color: rgba(0,0,0,0);
   color: brown;
 }
 
 .btn_info--user {
   padding: 0;
   margin: 0;
-  background-color: #FFF;
+  background-color: rgba(0,0,0,0);
   color: gray;
 }
 
 .btn_info--user:hover {
-  background-color: #fff;
+  background-color: rgba(0,0,0,0);
   color: rgb(126, 126, 126);
 }
 

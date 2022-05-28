@@ -26,31 +26,42 @@ class Login extends Component {
     //Función para validar las credenciales de inicio en la BD
     handleSubmit = (e) => {
         e.preventDefault();
-        axios.get(`${environment.urlServer}/login/getcredentials/${this.state.form.email}/${this.state.form.password}`).then(Response => {
-            
-            if(Response.data.idusuario==null){
-                Swal.fire({
-                    title: 'Error!',
-                    text: 'Usuario o contraseña incorrectos',
-                    icon: 'error',
-                    showConfirmButton: false,
-                    timer: 1500
-                  })
-                return;
-            }
+        axios.get(`${environment.urlServer}/login/getcredentials/${this.state.form.email}/${this.state.form.password}`).then(
+            Response => {
+                if (Response.data.idusuario == null) {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Usuario o contraseña incorrectos',
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    return;
+                }
 
-            localStorage.setItem('auth', 'true');
-            localStorage.setItem('idusuario', Response.data.idusuario);
-            localStorage.setItem('iddependencia', Response.data.fkdependencia);
-            localStorage.setItem('userName', Response.data.nombre+' '+Response.data.apPaterno+' '+Response.data.apMaterno);
-            localStorage.setItem('userEmail', Response.data.email);
-            localStorage.setItem('userCargo', Response.data.cargo);
-            localStorage.setItem('userRol', Response.data.fkrol);
-            ReactDOM.render("", document.getElementById('menu'));
-            ReactDOM.render(<Loader texto1="Bienvenido" texto2={localStorage.getItem('userName')} type="login" />, document.getElementById('root'));
-        }).catch(error => {
-            console.log(error.message);
-        });
+                if (Response.data.fkestatus === 2) {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Usuario inactivo',
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    return;
+                }
+
+                localStorage.setItem('auth', 'true');
+                localStorage.setItem('idusuario', Response.data.idusuario);
+                localStorage.setItem('iddependencia', Response.data.fkdependencia);
+                localStorage.setItem('userName', Response.data.nombre + ' ' + Response.data.apPaterno + ' ' + Response.data.apMaterno);
+                localStorage.setItem('userEmail', Response.data.email);
+                localStorage.setItem('userCargo', Response.data.cargo);
+                localStorage.setItem('userRol', Response.data.fkrol);
+                ReactDOM.render("", document.getElementById('menu'));
+                ReactDOM.render(<Loader texto1="Bienvenido" texto2={localStorage.getItem('userName')} type="login" />, document.getElementById('root'));
+            }).catch(error => {
+                console.log(error.message);
+            });
     }
 
     //Función base para manipular un objeto formulario, ayuda a controlar las modificaciones
@@ -88,7 +99,7 @@ class Login extends Component {
                             </div>
 
                             <div className="login__content--btn">
-                                <button className="btn__login" type="submit" onClick={this.handleSubmit}>INGRESAR <MdLogin/></button>
+                                <button className="btn__login" type="submit" onClick={this.handleSubmit}>INGRESAR <MdLogin /></button>
                             </div>
                         </form>
                     </div>
