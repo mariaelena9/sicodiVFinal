@@ -1,9 +1,31 @@
+/* Colores utilizados */
+:root {
+    --primario: #780727;
+    --primarioOscuro: #380212;
+    --blanco: #fff;
+    --negro: #000;
+    --gris: #888;
+    --oscuro: rgba(0, 0, 0, 0.1);
+    --verde: rgb(113,181,126);
+}
+
+
+
+/* Fuente utilizada */
+@font-face {
+    font-family: GothamRounded;
+    src: url(../../assets/GothamRounded/GothamRounded-Bold.otf);
+}
+
+@font-face {
+    font-family: Gotham;
+    src: url(../../assets/GothamRounded/GothamRounded-Light.otf);
+}
+
 .home {
     display: flex;
     justify-content: center;
     align-items: center;
-    
-    background-color: purple;
 }
 
 .principal {
@@ -29,6 +51,11 @@
 
 .totalRecibidos {
     color: white;
-   
+    font-family: GothamRounded;
     height: 50px;
+    font-size: 1.5rem;
+}
+
+.totalRecibidos span {
+    color: var(--verde);
 }

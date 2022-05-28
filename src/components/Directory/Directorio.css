@@ -169,6 +169,7 @@
     border: none;
     border: solid #780727 2px;
     border-radius: 4px;
+    background-color: none;
 }
 
 .filter-text {

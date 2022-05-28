@@ -25,6 +25,8 @@ import Sent from "../../components/Sent/Sent";
 import Received from "../../components/Received/Received";
 import Tracking from "../../components/Tracking/Tracking";
 import Home from "../../components/Home/Home";
+import Users from "../../components/Users/Users";
+import History from "../../components/History/History";
 
 //_Class Component_
 class Menu extends Component {
@@ -36,22 +38,20 @@ class Menu extends Component {
     handleMenu(e) {
         e.preventDefault();
         if (e.target.id === '/home') {
-            ReactDOM.render(<Home page="Inicio" />, document.getElementById('root'));
+            ReactDOM.render(<Home/>, document.getElementById('root'));
         } else if (e.target.id === '/directory') {
-            ReactDOM.render(<Directorio />, document.getElementById('root'));
+            ReactDOM.render(<Directorio/>, document.getElementById('root'));
         } else if (e.target.id === '/correspondence') {
-            ReactDOM.render(<Correspondence />, document.getElementById('root'));
+            ReactDOM.render(<Correspondence/>, document.getElementById('root'));
         } else if (e.target.id === '/sent') {
-            ReactDOM.render(<Sent />, document.getElementById('root'));
+            ReactDOM.render(<Sent/>, document.getElementById('root'));
         } else if (e.target.id === '/receipt') {
-            ReactDOM.render(<Received />, document.getElementById('root'));
+            ReactDOM.render(<Received/>, document.getElementById('root'));
         } else if (e.target.id === '/history') {
-            ReactDOM.render(<Inicio/>, document.getElementById('root'));
-        } else if (e.target.id === '/report') {
-            ReactDOM.render(<Inicio page="Reportes" />, document.getElementById('root'));
-        }  
-        
-        else if (e.target.id === '/salir') {
+            ReactDOM.render(<History/>, document.getElementById('root'));
+        } else if (e.target.id === '/users') {
+            ReactDOM.render(<Users/>, document.getElementById('root'));
+        } else if (e.target.id === '/salir') {
             localStorage.clear();
             ReactDOM.render("", document.getElementById('menu'));
             ReactDOM.render(<Loader texto1="Cerrando sesión" type="logout" />, document.getElementById('root'));
@@ -118,10 +118,10 @@ class Menu extends Component {
                                 </li>
 
                                 {/* Usuarios */}
-                                <li id="/" onClick={this.handleMenu}>
-                                <a>
+                                <li id="/users" onClick={this.handleMenu}>
+                                <a id="/users">
                                     <span><RiIcons.RiUserSettingsFill/></span>
-                                    <span>Reportes</span>
+                                    <span className="menuText" id="/users">Usuarios</span>
                                 </a>
                                 </li>
 

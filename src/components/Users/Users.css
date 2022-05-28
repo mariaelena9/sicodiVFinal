@@ -1,0 +1,539 @@
+/* Colores utilizados */
+:root {
+  --primario: #780727;
+  --primarioOscuro: #380212;
+  --blanco: #fff;
+  --negro: #000;
+  --gris: #888;
+  --gris-claro: rgba(128, 128, 128, 0.404);
+  --oscuro: rgba(0, 0, 0, 0.1);
+  --verde: rgb(113,181,126);
+}
+
+/* Fuente utilizada */
+@font-face {
+  font-family: GothamRounded;
+  src: url(../../assets/GothamRounded/GothamRounded-Bold.otf);
+}
+
+@font-face {
+  font-family: Gotham;
+  src: url(../../assets/GothamRounded/GothamRounded-Light.otf);
+}
+
+/*==========================SCROLL PERSONALIZADO DE CORRESPONDENCIA======================================*/
+.correspondencecontent::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+
+.correspondencecontent::-webkit-scrollbar:vertical {
+  width: 9px;
+}
+
+.correspondencecontent::-webkit-scrollbar-button:increment,
+.contenedor::-webkit-scrollbar-button {
+  display: none;
+}
+
+.correspondencecontent::-webkit-scrollbar:horizontal {
+  height: 10px;
+}
+
+.correspondencecontent::-webkit-scrollbar-thumb {
+  background-color: var(--primario);
+  border-radius: 10px;
+  border: 2px solid #FFF;
+}
+
+.correspondencecontent::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+/* =========================================================================================== */
+/* [GENERALES DE USERS] */
+.users {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  width: 93.7vw;
+  height: 100%;
+}
+
+.users__title {
+  font-family: GothamRounded;
+  font-size: 2rem;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.tables__info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5rem;
+  width: 60%;
+
+  /* background-color: blue; */
+}
+
+.user__insert {
+  border: solid var(--primarioOscuro) 3px;
+  font-family: Gotham;
+  font-size: 1rem;
+  width: 100%;
+  height: 65vh;
+  border-radius: 4px;
+  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+  /* background-color: yellow; */
+}
+
+.usersform__title {
+  font-family: GothamRounded;
+  font-size: 1.2rem;
+  text-align: center;
+  color: var(--blanco);
+  background-color: var(--primarioOscuro);
+  padding: .8rem;
+}
+
+.users__form {
+  margin: 1rem;
+}
+
+.user__insert--data {
+  
+}
+
+.user__insert-personal {
+
+}
+
+/* =========================================================================================== */
+/* [INPUT] INSERCIÓN DE NOMBRE */
+
+/* [NOMBRE(S)] */
+.user__insert-name {
+  display: flex;
+  width: 25%;
+  border: solid 2px var(--gris-claro);
+  border-radius: 3px;
+}
+
+.user__insert-name input {
+  width:100%;
+  font-family: Gotham;
+  border: none;
+  outline: none;
+  padding: 5px;
+  font-size: 1rem;
+}
+
+/* [MATERNO] */
+.user__insert-materno {
+  display: flex;
+  width: 37.5%;
+  border: solid 2px var(--gris-claro);
+  border-radius: 3px;
+}
+
+.user__insert-materno input {
+  width:100%;
+  font-family: Gotham;
+  border: none;
+  outline: none;
+  padding: 5px;
+  font-size: 1rem;
+}
+
+/* [PATERNO] */
+.user__insert-paterno {
+  display: flex;
+  border: solid 2px var(--gris-claro);
+  width: 37.5%;
+  border-radius: 3px;
+}
+
+.user__insert-paterno input {
+  width:100%;
+  font-family: Gotham;
+  border: none;
+  outline: none;
+  padding: 5px;
+  font-size: 1rem;
+}
+
+/* ============================================================================================== */
+/* [INPUT]  INSERCIÓN DE CONTACTO */
+.user__insert-contact_first {
+  display: flex;
+  padding-top: 1rem;
+  gap: 1rem;
+  width: 100%;
+  justify-content: space-evenly;
+}
+.user__insert-contact {
+  display: flex;
+  padding-top: 1rem;
+  gap: 1rem;
+  width: 100%;
+  justify-content: space-evenly;
+}
+
+.user__insert-tel {
+  display: flex;
+  width: 25%;
+  border: solid 2px var(--gris-claro);
+  border-radius: 3px;
+}
+
+.user__insert-tel input {
+  width:100%;
+  font-family: Gotham;
+  border: none;
+  outline: none;
+  padding: 5px;
+  font-size: 1rem;
+}
+
+.user__insert-email {
+  display: flex;
+  border: solid 2px var(--gris-claro);
+  border-radius: 3px;
+  width: 37.5%;
+}
+
+.user__insert-email input {
+  width:100%;
+  font-family: Gotham;
+  border: none;
+  outline: none;
+  padding: 5px;
+  font-size: 1rem;
+}
+
+/* [INPUT] INSERCIÓN DE CONTRASEÑA */
+.user__insert-pass {
+  display: flex;
+  border: solid 2px var(--gris-claro);
+  border-radius: 3px;
+  width: 37.5%;
+}
+
+.icon-text {
+  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+  color: gray;
+  padding: 5px;
+}
+
+.user__insert-pass input {
+  width:100%;
+  font-family: Gotham;
+  border: none;
+  outline: none;
+  padding: 5px;
+  font-size: 1rem;
+}
+
+/* ============================================================================================== */
+/* DEPENDENCIAS */
+.user__insert-cargo {
+  display: flex;
+  flex-direction: column;
+  padding-top: .3rem;
+  gap: .2rem;
+  width: 100%;
+  justify-content: space-evenly;
+}
+
+.user__insert-depen {
+  display: flex;
+   border: solid 2px var(--gris-claro);
+   border-radius: 3px;
+  width: 100%;
+}
+
+.user__insert-select {
+  width: 100%;
+}
+
+.user__insert-depen select {
+  height: 6vh;
+  width: 100%;
+  font-family: Gotham;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+}
+
+/* DEPARTAMENTO */
+.user__insert-dpto {
+  display: flex;
+   border: solid 2px var(--gris-claro);
+   border-radius: 3px;
+  width: 100%;
+}
+
+.user__insert-depen select {
+  height: 6vh;
+  width: 100%;
+  font-family: Gotham;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+}
+
+/* ============================================================================================== */
+/* FILTROS */
+.user_sub--view {
+  text-align: center;
+  font-family: Gotham;
+  font-size: 1.2rem;
+  margin: 1rem;
+}
+
+/* DEPENDENCIA */
+.user-filter {
+  display: flex;
+  gap: .3rem;
+  justify-content: space-evenly;
+  font-family: Gotham;
+  margin-top: 1rem;
+
+  /* background-color: green; */
+}
+
+.dep-filter--user {
+  width: 50%;
+  display: flex;
+  gap: .2rem;
+}
+
+.user-filter select {
+  font-size: 1rem;
+  font-family: Gotham;
+  
+}
+
+/* DEPARTAMENTO */
+.dpto-filter--user {
+  display: flex;
+  gap: .3rem;
+}
+
+/* ROLES */
+.roles-filter--user {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 2rem;
+
+  /* background-color: purple; */
+}
+
+/* BOTONES */
+.btn_all {
+  padding: 10px;
+  font-size: 1rem;
+  font-family: GothamRounded;
+  background-color: #b571a6;
+  color: white;
+  outline: none;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background 0.5s;
+}
+
+.btn_admin {
+  padding: 10px;
+  font-size: 1rem;
+  font-family: GothamRounded;
+  background-color: #B57171;
+  color: white;
+  outline: none;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background 0.5s;
+}
+
+.btn_admin:hover {
+  background-color: #754949;
+}
+
+.btn_capture {
+  padding: 10px;
+  font-size: 1rem;
+  font-family: GothamRounded;
+  background-color: #71B57E;
+  color: white;
+  outline: none;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background 0.5s;
+}
+
+.btn_capture:hover {
+  background-color: #3d6244;
+}
+
+.btn_remitente {
+  padding: 10px;
+  font-size: 1rem;
+  font-family: GothamRounded;
+  background-color: rgb(117,161,207);
+  color: white;
+  outline: none;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background 0.5s;
+}
+
+.btn_remitente:hover {
+  background-color: rgb(85, 117, 151);
+}
+
+.btn_destinatario {
+  padding: 10px;
+  font-size: 1rem;
+  font-family: GothamRounded;
+  background-color: #b59871;
+  color: white;
+  outline: none;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background 0.5s;
+}
+
+.btn_destinatario:hover {
+  background-color: #b38648;
+}
+
+/* OPCIONES DE TABLA [USUARIO] */
+.btn_edit--user {
+  padding: 0;
+  margin: 0;
+  background-color: #fff;
+  color: #71B57E;
+}
+
+.btn_edit--user:hover {
+  background-color: #fff;
+  color: #3d6244;
+}
+
+.btn_delete--user {
+  padding: 0;
+  margin: 0;
+  background-color: #fff;
+  color: rgba(196, 0, 0, 0.678);
+}
+
+.btn_delete--user:hover{
+  background-color: #FFF;
+  color: brown;
+}
+
+.btn_info--user {
+  padding: 0;
+  margin: 0;
+  background-color: #FFF;
+  color: gray;
+}
+
+.btn_info--user:hover {
+  background-color: #fff;
+  color: rgb(126, 126, 126);
+}
+
+
+/* TABLA */
+.users__title--view {
+  font-family: GothamRounded;
+  font-size: 1.2rem;
+  text-align: center;
+  background-color: var(--primarioOscuro);
+  color: var(--blanco);
+  padding: .8rem;
+}
+
+.user__container {
+  /* background-color: red; */
+  width: 100%;
+  height: 100vh;
+  border: solid var(--primarioOscuro) 3px;
+  border-radius: 4px;
+  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+}
+.table {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.thead {
+  background-color: var(--primario); 
+  height: 50px;  
+  color: white;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.tdata {
+  text-align: center;
+}
+
+.tdata:nth-child(even) {
+  font-size: 1rem;
+  background-color: #c9c7c7;
+}
+
+.tdata:nth-child(odd) {
+  font-size: 1rem;
+  background-color: #ffffff;
+}
+
+.tdata:hover {
+  /* background-color: rgb(170, 194, 219); */
+  color: var(--negro);
+}
+
+
+/* ================================================================================================================= */
+.user__insert-complete-name {
+  display: flex;
+  padding-top: .3rem;
+  gap: 1rem;
+  width: 100%;
+  justify-content: space-evenly;
+  border: solid blue 1px;
+}
+
+.btn__user {
+  display: flex;
+  justify-content: right;
+}
+
+.btn__user--insert {
+  padding: 10px;
+  margin-top: 1rem;
+  font-size: 1rem;
+  font-family: GothamRounded;
+  background-color: green;
+  color: white;
+  outline: none;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background 0.5s;
+  width: 30%;
+} 
+
+.users__cargos {
+  display: flex;
+  margin-top: .2rem;
+  gap: 1rem;
+}
+

@@ -45,7 +45,7 @@ export const data = {
   ]
 };*/
 
-class Inicio extends Component {
+class History extends Component {
 
 
   constructor(props) {
@@ -507,4 +507,4 @@ class Inicio extends Component {
 
 }
 
-export default Inicio;
+export default History;

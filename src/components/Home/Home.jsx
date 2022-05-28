@@ -48,7 +48,7 @@ class Home extends Component {
                     <h1 className='firstText'>Sistema de Correspondencia Digital</h1>
                 </div>
                     <button className='totalRecibidos' onClick={this.handleSeen}>
-                       <p>No Leídos: {this.state.totalRecibidos.Total} </p>
+                       <p>No Leídos: <span>{this.state.totalRecibidos.Total}</span></p>
                     </button>
                 <div>
                    
