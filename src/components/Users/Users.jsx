@@ -290,11 +290,10 @@ class Users extends Component {
                         </div>
 
                         <form className='users__form'>
-                            <div className='user__insert--data'>
-                                <div className='user__insert-personal'>
-
+                            <div>
+                                <div>
                                     {/* Nombre Completo */}
-                                    <div className='user__insert-contact_first'>
+                                    <div>
                                         <div className='user__insert-name'>
                                             <div className='icon-text'><BsCursorText /></div>
                                             <input
@@ -306,7 +305,9 @@ class Users extends Component {
                                                 value={this.state.form ? this.state.form.nombre : ''}
                                             />
                                         </div>
+                                    </div>
 
+                                    <div className='user_insert-apellidos'>
                                         <div className='user__insert-materno'>
                                             <div className='icon-text'><BsCursorText /></div>
                                             <input
@@ -329,6 +330,7 @@ class Users extends Component {
                                                 value={this.state.form ? this.state.form.apPaterno : ''} />
                                         </div>
                                     </div>
+
 
                                     {/* Contacto */}
                                     <div className='user__insert-contact'>
@@ -355,23 +357,10 @@ class Users extends Component {
                                                 value={this.state.form ? this.state.form.email : ''}
                                             />
                                         </div>
-
-                                        <div className='user__insert-pass'>
-                                            <div className='icon-text'><MdPassword /></div>
-                                            <input
-                                                type="text"
-                                                placeholder='password'
-                                                name="password"
-                                                id="password"
-                                                onChange={this.handleChange}
-                                                value={this.state.form ? this.state.form.password : ''}
-                                            />
-                                        </div>
                                     </div>
 
                                     {/*Dependencias */}
                                     <div className='user__insert-cargo'>
-
                                         <div className='user__insert-depen'>
                                             <div className='icon-text'><ImOffice /></div>
                                             <div className='user__insert-select'>
@@ -415,20 +404,22 @@ class Users extends Component {
                             </div>
 
                             <div className='users__cargos'>
-                                <div className='user__insert-materno'>
+                                <div className='user__insert-name'>
                                     <div className='icon-text'><BsCursorText /></div>
                                     <input
                                         type="text"
                                         placeholder='Cargo'
-                                        name='cargo'
-                                        id='cargo'
+                                        name="cargo"
+                                        id="cargo"
                                         onChange={this.handleChange}
-                                        value={this.state.form ? this.state.form.cargo : ''} />
-
-
+                                        value={this.state.form ? this.state.form.cargo : ''}
+                                    />
                                 </div>
+                            </div>
 
-                                <div className='user__insert-depen'>
+                            <div className='users__roles'>
+
+                                <div className='user__insert-rol'>
                                     <div className='icon-text'><ImOffice /></div>
                                     <div className='user__insert-select'>
                                         <select
@@ -440,7 +431,18 @@ class Users extends Component {
                                             <option value="1">One</option>
                                         </select>
                                     </div>
+                                </div>
 
+                                <div className='user__insert-pass'>
+                                    <div className='icon-text'><MdPassword /></div>
+                                    <input
+                                        type="text"
+                                        placeholder='password'
+                                        name="password"
+                                        id="password"
+                                        onChange={this.handleChange}
+                                        value={this.state.form ? this.state.form.password : ''}
+                                    />
                                 </div>
                             </div>
                             <div>
@@ -454,7 +456,7 @@ class Users extends Component {
                     {/* TABLA PARA VISUALIZAR USUARIOS */}
                     <div className='user__container'>
                         <div className="users__title--view">
-                            <p>Registro de Usuarios</p>
+                            <p>Lista de Usuarios</p>
                         </div>
 
                         <div className='user_sub--view'>
@@ -509,41 +511,43 @@ class Users extends Component {
                             </div>
                         </div>
 
-                        <table class="table">
-                            <thead class="thead">
-                                <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Nombre Completo</th>
-                                    <th scope="col">Correo</th>
-                                    <th scope="col">Contraseña</th>
-                                    <th scope="col">Rol</th>
-                                    <th>Estado</th>
-                                    <th scope="col" colSpan={3}>Opciones</th>
-
-                                </tr>
-                            </thead>
-                            <tbody class="tbody">
-                                {this.state.usuarios.map(elemento => (
-                                    <tr class="tdata">
-                                        <td>{elemento.idusuario}</td>
-                                        <td>{elemento.nombre} {elemento.apMaterno} {elemento.apPaterno}</td>
-                                        <td>{elemento.email}</td>
-                                        <td>{elemento.password}</td>
-                                        <td>{elemento.fkrol}</td>
-                                        <td>{elemento.fkestatus === 1 ? "Activo" : "Inactivo"}</td>
-
-                                        <td><button className='btn_edit--user' title='Editar' onClick={() => this.showModal(elemento.idusuario)}><AiFillEdit /></button></td>
-                                        <td><button className='btn_delete--user' title='Eliminar' onClick={() => this.deleteUser(elemento.idusuario)}><AiFillDelete /></button></td>
-                                        <td><button className='btn_info--user' title='Info'><AiFillInfoCircle /></button></td>
+                        <div id='div1'>
+                            <table class="table">
+                                <thead class="thead">
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Nombre Completo</th>
+                                        <th scope="col">Correo</th>
+                                        <th scope="col">Contraseña</th>
+                                        <th scope="col">Rol</th>
+                                        <th>Estado</th>
+                                        <th scope="col" colSpan={3}>Opciones</th>
 
                                     </tr>
-                                )
-                                )}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody class="tbody">
+                                    {this.state.usuarios.map(elemento => (
+                                        <tr class="tdata">
+                                            <td>{elemento.idusuario}</td>
+                                            <td>{elemento.nombre} {elemento.apMaterno} {elemento.apPaterno}</td>
+                                            <td>{elemento.email}</td>
+                                            <td>{elemento.password}</td>
+                                            <td>{elemento.fkrol}</td>
+                                            <td>{elemento.fkestatus === 1 ? "Activo" : "Inactivo"}</td>
+
+                                            <td><button className='btn_edit--user' title='Editar' onClick={() => this.showModal(elemento.idusuario)}><AiFillEdit /></button></td>
+                                            <td><button className='btn_delete--user' title='Eliminar' onClick={() => this.deleteUser(elemento.idusuario)}><AiFillDelete /></button></td>
+                                            <td><button className='btn_info--user' title='Info'><AiFillInfoCircle /></button></td>
+
+                                        </tr>
+                                    )
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
                         <ModalUpdate show={this.state.show} handleClose={this.hideModal}>
                             <div className="modalContent">
-                                <h1 style={{textAlign: "center", width: "100%", borderBottom: "solid violet 2px"}}>Modificación</h1>
+                                <h1 style={{ textAlign: "center", width: "100%", borderBottom: "solid violet 2px" }}>Modificación</h1>
                                 <form className='users__form'>
                                     <div className='user__insert--data'>
                                         <div className='user__insert-personal'>
