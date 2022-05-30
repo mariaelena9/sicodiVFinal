@@ -2,14 +2,19 @@ import { Component } from "react";
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 
+//Importación de Swal (Para alertas emergentes):
+import Swal from 'sweetalert2';
+
 //Componentes
 import Details from "../Details/Details"
 
 //Iconos
 import { AiOutlineSearch } from "react-icons/ai";
+import { AiFillEye } from "react-icons/ai";
 
 //Archivo de configuracion
 import { environment } from '../../config/settings';
+import { display } from "@mui/system";
 
 class Received extends Component {
     state = {
@@ -47,6 +52,7 @@ class Received extends Component {
         axios.get(`${environment.urlServer}/correspondence/getReceived/${localStorage.getItem("idusuario")}`).then(res => {
             this.setState({ correspondencias: res.data });
             this.setState({ corresFiltradas: res.data });
+            console.log(this.state.correspondencias);
         }).catch(error => {
             console.log(error.message);
         });
@@ -59,8 +65,8 @@ class Received extends Component {
                 this.state.filtroTipo = event.target.value;
                 break;
             case "fecha":
-                if(event.target.value==="") { 
-                    this.state.filtroFecha = "fechaEmisión"; 
+                if (event.target.value === "") {
+                    this.state.filtroFecha = "fechaEmisión";
                     break;
                 }
                 this.state.filtroFecha = '"' + event.target.value + '"';
@@ -88,6 +94,40 @@ class Received extends Component {
         this.getDependencies();
     }
 
+    handleArchive = (id) => {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "¡Esta correspondencia se archivará!",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'No, espera',
+            confirmButtonText: 'Sí, archivala!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                    'Archivado!',
+                    'Correspondencia archivada correctamente.',
+                    'success'
+                )
+
+                axios.put(`${environment.urlServer}/correspondence/setArchive/${id}`).then(
+                    res => {
+                        const action = {
+                            "fk_Correspondencia": id,
+                            "fk_usuario": localStorage.getItem("idusuario"),
+                            "actiontype": "Archivado"
+                        }
+
+                        axios.post(`${environment.urlServer}/history/insertAction`, action);
+                        ReactDOM.render(<Received />, document.getElementById("root"));
+                    }
+                );
+            }
+        })
+    }
+
     render() {
         return (
             <div className="sentcontent">
@@ -95,14 +135,14 @@ class Received extends Component {
                     <p className="TitlePage">Recibidos</p>
                 </div>
                 <br></br>
-                
+
                 <div className="sentsearch">
                     <div className="icon-search"> <AiOutlineSearch /> </div>
-                    <input 
-                        type='text' 
-                        placeholder="Buscar en toda la correspondencia" 
-                        name="keyword" 
-                        id="keyword" 
+                    <input
+                        type='text'
+                        placeholder="Buscar en toda la correspondencia"
+                        name="keyword"
+                        id="keyword"
                         onChange={this.handleChange}>
                     </input>
                 </div>
@@ -156,10 +196,26 @@ class Received extends Component {
                                 <td style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                                     <p className="info_para">{elemento.tipo}</p>
                                     <br />
+                                    <div style={{display: "flex", alignItems: "center", justifyContent: "center", gap: "0.2em"}}>
+                                        {
+                                            elemento.leida === 0 ?
+                                                <div style={{ width: "10px", height: "10px", borderRadius: "100%", backgroundColor: "red", marginTop: "-5px" }}></div>
+                                                : <div style={{ width: "10px", height: "10px", borderRadius: "100%", backgroundColor: "gray", marginTop: "-5px" }}></div>
+                                        }
+                                        {
+                                            elemento.archivo === null ?
+                                                <a href="" className="pdfLookGray">
+                                                    <AiFillEye />
+                                                </a>
+                                                : <a href={environment.urlServer + "/files/" + elemento.archivo} className="pdfLookBlue">
+                                                    <AiFillEye />
+                                                </a>
+                                        }
+                                    </div>
                                     {
-                                        elemento.leida === 0 ?
-                                            <div style={{ width: "10px", height: "10px", borderRadius: "100%", backgroundColor: "red" }}></div>
-                                            : <div style={{ width: "10px", height: "10px", borderRadius: "100%", backgroundColor: "gray" }}></div>
+                                        elemento.fk_estatusco == 3 ?
+                                            ""
+                                            : <p className="btnArchivar" onClick={() => this.handleArchive(elemento.fk_CorresMain === undefined ? elemento.id_Correspondencia : elemento.fk_CorresMain)}>Archivar</p>
                                     }
                                 </td>
                             </tr>

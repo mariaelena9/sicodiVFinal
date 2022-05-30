@@ -1,24 +1,30 @@
 import React, { Component } from 'react'
-import { ImPencil2, ImOffice } from 'react-icons/im'
-import { ImDisplay } from 'react-icons/im'
-import { MdModeEdit, MdOutlineAlternateEmail, MdPassword } from 'react-icons/md'
-import { AiFillEdit, AiFillDelete, AiFillInfoCircle } from 'react-icons/ai'
-import { BsCursorText, BsFillTelephoneFill } from 'react-icons/bs'
-import { RiShieldUserFill, RiUserStarFill } from 'react-icons/ri'
 import axios from 'axios'
+
+//Iconos
+import { MdOutlineAlternateEmail, MdPassword } from 'react-icons/md';
+import { AiFillEdit, AiFillDelete, AiFillInfoCircle } from 'react-icons/ai';
+import { BsFillPersonFill, BsCursorText, BsFillTelephoneFill } from 'react-icons/bs';
+import { ImOffice } from 'react-icons/im';
+
 //Importación de Swal (Para alertas emergentes):
 import Swal from 'sweetalert2';
-import { environment } from '../../config/settings'
 
-import ModalUpdate from '../Users/ModalUpdate'
+//Importación de entorno de API
+import { environment } from '../../config/settings';
 
-
+//Componentes
+import ModalUpdate from './ModalUpdate';
+import ModalUserInfo from './ModalUserInfo';
 
 class Users extends Component {
     constructor() {
         super();
-        this.showModal = this.showModal.bind(this); //Mostrar modal
-        this.hideModal = this.hideModal.bind(this); //Ocultar modal
+        this.showModalU = this.showModalU.bind(this); //Mostrar modal
+        this.hideModalU = this.hideModalU.bind(this); //Ocultar modal
+
+        this.showModalInfo = this.showModalInfo.bind(this); //Mostrar modal
+        this.hideModalInfo = this.hideModalInfo.bind(this); //Ocultar modal
     }
 
     //Estado Inicial
@@ -26,8 +32,15 @@ class Users extends Component {
         //Catalogos a utilizar:
         dependencias: [],
         departamentos: [],
+        dptosFilter: [],
         roles: [],
         usuarios: [],
+        filters: {
+            dependencia: 'fkdependencia',
+            departamento: 'fkdpto',
+            rol: 'fkrol',
+            estado: 'u.fkestatus'
+        },
         form: {
             nombre: '',
             apMaterno: '',
@@ -56,13 +69,14 @@ class Users extends Component {
     //Se ejecutará al momento de montar el componente
     componentDidMount() {
         this.getDependences(); //Función getDependence() -> Va a mostrar las dependencias
-        this.getDepartments(); //Función getDepartments() -> Va a mostrar los departamentos
         this.getUsers();
+        this.getRoles();
     }
 
     //FUNCIONES PARA EL CONTROL DE VENTANA MODAL
-    showModal = (dato) => {
-        this.setState({ show: true });
+    showModalU = (dato) => {
+        this.setState({ showU: true });
+
         axios.get(`${environment.urlServer}/user/getUserById/${dato}`).then(res => {
             this.state.formU.idusuario = res.data.idusuario;
             this.state.formU.nombre = res.data.nombre;
@@ -89,13 +103,39 @@ class Users extends Component {
             document.getElementById("passwordU").value = this.state.formU.password;
             document.getElementById("iddependenciaU").value = this.state.formU.iddependencia;
 
+            this.getDepartments(res.data.iddependencia, "update");
+
         }).catch(error => {
             console.log(error.message);
         });
     };
 
-    hideModal = () => {
-        this.setState({ show: false });
+    hideModalU = () => {
+        this.setState({ showU: false });
+    };
+
+    //FUNCIONES PARA EL CONTROL DE VENTANA MODAL
+    showModalInfo = (dato) => {
+        this.setState({ showInfo: true });
+
+        axios.get(`${environment.urlServer}/user/getuser/${dato}`).then(res => {
+            this.setState({
+                idUsuario: res.data.idusuario,
+                name: res.data.UserName,
+                phone: res.data.telefono,
+                email: res.data.email,
+                cargo: res.data.cargo,
+                dependencia: res.data.Dependencia,
+                departamento: res.data.Departamento,
+                rol: res.data.rol
+            });
+        }).catch(error => {
+            console.log(error.message);
+        });
+    };
+
+    hideModalInfo = () => {
+        this.setState({ showInfo: false });
     };
 
     //==================== CONSULTAS GET  ====================
@@ -109,10 +149,26 @@ class Users extends Component {
         })
     }
 
+    getRoles() {
+        axios.get(`${environment.urlServer}/rol/getAllRoles`).then(
+            res => {
+                this.setState({ roles: res.data });
+            }
+        ).catch(
+            error => {
+                console.log(error.message);
+            }
+        );
+    }
+
     //GET: [DEPARTAMENTOS]
-    getDepartments() {
-        axios.get(`${environment.urlServer}/department/getdepartment`).then(Response => {
-            this.setState({ departamentos: Response.data });
+    getDepartments(id, type) {
+        axios.get(`${environment.urlServer}/department/getdepartment/${id}`).then(Response => {
+            if (type == "filter") {
+                this.setState({ dptosFilter: Response.data });
+            } else {
+                this.setState({ departamentos: Response.data });
+            }
         }).catch(error => {
             console.log(error.message);
         })
@@ -123,6 +179,22 @@ class Users extends Component {
             res => {
                 this.setState({ usuarios: res.data });
                 console.log(this.state.usuarios);
+            }
+        );
+    }
+
+    getUsersByType(id) {
+        axios.get(`${environment.urlServer}/user/getUsersByType/${id}`).then(
+            res => {
+                this.setState({ usuarios: res.data });
+            }
+        );
+    }
+
+    getUsersByStatus(st) {
+        axios.get(`${environment.urlServer}/user/getUsersByStatus/${st}`).then(
+            res => {
+                this.setState({ usuarios: res.data });
             }
         );
     }
@@ -177,6 +249,7 @@ class Users extends Component {
                         this.state.form.fkdpto = '';
                         this.state.form.fkrol = '';
                         this.state.form.password = '';
+                        this.state.departamentos = [];
 
                         document.getElementById("nombre").value = "";
                         document.getElementById("apMaterno").value = "";
@@ -184,6 +257,7 @@ class Users extends Component {
                         document.getElementById("telefono").value = "";
                         document.getElementById("email").value = "";
                         document.getElementById("cargo").value = "";
+                        document.getElementById("dependencia").value = "invalido";
                         document.getElementById("fkdpto").value = "invalido";
                         document.getElementById("fkrol").value = "invalido";
                         document.getElementById("password").value = "";
@@ -209,6 +283,26 @@ class Users extends Component {
             confirmButtonText: 'Sí, estoy seguro!'
         }).then((result) => {
             if (result.isConfirmed) {
+                if (this.state.form.nombreU === "" ||
+                    this.state.form.apPaternoU === "" ||
+                    this.state.form.apMaternoU === "" ||
+                    this.state.form.telefonoU === "" ||
+                    this.state.form.emailU === "" ||
+                    this.state.form.passwordU === '' ||
+                    this.state.form.fkdptoU === 'invalido' || this.state.form.fkdptoU === '' ||
+                    this.state.form.cargoU === '' ||
+                    this.state.form.fkrolU === 'invalido' || this.state.fkrolU === ''
+                ) {
+                    Swal.fire({
+                        title: 'No se puede registrar',
+                        text: 'Porfavor complete todos los campos de forma correcta.',
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    return;
+                }
+
                 Swal.fire(
                     'Actualizado!',
                     'Este usuario se modificó con éxito.',
@@ -218,6 +312,7 @@ class Users extends Component {
                     res => {
                         this.hideModal();
                         this.getUsers();
+                        this.state.departamentos = [];
                     }
                 );
             }
@@ -257,6 +352,14 @@ class Users extends Component {
 
     handleChange = async e => {
         e.persist();
+        if (e.target.id === "dependencia") {
+            if (e.target.value == "invalido") {
+                this.setState({ departamentos: [] });
+                return;
+            }
+            this.getDepartments(e.target.value, "register");
+        }
+
         await this.setState({
             form: {
                 ...this.state.form,
@@ -267,6 +370,14 @@ class Users extends Component {
 
     handleChangeU = async e => {
         e.persist();
+        if (e.target.id === "iddependenciaU") {
+            if (e.target.value == "invalido") {
+                this.setState({ departamentos: [] });
+                return;
+            }
+            this.getDepartments(e.target.value, "update");
+        }
+
         await this.setState({
             formU: {
                 ...this.state.formU,
@@ -276,12 +387,55 @@ class Users extends Component {
         console.log(this.state.formU);
     }
 
+    handleFilter = async (event) => {
+        switch (event.target.id) {
+            case "verTodos":
+                this.state.filters.rol = "fkrol";
+                this.state.filters.estado = "u.fkestatus";
+                break;
+            case "dependenciaFilter":
+                this.state.filters.dependencia = event.target.value;
+
+                if (event.target.value == "fkdependencia") {
+                    this.setState({ dptosFilter: [] });
+                    return;
+                }
+
+                this.getDepartments(event.target.value, "filter");
+                break;
+            case "dptoFilter":
+                this.state.filters.departamento = event.target.value;
+                break;
+            case "rolFilter":
+                this.state.filters.rol = event.target.value;
+                break;
+            case "estadoFilter":
+                this.state.filters.estado = event.target.value;
+                break;
+            default:
+                break;
+        }
+        this.getUsersFiltered();
+    }
+
+    getUsersFiltered() {
+        axios.get(`${environment.urlServer}/user/getUsersFiltered/${this.state.filters.dependencia}/${this.state.filters.departamento}/${this.state.filters.rol}/${this.state.filters.estado}`).then(
+            res => {
+                this.setState({ usuarios: res.data });
+            }
+        );
+    }
+
     render() {
         return (
             <div className='users'>
-                <div className="users__title">
-                    <p>Administrador de Usuarios</p>
+                <div className="headerDirectory">
+                    <div className="buttonBack">
+                        <p className="TitlePage">Administración de usuarios</p>
+                    </div>
                 </div>
+
+                <br/>
 
                 <div className='tables__info'>
                     <div className='user__insert'>
@@ -364,7 +518,9 @@ class Users extends Component {
                                         <div className='user__insert-depen'>
                                             <div className='icon-text'><ImOffice /></div>
                                             <div className='user__insert-select'>
-                                                <select>
+                                                <select
+                                                    id="dependencia"
+                                                    onChange={this.handleChange}>
                                                     <option selected value="invalido">Elegir dependencia...</option>
                                                     {this.state.dependencias.map(elemento => (
                                                         <option key={elemento.iddependencia}
@@ -428,7 +584,13 @@ class Users extends Component {
                                             onChange={this.handleChange}
                                             value={this.state.form ? this.state.form.fkrol : ''}>
                                             <option selected>Elegir rol</option>
-                                            <option value="1">One</option>
+                                            {
+                                                this.state.roles.map(
+                                                    elemento => (
+                                                        < option value={elemento.idrol} > {elemento.nombre}</option>
+                                                    )
+                                                )
+                                            }
                                         </select>
                                     </div>
                                 </div>
@@ -466,47 +628,61 @@ class Users extends Component {
                         <div className='user-filter'>
                             <div className='dep-filter--user'>
                                 <p>Dependencia:</p>
-                                <select>
-                                    <option value="iddpto">Todas</option>
+                                <select id="dependenciaFilter" onChange={this.handleFilter}>
+                                    <option value="fkdependencia">Todas</option>
+                                    {
+                                        this.state.dependencias.map(
+                                            dep => (
+                                                <option value={dep.iddependencia}>{dep.nombre}</option>
+                                            )
+                                        )
+                                    }
                                 </select>
                             </div>
 
                             <div className='dpto-filter--user'>
                                 <p>Departamento:</p>
-                                <select>
-                                    <option value="iddpto">Todos</option>
+                                <select id="dptoFilter" onChange={this.handleFilter}>
+                                    <option value="fkdpto">Todos</option>
+                                    {
+                                        this.state.dptosFilter.map(
+                                            dpto => (
+                                                <option value={dpto.iddpto}>{dpto.nombre}</option>
+                                            )
+                                        )
+                                    }
                                 </select>
                             </div>
                         </div>
 
                         <div className='roles-filter--user'>
                             <div>
-                                <button className='btn_all'>
-                                    <p>Todos</p>
+                                <button id="verTodos" className='btn_all' onClick={this.handleFilter}>
+                                    Todos
                                 </button>
                             </div>
 
                             <div>
-                                <button className='btn_admin'>
-                                    <p>Administradores</p>
+                                <button id="rolFilter" value="1" className='btn_admin' onClick={this.handleFilter}>
+                                    Administradores
                                 </button>
                             </div>
 
                             <div>
-                                <button className='btn_capture'>
-                                    <p>Capturistas</p>
+                                <button id="rolFilter" value="2" className='btn_capture' onClick={this.handleFilter}>
+                                    Capturistas
                                 </button>
                             </div>
 
                             <div>
-                                <button className='btn_remitente'>
-                                    <p>Activos</p>
+                                <button id="estadoFilter" value="1" className='btn_remitente' onClick={this.handleFilter}>
+                                    Activos
                                 </button>
                             </div>
 
                             <div>
-                                <button className='btn_destinatario'>
-                                    <p>Inactivos</p>
+                                <button id="estadoFilter" value="2" className='btn_destinatario' onClick={this.handleFilter}>
+                                    Inactivos
                                 </button>
                             </div>
                         </div>
@@ -515,7 +691,6 @@ class Users extends Component {
                             <table class="table">
                                 <thead class="thead">
                                     <tr>
-                                        <th scope="col">ID</th>
                                         <th scope="col">Nombre Completo</th>
                                         <th scope="col">Correo</th>
                                         <th scope="col">Contraseña</th>
@@ -528,16 +703,15 @@ class Users extends Component {
                                 <tbody class="tbody">
                                     {this.state.usuarios.map(elemento => (
                                         <tr class="tdata">
-                                            <td>{elemento.idusuario}</td>
                                             <td>{elemento.nombre} {elemento.apMaterno} {elemento.apPaterno}</td>
                                             <td>{elemento.email}</td>
                                             <td>{elemento.password}</td>
-                                            <td>{elemento.fkrol}</td>
+                                            <td>{elemento.roleName}</td>
                                             <td>{elemento.fkestatus === 1 ? "Activo" : "Inactivo"}</td>
 
-                                            <td><button className='btn_edit--user' title='Editar' onClick={() => this.showModal(elemento.idusuario)}><AiFillEdit /></button></td>
+                                            <td><button className='btn_edit--user' title='Editar' onClick={() => this.showModalU(elemento.idusuario)}><AiFillEdit /></button></td>
                                             <td><button className='btn_delete--user' title='Eliminar' onClick={() => this.deleteUser(elemento.idusuario)}><AiFillDelete /></button></td>
-                                            <td><button className='btn_info--user' title='Info'><AiFillInfoCircle /></button></td>
+                                            <td><button className='btn_info--user' title='Info' onClick={() => this.showModalInfo(elemento.idusuario)}><AiFillInfoCircle /></button></td>
 
                                         </tr>
                                     )
@@ -545,9 +719,9 @@ class Users extends Component {
                                 </tbody>
                             </table>
                         </div>
-                        <ModalUpdate show={this.state.show} handleClose={this.hideModal}>
+                        <ModalUpdate showU={this.state.showU} handleCloseU={this.hideModalU}>
                             <div className="modalContent">
-                                <h1 style={{ textAlign: "center", width: "100%", borderBottom: "solid violet 2px" }}>Modificación</h1>
+                                <h1 style={{ textAlign: "center", width: "100%", borderBottom: "solid #780727 2px" }}>Modificación</h1>
                                 <form className='users__form'>
                                     <div className='user__insert--data'>
                                         <div className='user__insert-personal'>
@@ -636,6 +810,8 @@ class Users extends Component {
                                                     <div className='user__insert-select'>
                                                         <select
                                                             id="iddependenciaU"
+                                                            name='iddependencia'
+                                                            onChange={this.handleChangeU}
                                                             value={this.state.formU ? this.state.formU.iddependencia : ''}>
                                                             <option selected value="invalido">Elegir dependencia...</option>
                                                             {this.state.dependencias.map(elemento => (
@@ -698,7 +874,13 @@ class Users extends Component {
                                                     onChange={this.handleChangeU}
                                                     value={this.state.formU ? this.state.formU.fkrol : ''}>
                                                     <option selected>Elegir rol</option>
-                                                    <option value="1">One</option>
+                                                    {
+                                                        this.state.roles.map(
+                                                            elemento => (
+                                                                <option value={elemento.idrol}>{elemento.nombre}</option>
+                                                            )
+                                                        )
+                                                    }
                                                 </select>
                                             </div>
 
@@ -712,11 +894,35 @@ class Users extends Component {
                                 </form>
                             </div>
                         </ModalUpdate>
+
+                        <ModalUserInfo showInfo={this.state.showInfo} handleCloseInfo={this.hideModalInfo}>
+                            <div className="infoContent">
+                                <h2 style={{ textAlign: "center", width: "100%", borderBottom: "solid #780727 2px", paddingBottom: "10px" }}>Información de usuario</h2>
+                                <div className='cabeceraInfo'>
+                                    <div className='personIcon'>
+                                        <BsFillPersonFill />
+                                    </div>
+                                    <div className='infoGeneral'>
+                                        <p><b>Nombre: </b>{this.state.name}</p>
+                                        <p><b>Cargo: </b>{this.state.cargo}</p>
+                                    </div>
+                                </div>
+                                <div className='infoPersonal'>
+                                    <p><b>Teléfono: </b>{this.state.phone}</p>
+                                    <p><b>Correo: </b>{this.state.email}</p>
+                                </div>
+                                <div className='infoEmpleado'>
+                                    <p><b>Dependencia: </b>{this.state.dependencia}</p>
+                                    <p><b>Departamento: </b>{this.state.departamento}</p>
+                                </div>
+                                <p className='infoTipo'><b>Usuario de tipo: </b>{this.state.rol}</p>
+                            </div>
+                        </ModalUserInfo>
                     </div>
 
-                </div>
+                </div >
 
-            </div>
+            </div >
         )
     }
 

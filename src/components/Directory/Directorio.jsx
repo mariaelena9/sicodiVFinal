@@ -142,7 +142,7 @@ class Directorio extends Component {
                         <div className="modalContent">
                             <div className="modalName">
                                 <p className="p-letter">{this.state.name}</p>
-                                <BsFillPersonFill/>
+                                <BsFillPersonFill />
                             </div>
                             <p className="p-letter"><b>Departamento:</b> {this.state.fkdpto}</p>
                             <br></br>
@@ -166,55 +166,52 @@ class Directorio extends Component {
                         </div>
                     </Modal>
 
-                    <div className="direction">
-                        <div className="headerDirectory">
-                            <div className="buttonBack">
-                                <p className="TitlePage">Directorio</p>
-                            </div>
-
-                            <div className="Search">
-                                <input type='text' placeholder="Nombre de contacto..." name="keyword" id="keyword" onChange={this.handleChange}></input>
-                                <div className="icon-search"> <AiOutlineSearch /> </div>
-                            </div>
+                    <div className="headerDirectory">
+                        <div className="buttonBack">
+                            <p className="TitlePage">Directorio</p>
                         </div>
 
-                        <div className='directorio'>
+                        <div className="Search">
+                            <input type='text' placeholder="Nombre de contacto..." name="keyword" id="keyword" onChange={this.handleChange}></input>
+                            <div className="icon-search"> <AiOutlineSearch /> </div>
+                        </div>
+                    </div>
 
-                            <div className="filter">
-                                <p className="filter-text">Dependencia: </p>
-                                <select name="deps" id="depselect" onChange={this.change}>
-                                    <option value="iddpto">Selecciona Dependencia</option>
-                                    {this.state.dependencias.map(elemento => (
-                                        <option onChange={this.change} key={elemento.iddependencia} value={elemento.iddependencia}>{elemento.nombre}</option>
-                                    ))}
-                                </select>
-                            </div>
+                    <div className='directorio'>
+                        <div className="filter">
+                            <p className="filter-text">Dependencia: </p>
+                            <select name="deps" id="depselect" onChange={this.change}>
+                                <option value="iddpto">Selecciona Dependencia</option>
+                                {this.state.dependencias.map(elemento => (
+                                    <option onChange={this.change} key={elemento.iddependencia} value={elemento.iddependencia}>{elemento.nombre}</option>
+                                ))}
+                            </select>
+                        </div>
 
-                            <br />
+                        <br />
 
-                            {this.state.data.map(user => {
-                                return (
-                                    <div className='Tarjeta'>
+                        {this.state.data.map(user => {
+                            return (
+                                <div className='Tarjeta'>
 
-                                        <div className="img-contact">
-                                            <FaUserTie />
-                                        </div>
-
-                                        <div className="info-contact">
-                                            <div className="name-contact">
-                                                <p><b>{user.nombre} {user.apMaterno} {user.apPaterno}</b></p>
-                                            </div>
-
-                                            <div className="email-contact">
-                                                <p>{user.email}</p>
-                                            </div>
-                                        </div>
-
-                                        <div className="img-message" onClick={() => this.showModal(user.idusuario)}> <MdEmail /></div>
+                                    <div className="img-contact">
+                                        <FaUserTie />
                                     </div>
-                                );
-                            })}
-                        </div>
+
+                                    <div className="info-contact">
+                                        <div className="name-contact">
+                                            <p><b>{user.nombre} {user.apMaterno} {user.apPaterno}</b></p>
+                                        </div>
+
+                                        <div className="email-contact">
+                                            <p>{user.email}</p>
+                                        </div>
+                                    </div>
+
+                                    <div className="img-message" onClick={() => this.showModal(user.idusuario)}> <MdEmail /></div>
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
             </Fragment>

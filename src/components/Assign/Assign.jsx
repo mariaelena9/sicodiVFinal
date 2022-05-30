@@ -78,12 +78,12 @@ class Assign extends Component {
             'descripción': this.state.correspondenciaInfo.descripción,
             'observaciones': this.state.correspondenciaInfo.observaciones,
             'formato': this.state.correspondenciaInfo.formato,
-            'fk_CorresMain': this.state.correspondenciaInfo.fk_CorresMain!=null?this.state.correspondenciaInfo.fk_CorresMain:this.state.correspondenciaInfo.id_Correspondencia
+            'fk_CorresMain': (this.state.correspondenciaInfo.fk_CorresMain === undefined)?this.state.correspondenciaInfo.id_Correspondencia:this.state.correspondenciaInfo.fk_CorresMain
         }
 
         axios.post(`${environment.urlServer}/correspondence/insert`, correspondencia).then(response => {
             const action = {
-                "fk_Correspondencia": this.state.correspondenciaInfo.fk_CorresMain!=null?this.state.correspondenciaInfo.fk_CorresMain:this.state.correspondenciaInfo.id_Correspondencia,
+                "fk_Correspondencia": this.state.correspondenciaInfo.fk_CorresMain!==undefined?this.state.correspondenciaInfo.fk_CorresMain:this.state.correspondenciaInfo.id_Correspondencia,
                 "fk_usuario": this.state.form.fk_UsuarioD,
                 "actiontype": "Turnado"
             }

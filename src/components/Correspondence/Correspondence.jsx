@@ -17,17 +17,17 @@ import Fisica from "./Formato/Fisica"
 //_Class Component_
 class Correspondence extends Component {
 
-/* @Michelle: componentDidMount()es un hook que se invoca justo después de que se haya montado un componente de React, 
-    es decir, después del primer ciclo de vida de render().
-*/
+    /* @Michelle: componentDidMount()es un hook que se invoca justo después de que se haya montado un componente de React, 
+        es decir, después del primer ciclo de vida de render().
+    */
 
     async showComponent(name) {
         switch (name) {
             case "showDigital":
-                ReactDOM.render(<Digital/>, document.getElementById('root'));
+                ReactDOM.render(<Digital />, document.getElementById('root'));
                 break;
             case "showFisica":
-                ReactDOM.render(<Fisica/>, document.getElementById('root'));
+                ReactDOM.render(<Fisica />, document.getElementById('root'));
                 break;
             default:
                 break;
@@ -37,27 +37,25 @@ class Correspondence extends Component {
     render() {
         return (
             <Fragment>
-                <div className="body">
-                    <div className="correspondencecontent">
-                        <div className="buttonBack">
-                            <p className="TitlePage">Nueva Correspondencia</p>
-                        </div>
-                        
-                        <br />
+                <div className="correspondencecontent">
+                    <div className="buttonBack">
+                        <p className="TitlePage">Nueva Correspondencia</p>
+                    </div>
 
-                        <div className="formatodiv">
+                    <br />
 
-                            <button className="btnFisica" onClick={() => this.showComponent("showFisica")}>
-                                <ImPencil2/>
-                                Física
-                            </button>
+                    <div className="formatodiv">
 
-                            <button className="btnDigital" onClick={() => this.showComponent("showDigital")}>
-                                <ImDisplay/>
-                                Digital
-                            </button>
-                            
-                        </div>
+                        <button className="btnFisica" onClick={() => this.showComponent("showFisica")}>
+                            <ImPencil2 />
+                            Física
+                        </button>
+
+                        <button className="btnDigital" onClick={() => this.showComponent("showDigital")}>
+                            <ImDisplay />
+                            Digital
+                        </button>
+
                     </div>
                 </div>
             </Fragment>

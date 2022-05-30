@@ -1,10 +1,10 @@
-const ModalUpdate = ({ handleClose, show, children }) => {
-    const showHideClassName = show ? "modal display-block" : "modal display-none";
+const ModalUpdate = ({ handleCloseU, showU, children }) => {
+    const showHideClassName = showU ? "modal display-block" : "modal display-none";
   
     return (
       <div className={showHideClassName}>
         <section className="modal-main">
-          <button type="button" onClick={handleClose}
+          <button type="button" onClick={handleCloseU}
             style={{
               display: "flex", 
               justifyContent: "center", 

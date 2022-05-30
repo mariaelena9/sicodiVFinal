@@ -38,19 +38,19 @@ class Menu extends Component {
     handleMenu(e) {
         e.preventDefault();
         if (e.target.id === '/home') {
-            ReactDOM.render(<Home/>, document.getElementById('root'));
+            ReactDOM.render(<Home />, document.getElementById('root'));
         } else if (e.target.id === '/directory') {
-            ReactDOM.render(<Directorio/>, document.getElementById('root'));
+            ReactDOM.render(<Directorio />, document.getElementById('root'));
         } else if (e.target.id === '/correspondence') {
-            ReactDOM.render(<Correspondence/>, document.getElementById('root'));
+            ReactDOM.render(<Correspondence />, document.getElementById('root'));
         } else if (e.target.id === '/sent') {
-            ReactDOM.render(<Sent/>, document.getElementById('root'));
+            ReactDOM.render(<Sent />, document.getElementById('root'));
         } else if (e.target.id === '/receipt') {
-            ReactDOM.render(<Received/>, document.getElementById('root'));
+            ReactDOM.render(<Received />, document.getElementById('root'));
         } else if (e.target.id === '/history') {
-            ReactDOM.render(<History/>, document.getElementById('root'));
+            ReactDOM.render(<History />, document.getElementById('root'));
         } else if (e.target.id === '/users') {
-            ReactDOM.render(<Users/>, document.getElementById('root'));
+            ReactDOM.render(<Users />, document.getElementById('root'));
         } else if (e.target.id === '/salir') {
             localStorage.clear();
             ReactDOM.render("", document.getElementById('menu'));
@@ -75,7 +75,7 @@ class Menu extends Component {
                                 </li>
 
                                 {/* Directorio */}
-                                
+
                                 <li id="/directory" onClick={this.handleMenu}>
                                     <a id="/directory">
                                         <span><MdIcons.MdImportContacts /></span>
@@ -117,21 +117,27 @@ class Menu extends Component {
                                     </a>
                                 </li>
 
-                                {/* Usuarios */}
-                                <li id="/users" onClick={this.handleMenu}>
-                                <a id="/users">
-                                    <span><RiIcons.RiUserSettingsFill/></span>
-                                    <span className="menuText" id="/users">Usuarios</span>
-                                </a>
-                                </li>
+                                {
+                                    localStorage.getItem("userRol") == 1 ?
+                                        <li id="/users" onClick={this.handleMenu}>
+                                            <a id="/users">
+                                                <span><RiIcons.RiUserSettingsFill /></span>
+                                                <span className="menuText" id="/users">Usuarios</span>
+                                            </a>
+                                        </li>
+                                        : ""
+                                }
 
-                                {/* Documents */}
-                                <li id="/" onClick={this.handleMenu}>
-                                <a>
-                                    <span><GrIcons.GrDocumentPdf/></span>
-                                    <span>Documentos</span>
-                                </a>
-                                </li>
+                                {
+                                    localStorage.getItem("userRol") == 1 ?
+                                        <li id="/documents" onClick={this.handleMenu}>
+                                            <a id="/documents">
+                                                <span id="/documents"><MdIcons.MdPictureAsPdf /></span>
+                                                <span>Documentos</span>
+                                            </a>
+                                        </li>
+                                        : ""
+                                }
 
                                 {/* Salir */}
                                 <li key="exit" id="/salir" onClick={this.handleMenu}>
@@ -144,7 +150,7 @@ class Menu extends Component {
                         </nav>
                     </div>
                 </div>
-            </Router>
+            </Router >
         );
     }
 }

@@ -28,11 +28,6 @@
 
 /*======================================================================================*/
 
-.body {
-  font-family: Gotham;
-  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
-}
-
 .fontRounded {
   font-family: GothamRounded;
 }
@@ -49,11 +44,11 @@
 }
 
 .correspondencecontent {
-  display: flex;
-  flex-direction: column;
-  width: 95vw;
+  width: 100%;
   height: 86vh;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
   overflow: scroll;
   animation-duration: 1s;
   animation-name: popup;
@@ -99,13 +94,14 @@
   font-family: Gotham;
 }
 
-.originInfo button{
+.originInfo button {
   width: 100px;
   border-radius: 2px;
 
 }
 
-.btnFisica, .btnDigital {
+.btnFisica,
+.btnDigital {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -114,7 +110,7 @@
   height: 20rem;
   box-shadow: 0px 10px 12px rgba(54, 44, 44, 0.5);
   line-height: 2;
-  
+
   color: white;
   border: none;
   padding: 10px;
@@ -133,7 +129,8 @@
   background-image: url(../../assets/digital_min.jpg);
 }
 
-.btnFisica, .btnDigital {
+.btnFisica,
+.btnDigital {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -145,7 +142,8 @@
 }
 
 
-.btnFisica:hover, .btnDigital:hover {
+.btnFisica:hover,
+.btnDigital:hover {
   filter: opacity(.5);
 }
 
@@ -163,7 +161,7 @@
   height: 30px;
 }
 
-.input-archivos input[type='file']::-webkit-file-upload-button{
+.input-archivos input[type='file']::-webkit-file-upload-button {
   display: inline-block;
   opacity: 0;
   cursor: pointer;

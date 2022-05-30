@@ -33,6 +33,7 @@ class Sent extends Component {
         axios.get(`${environment.urlServer}/correspondence/getSent/${localStorage.getItem("idusuario")}`).then(res => {
             this.setState({ correspondencias: res.data });
             this.setState({ corresFiltradas: res.data });
+            console.log(this.state.correspondencias);
         }).catch(error => {
             console.log(error.message);
         });
@@ -186,9 +187,15 @@ class Sent extends Component {
                                 <td style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                                     <p className="info_para">{elemento.estatus}</p>
 
-                                    <div>
-                                        <AiFillEye />
-                                    </div>
+                                    {
+                                        elemento.archivo === null ?
+                                            <a href="" className="pdfLookGray">
+                                                <AiFillEye />
+                                            </a>
+                                            : <a href={environment.urlServer + "/files/" + elemento.archivo} className="pdfLookBlue">
+                                                <AiFillEye />
+                                            </a>
+                                    }
                                 </td>
 
 

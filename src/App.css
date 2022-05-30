@@ -13,3 +13,35 @@ button {
 button:hover {
     background-color: #480418;
 }
+
+/*==========================SCROLL PERSONALIZADO SICODI======================================*/
+*::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+*::-webkit-scrollbar:vertical {
+    width: 0.7vw;
+}
+
+*::-webkit-scrollbar-button:increment,
+*::-webkit-scrollbar-button {
+    display: none;
+}
+
+*::-webkit-scrollbar:horizontal {
+    height: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: var(--primario);
+    border-radius: 10px;
+    border: 2px solid #FFF;
+}
+
+*::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+
+#root {
+    width: 100%;
+}

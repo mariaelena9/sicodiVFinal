@@ -9,16 +9,16 @@ import Received from '../Received/Received';
 
 class Home extends Component {
 
-    constructor(){
+    constructor() {
         super();
 
         this.state = {
             totalRecibidos: ''
         }
-        
+
     }
 
-    getTotal() { 
+    getTotal() {
         axios.get(`${environment.urlServer}/correspondence/getReceivedTotal/${localStorage.getItem('idusuario')}`).then(res => {
             this.setState({ totalRecibidos: res.data }); //Resultado de consulta [original]
             console.log(this.state.totalRecibidos);
@@ -27,40 +27,33 @@ class Home extends Component {
         });
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.getTotal();
     }
 
     //Función para ir a los no leídos
     handleSeen() {
-        ReactDOM.render(<Received/>, document.getElementById('root'));
+        ReactDOM.render(<Received />, document.getElementById('root'));
     }
 
-    render () {
+    render() {
         return (
-        <div className='home'>
-            <div className='principal'>
+            <div className='home'>
+                <div className='principal'>
+                    <div className='home__container'>
+                        <h2 className="firstText">Bienvenido <span>{localStorage.getItem("userName")}</span></h2>
+                        <img src={portada} alt='Portada' />
+                        <br></br>
+                        <h1 className='firstText'>Sistema de Correspondencia Digital</h1>
+                    </div>
 
-                <div className='home__container'>
-                    <h2 className="firstText">Bienvenido <span>{localStorage.getItem("userName")}</span></h2>
-                    <img src={portada} alt='Portada' />
-                    <br></br>
-                    <h1 className='firstText'>Sistema de Correspondencia Digital</h1>
-                </div>
                     <button className='totalRecibidos' onClick={this.handleSeen}>
-                       <p>No Leídos: <span>{this.state.totalRecibidos.Total}</span></p>
+                        <p>No Leídos: <span>{this.state.totalRecibidos.Total}</span></p>
                     </button>
-                <div>
-                   
                 </div>
-
-
             </div>
-
-
-        </div>
-    )
-}
+        )
+    }
 }
 
 export default Home;

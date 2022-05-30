@@ -35,6 +35,18 @@
     align-items: center;
     height: 86vh;
     background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+    animation-duration: 1s;
+    animation-name: popup;
+}
+
+@keyframes popup {
+    from {
+        opacity: 0
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 .home__container img {

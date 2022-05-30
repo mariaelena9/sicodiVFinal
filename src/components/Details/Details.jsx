@@ -32,6 +32,7 @@ class Details extends Component {
         this.state = {
             correspondenciaInfo: [],
             downloadLink: '',
+            fileName: '',
             fechaE: '',
             fechaR: ''
         }
@@ -46,9 +47,9 @@ class Details extends Component {
             this.setState({ correspondenciaInfo: res.data });
             this.setState({ fechaE: this.state.correspondenciaInfo.fechaEmisión });
             this.setState({ fechaR: this.state.correspondenciaInfo.fechaRecepción });
-
-            axios.get(`${environment.urlServer}/files/link/${this.state.correspondenciaInfo.id_Correspondencia}`).then(res => {
-                this.setState({ downloadLink: res.data });
+            axios.get(`${environment.urlServer}/files/link/${this.state.correspondenciaInfo.fk_CorresMain===null?this.state.correspondenciaInfo.id_Correspondencia:this.state.correspondenciaInfo.fk_CorresMain}`).then(res => {
+                this.setState({ downloadLink: res.data.link });
+                this.setState({ fileName: res.data.nombre });
             }).catch(error => {
                 console.log(error.message);
             });
@@ -66,7 +67,7 @@ class Details extends Component {
     }
 
     handleDownload = () => {
-        let file = this.state.downloadLink.link.split("/")[2];
+        let file = this.state.downloadLink.split("/")[2];
         axios.get(`${environment.urlServer}/files/download/${file}`).then(res => {
             document.location.href = res.request.responseURL;
         })
@@ -77,7 +78,8 @@ class Details extends Component {
     }
 
     handleTracking = () => {
-        ReactDOM.render(<Tracking id={this.state.correspondenciaInfo.fk_CorresMain!=null?this.state.correspondenciaInfo.fk_CorresMain:this.state.correspondenciaInfo.id_Correspondencia} />, document.getElementById('root'));
+        console.log(this.state.correspondenciaInfo)
+        ReactDOM.render(<Tracking id={this.state.correspondenciaInfo.fk_CorresMain===null?this.state.correspondenciaInfo.id_Correspondencia:this.state.correspondenciaInfo.fk_CorresMain} />, document.getElementById('root'));
     }
 
     goToSetCorrespondence = () => {
@@ -132,8 +134,7 @@ class Details extends Component {
                                         <h4>Sin archivo que mostrar</h4>
                                         : <div className="fileInfo">
                                             <i><GrIcons.GrDocumentPdf /></i>
-                                            <p>{this.state.correspondenciaInfo.pdfNombre}</p>
-                                            {/* <iframe src={`localhost:3000/files/sellos.pdf &embedded=true`} style={{ width: "100%", height: "700px" }} frameborder="0" ></iframe> */}
+                                            <p>{this.state.fileName}</p>
                                         </div>
                                 }
 
@@ -146,8 +147,8 @@ class Details extends Component {
                                 }
 
                                 <button className="follow info_detail" onClick={() => this.handleTracking()}>Seguimiento</button>
-                                <button className="set info_detail" onClick={() => this.goToSetCorrespondence()}>Asignar</button>
-                                {this.state.correspondenciaInfo.idtipo === 1 ? "" : this.props.tipo === 1 ? "" : <button className="answer" onClick={() => this.handleResponse()}>Responder</button>}
+                                {this.state.correspondenciaInfo.fk_estatusco===3?"":<button className="set info_detail" onClick={() => this.goToSetCorrespondence()}>Asignar</button>}
+                                {this.state.correspondenciaInfo.fk_estatusco===3?"":this.state.correspondenciaInfo.idtipo === 1 ? "" : this.props.tipo === 1 ? "" : <button className="answer" onClick={() => this.handleResponse()}>Responder</button>}
                             </div>
                         </div>
                     </div>

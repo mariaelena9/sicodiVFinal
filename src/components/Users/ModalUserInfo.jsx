@@ -1,10 +1,10 @@
-const Modal_Users = ({ handleClose, show, children }) => {
-    const showHideClassName = show ? "modal display-block" : "modal display-none";
+const ModalInfo = ({ handleCloseInfo, showInfo, children }) => {
+    const showHideClassName = showInfo ? "modal display-block" : "modal display-none";
   
     return (
       <div className={showHideClassName}>
         <section className="modal-main">
-          <button type="button" onClick={handleClose}
+          <button type="button" onClick={handleCloseInfo}
             style={{
               display: "flex", 
               justifyContent: "center", 
@@ -22,4 +22,4 @@ const Modal_Users = ({ handleClose, show, children }) => {
   };
   
   //Exportación del componente:
-  export default Modal_Users;
+  export default ModalInfo;

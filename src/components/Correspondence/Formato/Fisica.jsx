@@ -51,6 +51,7 @@ class Fisica extends Component {
             observaciones: '',
             fileName: '',
             formato: 'Fisica',
+            fk_CorresMain: null
         }
     }
 
@@ -121,52 +122,53 @@ class Fisica extends Component {
             return;
         }
 
-        await axios.post(`${environment.urlServer}/correspondence/insert`, this.state.form).then(response => {
-            if (response.data === "ER_DUP_ENTRY") {
+        await axios.post(`${environment.urlServer}/correspondence/insert`, this.state.form).then(
+            response => {
+                if (response.data === "ER_DUP_ENTRY") {
+                    Swal.fire({
+                        title: 'No se puede registrar',
+                        text: 'Se detectó una entrada duplicada "' + this.state.form.numOficio + '" para el número de oficio, por favor ingrese uno nuevo.',
+                        icon: 'warning',
+                        showConfirmButton: true
+                    })
+                    return;
+                }
+
+                if (this.state.selectedFile.length === 0) {
+                    ReactDOM.render(<Correspondence />, document.getElementById('root'));
+                    this.state.form.fechaEmisión = '';
+                    this.state.form.fechaRecepción = '';
+                    this.state.form.fk_DependenciaO = '';
+                    this.state.form.fk_UsuarioO = '';
+                    this.state.form.fk_DependenciaD = '';
+                    this.state.form.fk_UsuarioD = '';
+                    this.state.form.fk_TipoCo = '';
+                    this.state.form.asunto = '';
+                    this.state.form.descripción = '';
+                    this.state.form.observaciones = '';
+                    this.state.form.numOficio = '';
+                }
+
+                const action = {
+                    "fk_Correspondencia": response.data.insertId,
+                    "fk_usuario": localStorage.getItem("idusuario"),
+                    "actiontype": "Enviado"
+                }
+
+                axios.post(`${environment.urlServer}/history/insertAction`, action);
+
+                this.insertFiles(this.state.selectedFile[0], this.state.form.fileName, response);
+
                 Swal.fire({
-                    title: 'No se puede registrar',
-                    text: 'Se detectó una entrada duplicada "' + this.state.form.numOficio + '" para el número de oficio, por favor ingrese uno nuevo.',
-                    icon: 'warning',
-                    showConfirmButton: true
+                    title: 'Acción realizada correctamente',
+                    text: 'Correspondencia registrada exitosamente.',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 2000
                 })
-                return;
-            }
-
-            if (this.state.selectedFile.length === 0) {
-                ReactDOM.render(<Correspondence />, document.getElementById('root'));
-                this.state.form.fechaEmisión = '';
-                this.state.form.fechaRecepción = '';
-                this.state.form.fk_DependenciaO = '';
-                this.state.form.fk_UsuarioO = '';
-                this.state.form.fk_DependenciaD = '';
-                this.state.form.fk_UsuarioD = '';
-                this.state.form.fk_TipoCo = '';
-                this.state.form.asunto = '';
-                this.state.form.descripción = '';
-                this.state.form.observaciones = '';
-                this.state.form.numOficio = '';
-            }
-
-            const action = {
-                "fk_Correspondencia": response.data.insertId,
-                "fk_usuario": localStorage.getItem("idusuario"),
-                "actiontype": "Enviado"
-            }
-            
-            axios.post(`${environment.urlServer}/history/insertAction`, action);
-
-            this.insertFiles(this.state.selectedFile[0], this.state.form.fileName, response);
-
-            Swal.fire({
-                title: 'Acción realizada correctamente',
-                text: 'Correspondencia registrada exitosamente.',
-                icon: 'success',
-                showConfirmButton: false,
-                timer: 2000
+            }).catch(error => {
+                console.log(error.message);
             })
-        }).catch(error => {
-            console.log(error.message);
-        })
     }
 
     prepararArchivos = async e => {
@@ -455,7 +457,7 @@ class Fisica extends Component {
                                     type="file"
                                     accept="application/pdf"
                                     onChange={this.prepararArchivos}
-                                    />
+                                />
                             </div>
 
                             <button

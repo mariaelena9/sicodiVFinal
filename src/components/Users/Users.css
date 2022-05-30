@@ -7,7 +7,7 @@
   --gris: #888;
   --gris-claro: rgba(128, 128, 128, 0.404);
   --oscuro: rgba(0, 0, 0, 0.1);
-  --verde: rgb(113,181,126);
+  --verde: rgb(113, 181, 126);
 }
 
 /* Fuente utilizada */
@@ -21,35 +21,50 @@
   src: url(../../assets/GothamRounded/GothamRounded-Light.otf);
 }
 
+.modalContent {
+  overflow: scroll;
+}
+
 /* =========================================================================================== */
 /* [GENERALES DE USERS] */
 
 /* Contenedor General */
 .users {
+  width: 100%;
+  height: 86vh;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 93.7vw;
-  height: 100%;
+  overflow: scroll;
+  animation-duration: 1s;
+  animation-name: popup;
+}
+
+@keyframes popup {
+  from {
+      opacity: 0
+  }
+
+  to {
+      opacity: 1;
+  }
 }
 
 /* Titulo: Admin Usuarios */
 .users__title {
   font-family: GothamRounded;
-  font-size: 2rem;
+  font-size: 1.8rem;
+  border-bottom: solid #780727 2px;
   text-align: center;
-  margin: .5rem;
 }
 
 /* Contenedor para las dos tablas informativas */
 .tables__info {
   display: flex;
-  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
   gap: 1.5rem;
-  padding: 1rem;
   width: 100%;
-
-  /* background-color: blue; */
 }
 
 /* INSERCIÓN REGISTRO DE USUARIO */
@@ -58,15 +73,18 @@
 .user__insert {
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
   border: solid var(--primarioOscuro) 3px;
   font-family: Gotham;
   font-size: 1rem;
-  width: 40%;
-  height: 70vh;
+  min-width: 200px;
+  width: 30%;
+  height: 65vh;
+  overflow: scroll;
   border-radius: 4px;
-  
+
   background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
-  
+
 }
 
 /* Titulo de insert: Añadir usuario */
@@ -137,7 +155,7 @@
 }
 
 .user__insert-paterno input {
-  width:100%;
+  width: 100%;
   font-family: Gotham;
   border: none;
   outline: none;
@@ -180,7 +198,7 @@
 }
 
 .user__insert-email input {
-  width:100%;
+  width: 100%;
   font-family: Gotham;
   border: none;
   outline: none;
@@ -268,8 +286,8 @@
 
 .user__insert-depen {
   display: flex;
-   border: solid 2px var(--gris-claro);
-   border-radius: 3px;
+  border: solid 2px var(--gris-claro);
+  border-radius: 3px;
   width: 100%;
 }
 
@@ -280,8 +298,8 @@
 /* DEPARTAMENTO */
 .user__insert-dpto {
   display: flex;
-   border: solid 2px var(--gris-claro);
-   border-radius: 3px;
+  border: solid 2px var(--gris-claro);
+  border-radius: 3px;
   width: 100%;
 }
 
@@ -307,15 +325,18 @@
 .user-filter {
   display: flex;
   gap: .3rem;
-  justify-content: space-evenly;
   font-family: Gotham;
   margin-top: .5rem;
 }
 
 .dep-filter--user {
-  width: 50%;
   display: flex;
+  width: 50%;
   gap: .2rem;
+}
+
+.dep-filter--user select {
+  width: 40%;
 }
 
 .user-filter select {
@@ -326,7 +347,12 @@
 /* DEPARTAMENTO */
 .dpto-filter--user {
   display: flex;
+  width: 50%;
   gap: .3rem;
+}
+
+.dpto-filter--user select {
+  width: 40%;
 }
 
 /* ROLES */
@@ -390,7 +416,7 @@
   padding: 10px;
   font-size: 1rem;
   font-family: GothamRounded;
-  background-color: rgb(117,161,207);
+  background-color: rgb(117, 161, 207);
   color: white;
   outline: none;
   border: none;
@@ -424,46 +450,49 @@
 .btn_edit--user {
   padding: 0;
   margin: 0;
-  background-color: rgba(0,0,0,0);
+  background-color: rgba(0, 0, 0, 0);
   color: #71B57E;
 }
 
 .btn_edit--user:hover {
-  background-color: rgba(0,0,0,0);
+  background-color: rgba(0, 0, 0, 0);
   color: #3d6244;
 }
 
 .btn_delete--user {
   padding: 0;
   margin: 0;
-  background-color: rgba(0,0,0,0);
+  background-color: rgba(0, 0, 0, 0);
   color: rgba(196, 0, 0, 0.678);
 }
 
-.btn_delete--user:hover{
-  background-color: rgba(0,0,0,0);
+.btn_delete--user:hover {
+  background-color: rgba(0, 0, 0, 0);
   color: brown;
 }
 
 .btn_info--user {
   padding: 0;
   margin: 0;
-  background-color: rgba(0,0,0,0);
+  background-color: rgba(0, 0, 0, 0);
   color: gray;
 }
 
 .btn_info--user:hover {
-  background-color: rgba(0,0,0,0);
-  color: rgb(126, 126, 126);
+  background-color: rgba(0, 0, 0, 0);
+  color: rgb(84, 83, 83);
 }
+
 /* ============================================================================ */
 /* DISEÑO PARA TABLA DE VISUALIZACIÓN */
 /* ============================================================================ */
 /* TABLA */
 .user__container {
-  /* background-color: red; */
-  width: 100%;
-  height: 70vh;
+  flex-grow: 1;
+  width: 60%;
+  min-width: 500px;
+  height: 65vh;
+  overflow: scroll;
   border: solid var(--primarioOscuro) 3px;
   border-radius: 4px;
   background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
@@ -486,8 +515,8 @@
 }
 
 .thead {
-  background-color: var(--primario); 
-  height: 50px;  
+  background-color: var(--primario);
+  height: 50px;
   color: white;
   font-size: 1rem;
   text-align: center;
@@ -541,16 +570,55 @@
   cursor: pointer;
   transition: background 0.5s;
   width: 30%;
-} 
+}
 
 
 #div1 {
-  overflow:scroll;
-     height:200px;
-     width:500px;
+  overflow: scroll;
+  width: 100%;
 }
 
 #div1 table {
-  width:500px;
-  background-color:lightgray;
+  width: 100%;
+  background-color: lightgray;
+}
+
+.infoContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+  justify-content: center;
+  align-items: center;
+}
+
+.cabeceraInfo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1rem;
+  gap: 5px;
+}
+
+.personIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+}
+
+.infoGeneral {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.1rem;
+}
+
+.infoPersonal, .infoEmpleado {
+  display: flex;
+  justify-content: space-between;
+  width: 65%;
+  font-size: 1.1rem;
+}
+
+.infoTipo {
+  font-size: 1.1rem;
 }

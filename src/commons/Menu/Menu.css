@@ -46,9 +46,10 @@ nav ul li a {
 }
 
 .nav__bar {
-  width: 5vw;
+  /* width: 5vw; */
   background-color: var(--primario);
   height: 86vh;
+  overflow: scroll;
 }
 
 /* .navegacion {
@@ -63,6 +64,8 @@ nav ul li a {
   display: flex;
   flex-direction: column;
   height: 100%;
+  width: 5vw;
+  transition: width 0.5s;
   position: sticky;
   z-index: 9000;
 }
@@ -91,15 +94,11 @@ nav ul li a {
   cursor: pointer;
 }
 
-li:hover span:last-child {
+.menuss:hover span:last-child {
   display: flex;
 }
 
-li {
-  width: 5vw;
-}
-
-li:hover {
+.menuss:hover {
   width: 20vw;
 }
 
