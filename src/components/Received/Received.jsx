@@ -21,6 +21,7 @@ class Received extends Component {
         dependencias: [],
         correspondencias: [],
         corresFiltradas: [],
+        fileName: '',
         keyword: '',
         filtroTipo: 'fk_TipoCo',
         filtroFecha: 'fechaEmisión',
@@ -50,7 +51,7 @@ class Received extends Component {
 
     getReceivedCorrespondence() {
         axios.get(`${environment.urlServer}/correspondence/getReceived/${localStorage.getItem("idusuario")}`).then(res => {
-            this.setState({ correspondencias: res.data });
+            this.state.correspondencias = res.data;
             this.setState({ corresFiltradas: res.data });
             console.log(this.state.correspondencias);
         }).catch(error => {
@@ -196,7 +197,7 @@ class Received extends Component {
                                 <td style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                                     <p className="info_para">{elemento.tipo}</p>
                                     <br />
-                                    <div style={{display: "flex", alignItems: "center", justifyContent: "center", gap: "0.2em"}}>
+                                    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0.2em" }}>
                                         {
                                             elemento.leida === 0 ?
                                                 <div style={{ width: "10px", height: "10px", borderRadius: "100%", backgroundColor: "red", marginTop: "-5px" }}></div>
@@ -204,10 +205,16 @@ class Received extends Component {
                                         }
                                         {
                                             elemento.archivo === null ?
-                                                <a href="" className="pdfLookGray">
-                                                    <AiFillEye />
-                                                </a>
-                                                : <a href={environment.urlServer + "/files/" + elemento.archivo} className="pdfLookBlue">
+                                                elemento.archivoMain === null ?
+                                                    <a href="" className="pdfLookGray">
+                                                        <AiFillEye />
+                                                    </a>
+                                                    :
+                                                    <a href={environment.urlServer + "/files/" + elemento.archivoMain} className="pdfLookBlue">
+                                                        <AiFillEye />
+                                                    </a>
+                                                :
+                                                <a href={environment.urlServer + "/files/" + elemento.archivo} className="pdfLookBlue">
                                                     <AiFillEye />
                                                 </a>
                                         }

@@ -189,10 +189,16 @@ class Sent extends Component {
 
                                     {
                                         elemento.archivo === null ?
-                                            <a href="" className="pdfLookGray">
-                                                <AiFillEye />
-                                            </a>
-                                            : <a href={environment.urlServer + "/files/" + elemento.archivo} className="pdfLookBlue">
+                                            elemento.archivoMain === null ?
+                                                <a href="" className="pdfLookGray">
+                                                    <AiFillEye />
+                                                </a>
+                                                :
+                                                <a href={environment.urlServer + "/files/" + elemento.archivoMain} className="pdfLookBlue">
+                                                    <AiFillEye />
+                                                </a>
+                                            :
+                                            <a href={environment.urlServer + "/files/" + elemento.archivo} className="pdfLookBlue">
                                                 <AiFillEye />
                                             </a>
                                     }
