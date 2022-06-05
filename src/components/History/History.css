@@ -9,10 +9,16 @@
 }
 
 .Container {
-  width: 45vw;
-  height: 70vh;
+  width: 50%;
+  height: 50vh;
   display: inline-block;
-  padding: 2em;
+  padding: 0em;
+}
+.btnGraficas {
+  background-image: url(../../assets/graficas.png);
+}
+.btnReportes {
+  background-image: url(../../assets/reportes.png);
 }
 
 .chart {

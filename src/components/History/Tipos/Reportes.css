@@ -1,0 +1,24 @@
+@media print {
+    #header, .menu, .buttonBack, .user_sub--view, .roles-filter--user, .filterInd, .info_de, .header, br  {
+      visibility: hidden;
+      height: 0px!important;
+    }
+
+    .users__title--view, .table  {
+        display: block;
+        width: auto;
+        height: auto;
+        overflow: visible;  
+
+    }
+    .scrolleable {
+        width: 100%;
+        height: 100%;
+    }
+  
+    #section-to-print {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  }
