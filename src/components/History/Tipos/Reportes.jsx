@@ -33,7 +33,7 @@ class Reportes extends Component {
   }
 
   async getAll() {
-    return axios.get(`${environment.urlServer}/correspondence/getAll`).then(res => {
+    return axios.get(`${environment.urlServer}/correspondence/getAllFromUser/${usuarioId}`).then(res => {
       return res.data;
     }).catch(error => {
       //////console.log(error.message);
